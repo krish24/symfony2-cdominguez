@@ -1,0 +1,862 @@
+@font-face {
+	font-family: 'CalligraffitiRegular';
+	src: url('../fonts/Calligraffiti/Calligraffiti-webfont.eot');
+	src: url('../fonts/Calligraffiti/Calligraffiti-webfont.eot?#iefix')
+		format('embedded-opentype'),
+		url('../fonts/Calligraffiti/Calligraffiti-webfont.woff')
+		format('woff'),
+		url('../fonts/Calligraffiti/Calligraffiti-webfont.ttf')
+		format('truetype'),
+		url('../fonts/Calligraffiti/Calligraffiti-webfont.svg#CalligraffitiRegular')
+		format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/*DECLARAR VARIABLES
+@variables {
+  	heightBody: ;
+}*/
+* {
+	padding: 0px;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	background-color: #163039;
+	background-image: url(../images/background.png);
+	cursor: url(../images/cursor.png), auto;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	margin: 0 auto;
+	/*background-color:green;*/
+	top: -4px;
+	left: 2px;
+}
+
+#FullContent {
+	width: 1000px;
+	height: 100%;
+	position: relative;
+	margin: 0 auto;
+	/*background-color:green;*/
+	top: -4px;
+	left: 2px;
+}
+
+html>body {
+	height: 1459px;
+	min-height: 100%;
+	top: -4px;
+	left: 2px;
+}
+
+#titleSoftwareEnginner{
+	width: 350px;
+	color: #595959;
+	top: 314px;
+	left: 320px;
+	position: absolute;
+	font-family: 'CalligraffitiRegular', Arial, Helvetica, sans-serif;
+	font-size: 36px;
+	cursor: url(http://cdominguez.tk/images/LinkSelect.cur), auto
+}
+
+/*------------DOWNLOAD RESUME ------------------------*/
+#downloadResume{
+	width: 200px;
+	height: 240px;
+	position: absolute;
+	top: 185px;
+	left: -125px;
+	background: url(../images/resumedownloadbg.png) no-repeat 0 100%;
+}
+
+#downloadResume p{
+	padding-right: 40px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 130px;
+	color: #1e252d;
+	font: normal 140% georgia, times, serif;
+}
+
+#downloadResume img{
+	padding-right: 40px;
+}
+
+/*------------ IMAGEN QUE INDICA PARA TRADUCIR -------*/
+#selectLenguage{
+	position: absolute;
+	top: 30px;
+	right: 40px;
+}
+
+/*------------INICIO EFECTO FLIP HOJA-----------------*/
+#pageflip {
+	position: inherit;
+}
+
+#pageflip img {
+	width: 50px;
+	height: 52px;
+	z-index: 99;
+	position: absolute;
+	right: 0;
+	top: 0;
+	-ms-interpolation-mode: bicubic;
+}
+
+#pageflip .msg_block {
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	z-index: 50;
+	right: 0;
+	top: 0;
+	text-indent: -9999px;
+}
+
+/* ---------- STYLE FOR Jobs ----------------------------------*/
+#fsjobs {
+	background: url(../images/fsjobs_more.png) no-repeat 0 100%;
+	float: left;
+	margin-left: 50px;
+	font-size: 12px;
+	line-height: 16px;
+	position: relative;
+	margin-bottom: 25px;
+	width: 340px;
+	padding-bottom: 44px;
+}
+
+#fsjobs_header_projects_en {
+	background: url(../images/fsjobs_header_projects_en.png) no-repeat 0 0;
+	display: block;
+	float: left;
+	height: 89px;
+	text-indent: -9999px;
+	width: 340px;
+}
+
+#fsjobs_header_projects_es {
+	background: url(../images/fsjobs_header_projects_es.png) no-repeat 0 0;
+	display: block;
+	float: left;
+	height: 89px;
+	text-indent: -9999px;
+	width: 340px;
+}
+
+#fsjobs_header_blog {
+	background: url(../images/fsjobs_header_blog.png) no-repeat 0 0;
+	display: block;
+	float: left;
+	height: 89px;
+	text-indent: -9999px;
+	width: 340px;
+}
+
+#fsjobs_body {
+	background: url(../images/fsjobs_body.png) repeat-y 0 0;
+	float: left;
+	width: 340px;
+}
+
+#fsjobs_list {
+	float: left;
+	list-style-type: none;
+}
+
+#fsjobs_list a {
+	background: url(../images/fsjobs_list.png) no-repeat 0 0;
+	color: #d5d5d5;
+	height: 20px;
+	padding: 5px 0px 0px 7px;
+	display: block;
+	float: left;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 12px;
+	margin: 0 15px;
+	text-shadow: 0 2px 1px #000;
+	width: 310px;
+	font-family: Helvetica, Arial;
+}
+
+#fsjobs_list a:hover {
+	color: #fff;
+	background-position: 0 -28px;
+}
+
+#fsjobs_list a span {
+	color: #9d9d9d;
+	font-weight: normal;
+	font-size: 11px;
+	line-height: 11px;
+	display: block;
+	font-style: italic;
+}
+
+#fsjobs_list a:hover span {
+	color: #b5b5b5;
+}
+
+#fsjobs_body a.more_jobs {
+	color: #b2ced2;
+	position: absolute;
+	right: 90px;
+	bottom: 25px;
+	font-size: 12px;
+	text-decoration: none;
+	text-shadow: 0 1px 0 #28474c;
+	cursor: url(http://cdominguez.tk/images/handFlip.png), auto
+}
+
+#fsjobs_body a:hover.more_jobs {
+	color: #fff;
+}
+
+#authorboxbackground {
+	padding: 20px;
+	float: inherit;
+	width: 570px
+	line-height: 20px;
+	background: url(../images/bestPostbg.png) repeat-x top #fff;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	margin-bottom: 20px;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, .5);
+	-webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, .5);
+	-moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, .5);
+	position: relative;
+	border: 1px solid #fff;
+}
+
+/*----------START BESTPOST SECTION--------------*/
+.bestPost,.bestPosttop,#authorbox {
+	padding: 20px;
+	float: inherit;
+	width: 570px;
+	font-size: 14px;
+	line-height: 20px;
+	color: #444;
+	position: relative;
+	background: url(../images/bestPostbg.png) repeat-x top #fff;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	margin-bottom: 20px;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, .5);
+	-webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, .5);
+	-moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, .5);
+	position: relative;
+	text-shadow: #fff 0 1px 0;
+	border: 1px solid #fff;
+}
+
+.titulo {
+	padding: 20px;
+	float: inherit;
+	width: 570px;
+	font-size: 14px;
+	line-height: 20px;
+	color: #444;
+	position: relative;
+	background: url(../images/bestPostbg.png) repeat-x top #fff;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	margin-bottom: 20px;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, .5);
+	-webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, .5);
+	-moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, .5);
+	position: relative;
+	text-shadow: #fff 0 1px 0;
+	border: 1px solid #fff;
+}
+
+.parrafo {
+	
+}
+
+.bestPost.white,.single .bestPost {
+	background: #fff;
+}
+
+.bestPost.white img {
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+}
+
+.thedate {
+	background: url(../images/sprite_bavotasan.png) no-repeat 0 -42px;
+	width: 74px;
+	height: 80px;
+	position: absolute;
+	left: -76px;
+	text-align: center;
+	padding: 10px 10px 0 0;
+	top: 0px;
+	font: 13px/ 20px Georgia, "Times New Roman", Times, serif;
+}
+
+.thedate .month {
+	text-transform: uppercase;
+	color: #c52d08;
+	font-size: 18px;
+}
+
+.thedate .day {
+	color: #1e252d;
+	font-size: 28px;
+}
+
+.catname {
+	float: left;
+}
+
+.catname a {
+	text-transform: uppercase;
+	color: #c52d08;
+	font-size: 12px;
+}
+
+.bestPost h2 a {
+	color: #1e252d;
+}
+
+.bestPosttop h1,.bestPost h2 {
+	clear: both;
+	width: 100%;
+	float: left;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
+	font-size: 28px;
+	line-height: 30px;
+	color: #1e252d;
+}
+
+.bestPosttop h1 {
+	font-size: 28px;
+	line-height: 34px;
+}
+
+.bestPosttop .author {
+	font-size: 12px;
+	width: 100%;
+}
+
+.bestPost h3,.bestPosttop h3,h2.services,.lists h2 {
+	color: #1e252d;
+	font: normal 200% georgia, times, serif;
+	margin: 10px 0;
+	clear: both;
+	float: left;
+	width: 100%;
+}
+
+.bestPost h1 {
+	color: #1e252d;
+	font: normal 150% georgia, times, serif;
+	margin: 10px 0;
+	clear: both;
+	float: left;
+	width: 100%;
+}
+
+.bestPosth3 {
+	color: #1e252d;
+	font: normal 200% georgia, times, serif;
+	margin: 10px 0;
+	clear: both;
+	float: left;
+	width: 100%;
+}
+
+.bestPosttop h3 a {
+	color: #1e252d;
+}
+
+.bestPost .image {
+	float: left;
+	margin: 0 20px 0 0;
+	padding: 8px;
+	background: #fff;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, .6);
+	-webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, .6);
+	-moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, .6);
+	zoom: 1;
+	filter: progid :           DXImageTransform.Microsoft.Shadow (         
+		 color =  
+		   
+		    '#aaaaaa', Direction =           120, Strength =           4 );
+	width: 202px;
+}
+
+.home .bestPost img,.archive .bestPost img,.search .bestPost img {
+	border: 1px solid #ddd;
+	padding: 0;
+	margin: 0;
+}
+
+.more-info {
+	font-size: 12px;
+	float: left;
+	margin: 0;
+}
+
+.more-info span {
+	background: url(../images/sprite_bavotasan.png) no-repeat -291px -95px;
+	display: block;
+	width: 18px;
+	height: 16px;
+	float: left;
+}
+
+.comment-number {
+	color: #c52d08;
+	float: right;
+	margin: 0;
+}
+
+.comment-number span {
+	background: url(../images/sprite_bavotasan.png) no-repeat -236px -98px;
+	width: 28px;
+	display: block;
+	height: 20px;
+	float: left;
+}
+
+.bestPost .text {
+	float: right;
+	width: 330px;
+}
+
+img.clear {
+	clear: both;
+}
+
+.change {
+	display: none;
+	padding-bottom: 10px;
+	float: left;
+	clear: both;
+	width: 100%;
+}
+
+.changelog {
+	cursor: pointer;
+}
+
+#changelog {
+	position: relative;
+}
+
+img.logimg {
+	position: absolute;
+	top: 5px;
+	left: 140px;
+	height: 10px;
+	width: 15px;
+}
+
+.buttonbox {
+	clear: both;
+	float: left;
+	width: 100%;
+}
+
+a.button,input.button {
+	padding: 10px 20px;
+	margin-right: 10px;
+	background: #dd0000;
+	color: #fff;
+	background: -webkit-gradient(linear, left top, left bottom, from(#dd0000),
+		to(#aa0000) );
+	background: -moz-linear-gradient(top, #dd0000, #aa0000);
+	filter: progid :           DXImageTransform.Microsoft.gradient (       
+		   startColorstr =     
+		     '#dd0000', endColorstr =           '#aa0000' );
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	font-size: 18px;
+	border: 1px solid #aa0000;
+	font-variant: small-caps;
+	cursor: pointer;
+	text-shadow: none;
+	float: left;
+}
+
+a:hover.button,input:hover.button {
+	text-decoration: none;
+}
+
+.help {
+	width: 54px;
+	height: 54px;
+	background: url(../images/sprite_bavotasan.png) no-repeat -174px -136px;
+	float: left;
+	margin-right: 10px;
+}
+
+/*----------END BESTPOST SECTION--------------*/
+#header {
+	width: 1000px;
+	background-image: url('../images/header_bg.png');
+	background-position: left top;
+	background-repeat: no-repeat;
+	padding: 400px 0 63px 0;
+	height: 26px;
+}
+
+#logo {
+	position: absolute;
+	top: 0px;
+	left: 30px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #595959;
+	height: 185px;
+	width: 188px;
+	background-repeat: no-repeat;
+}
+
+#message {
+	position: absolute;
+	top: 30px;
+	left: 177px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #595959;
+	height: 110px;
+	width: 301px;
+	background-repeat: no-repeat;
+}
+
+#FacebookComment {
+	height: 100%;
+	padding-left: 75px;
+}
+
+#MySiteAvatar {
+	visibility: hidden;
+}
+
+#NumOfVisit {
+	position: absolute;
+	top: 141px;
+	left: 775px;
+	font-family: 'CalligraffitiRegular', Arial, Helvetica, sans-serif;
+	font-size: 40px;
+	color: #F4DBBC;
+	height: 41px;
+	width: 200px;
+	background-repeat: no-repeat;
+}
+
+.FontMenus {
+	font-family: 'CalligraffitiRegular', Arial, Helvetica, sans-serif;
+	font-size: 23px;
+	padding-right: 15px;
+	padding-left: 15px;
+	color: black;
+	cursor: url(http://cdominguez.tk/images/LinkSelect.cur), auto
+}
+
+#menu a:hover{
+	color: white;
+	border-style: double;
+	border-color: #1f565b;
+	border-width: 6px;
+	font-size: 25px;
+	background-color: #2b2b2b;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+}
+
+#menu {
+	padding: 5px 0 0px 60px;
+	overflow: hidden;
+	height: 45px;
+	position: absolute;
+	top: 400px;
+}
+
+#menu li {
+	display: inline;
+}
+
+#menu img {
+	float: left
+}
+
+#content {
+	width: 1000px;
+	overflow: hidden;
+	background-image: url(../images/bg.gif);
+	background-position: left;
+	background-repeat: repeat-y;
+}
+
+#footer {
+	height: 130px;
+	position: relative;
+	/*bottom:-60px;
+	background-color:yellow;
+	 */
+	background-image: url('../images/footer_bg.png');
+	background-position: left top;
+	background-repeat: no-repeat;
+	width: 1000px;
+	font-family: Tahoma, sans-serif;
+	font-size: 11px;
+	color: #D8E4E8;
+	left: 0px;
+}
+
+#footer p {
+	width: 100%;
+	text-align: center;
+	padding: 90px 0 0 0;
+	height: 29px;
+}
+
+#footer p a {
+	color: #F69302;
+	text-decoration: underline
+}
+
+#footer p a:visited {
+	text-decoration: underline
+}
+
+#footer p a:hover {
+	text-decoration: none
+}
+
+#sidebar {
+	width: 340px;
+	float: left;
+	height: 100%;
+}
+
+#search {
+	background-image: url('../images/search_bg.png');
+	background-position: left top;
+	background-repeat: no-repeat;
+	width: 428px;
+	height: 124px;
+	margin: 0 0 10px 1px;
+}
+
+#search input {
+	width: 169px;
+	height: 20px;
+	border: 0px;
+	line-height: 15px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #595959;
+	margin: 50px 0 0 69px;
+	padding: 3px 0 0 5px;
+	float: left
+}
+
+#search a {
+	display: block;
+	float: left;
+	margin: 50px 0 0 2px
+}
+
+.list {
+	padding: 0 0 0 55px;
+}
+
+.list ul {
+	width: 290px;
+	overflow: hidden;
+	padding: 5px 0 15px 5px;
+	height: 224px;
+}
+
+.list li {
+	list-style-type: none;
+	background-image: url('../images/bullet.gif');
+	background-position: left top;
+	background-repeat: no-repeat;
+	padding: 0 0 5px 22px;
+	line-height: 15px;
+	height: 15px;
+	width: 238px;
+	float: left;
+}
+
+.list a {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #595959;
+	text-decoration: none;
+}
+
+.post p {
+	width: 511px;
+	padding: 13px 0 0 20px;
+}
+
+.post p img {
+	margin: 5px 0 0 0
+}
+
+#comments {
+	padding: 15px 0 0 17px;
+	width: 515px;
+	float: left;
+	display: inline;
+}
+
+#ContenedorPrincipal {
+	margin-left: 70px;
+	width: 573px;
+	height: 100%;
+	float: left;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #595959;
+	margin-right: 0px;
+}
+
+#TopContenedorPrincipal {
+	width: 100%;
+	height: 100%;
+}
+
+#BodyContenedorPrincipal {
+	width: 100%;
+	height: 100%;
+	float: left;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #595959;
+	margin-right: 0px;
+	margin-top: 30px;
+}
+
+#ContenedorPrincipal .comment {
+	background-image: url(../images/dots.gif);
+	background-position: bottom left;
+	background-repeat: repeat-x;
+	padding: 20px 0 11px 2px;
+	line-height: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	float: left;
+	border: 1px solid white
+}
+
+#ContenedorPrincipal .comment p {
+	display: block;
+	float: left;
+	width: 410px;
+}
+
+.comment span,.avatar span {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #F17102;
+	padding: 0px;
+}
+
+.avatar {
+	width: 100px;
+	float: left;
+	font-size: 10px;
+}
+
+#add {
+	padding: 25px 0 50px 0;
+	float: left
+}
+
+.title {
+	margin: 0 0 15px 0
+}
+
+.form {
+	width: 412px;
+	float: left;
+}
+
+.form input {
+	width: 405px;
+	border: 1px solid #CCCCCC;
+	height: 18px;
+	margin: 0 0 9px 0;
+	padding: 0 0 0 5px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #595959
+}
+
+.form textarea {
+	width: 405px;
+	border: 1px solid #CCCCCC;
+	height: 77px;
+	overflow: hidden;
+	margin: 0 0 9px 0;
+	padding: 5px 0 0 5px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #595959
+}
+
+.rss {
+	position: absolute;
+	top: 4px;
+	right: 2px;
+	height: 181px;
+	width: 188px;
+}
+
+.inner_copy {
+	border: 0;
+	color: #fff;
+	float: right;
+	width: 0.09% !important;
+	margin: -100px;
+	overflow: hidden;
+	line-height: 0px;
+	padding: 0px;
+	font-size: 11px
+}
+
+#personalList {
+	margin-left: 10px;
+	list-style-type: none;
+	/*background-image:url('../images/bullet.gif');
+	background-position:left top;
+	background-repeat:no-repeat;
+	padding: 0 0 0 25px;*/
+}
+
+#personalList li {
+	margin-left: 20px;
+	/*background-image:url('../images/personalBullet.gif');
+	background-position:left top;
+	background-repeat:no-repeat;*/
+	padding: 0 0 0 5px;
+	list-style-type: circle;
+}
