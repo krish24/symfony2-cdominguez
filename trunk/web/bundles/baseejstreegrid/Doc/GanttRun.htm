@@ -1,0 +1,1996 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1250">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>TreeGrid - Gantt chart</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+span.apple-style-span
+	{mso-style-name:apple-style-span;}
+span.apple-converted-space
+	{mso-style-name:apple-converted-space;}
+@page WordSection1
+	{size:841.9pt 595.3pt;
+	margin:42.55pt 70.9pt 42.55pt 70.9pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+<div class=WordSection1>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:16.0pt'>TreeGrid v<span style='color:blue'>6.3</span></span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:36.0pt'>Run bar</span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-size:10.0pt'><a href="Index.html">TreeGrid documentation index</a></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Run is the most complex bar
+in TreeGrid Gantt that displays one or more individual boxes in one cell.  </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can be used as replacement
+of the main bar with many extended features.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Or it can be used to
+create any other bar chart, not only Gantt.</span></b></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>In cell with Run there can be
+also shown other Gantt objects like flag, main bar, milestone or flow.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Definition><b><span style='font-size:20.0pt'>Run
+definition</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span class=apple-style-span><span style='font-size:10.0pt;
+color:black'>The Run is defined by <a href="#CGanttRun">GanttRun</a> (list of
+individual boxes) and eventually by <a href="#CGanttRunStart">GanttRunStart</a>
+(start date).</span></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The run can be defined by one
+start date and list of widths and types of the individual boxes. The boxes are
+separated directly one by one, but it supports also empty type for space
+between boxes.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Or the run can be defined by
+start dates of individual boxes and their widths or end dates. In this case the
+empty boxes are automatically added between the boxes.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the run boxes override
+each other, they are marked as error and shown in red.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The individual run boxes can
+have different width, shape, color, caption and tooltip.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string[][]
+</i></span><a name=CGanttRun><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttRun</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                     Gantt
+source – column name or exact value                  <span style='color:red'>new
+<b>6.1</b></span> <span style='color:blue'>upd <b>8.1</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Definition of individual Run
+boxes. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the boxes have not
+specified <b><i>Start</i></b> date, they are displayed from <a
+href="#CGanttRunStart">GanttRunStart</a> one by one, without any space.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The definition of boxes is
+separated by semicolon, the individual items in the box definition are separated
+by comma.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The semicolon and comma must
+not be present in any item text in the range. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It is possible to change the
+separators by adding the both on start, e.g. “&amp;*3*End*Start&amp;20*Box&amp;&amp;20*Box”
+uses &amp; as box and * as item separator. To be sure that the separator cannot
+be included in the run data, you can use any Unicode character as separator,
+e.g. “<b>&amp;#xF001; &amp;#xF000;</b>3<b>&amp;#xF000;</b>End<b>&amp;#xF000;</b>Start<b>&amp;#xF001;</b>20<b>&amp;#xF000;</b>Box<b>&amp;#xF001;
+&amp;#xF001;</b>20<b>&amp;#xF000;</b>Box” uses <b>&amp;#xF001;</b> as box and <b>&amp;#xF000;</b>
+as item separator.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Do not fill any useless
+white characters (spaces) in the definition!</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The one box definition is:                 <b><span
+style='color:red'>Width</span></b>,<b>Type</b>,<b>Text</b>,<b>Class</b>,<b>Tip</b>,<b>Id</b>,<b>Group,State,Top,Height                        </b>Must
+have set also <a href="#CGanttRunStart">GanttRunStart</a> as the start of the
+whole run</span></p>
+
+<p class=MsoNormal style='margin-left:70.8pt;text-indent:35.4pt'><span
+style='font-size:10.0pt'>OR         <b><span style='color:red'>Start</span></b>,<b><span
+style='color:red'>Width</span></b>,<b>Type</b>,<b>Text</b>,<b>Class</b>,<b>Tip</b>,<b>Id</b>,<b>Group,State,Top,Height</b>             <i>(new
+6.2)</i> Does <u>not</u> support <b>Empty</b> and <b>Nbsp</b> and <b><i>joined</i></b>
+boxes</span></p>
+
+<p class=MsoNormal style='margin-left:70.8pt;text-indent:35.4pt'><span
+style='font-size:10.0pt'>OR         <b><span style='color:red'>Start</span></b>,<b><span
+style='color:red'>End</span></b>,<b>Type</b>,<b>Text</b>,<b>Class</b>,<b>Tip</b>,<b>Id</b>,<b>Group,State,Top,Height  </b><i>(new
+6.2)</i> Does <u>not</u> support <b>Empty</b> and <b>Nbsp</b> and <b><i>joined</i></b>
+boxes and <b>number</b> data units</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>All the fields are optional,
+e.g. </span><span style='font-size:10.0pt;font-family:"Courier New"'>“3,End,Start;;5;;3,Solid,End”</span><span
+style='font-size:10.0pt'> is the same as </span><span style='font-size:10.0pt;
+font-family:"Courier New"'>“3,End,Start,,;0,Empty,,,;5,Box,,,;0,Empty,,,;3,Solid,End,,”</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>date</span></i><span
+style='font-size:10.0pt'>        <b><i>Start</i></b>       <i>(new 6.2) </i>Start
+date of the task, if used, the <a href="#CGanttRunStart">GanttRunStart</a> is
+ignored. Use Start date if the tasks are not continuous. Between tasks will be
+automatically added the Empty boxes</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               The
+Start can be count of milliseconds or date string in English format (M/d/yyyy
+HH:mm:ss or d.M.yyyy HH:mm:ss or yyyy-MM-dd HH:mm:ss)</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>                               Does
+<u>not</u> support types Empty and Nbsp and joined boxes.</span></i></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>date</span></i><span
+style='font-size:10.0pt'>        <b><i>End</i></b>        <i>(new 6.2) </i>End
+date of the task, used instead of <b><i>Width</i></b>. Use End date if you know
+the start and end dates instead of duration.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               The
+End can be count of milliseconds or date string in English format (M/d/yyyy
+HH:mm:ss or d.M.yyyy HH:mm:ss or yyyy-MM-dd HH:mm:ss)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               The
+End can be the exact end date or the last data unit, according to setting <a
+href="GanttCompute.htm#CGanttEndLast">GanttEndLast</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <i>It
+is not possible to use it with number data units like GanttDataUnits=’1’</i></span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>int</span></i><span
+style='font-size:10.0pt'>           <b><i>Width</i></b>    width of the box in <a
+href="#CGanttDataUnits">GanttDataUnits</a> or in milliseconds, used instead of <b>End</b>
+date. Use Width if you know duration and not end date.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               The
+empty space (Type=<b>0</b>) can have negative width for overflowed adjacent
+boxes, these error boxes are displayed in red</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>int</span></i><span
+style='font-size:10.0pt'>           <b><i>Type</i></b>       Feature of the
+box, default value is <b>Box</b> if positive Width is set or <b>Empty</b> if
+Width is <u>not</u> set or is negative. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <i>Since
+7.0</i> also the Width + only one comma is shortcut for <b>Empty</b> box. </span></p>
+
+<p class=MsoNormal style='margin-left:70.8pt'><span style='font-size:10.0pt'>For
+example “1;2<b><span style='color:red'>,</span></b>;3;;5” is shortcut to
+“1,Box;2,Empty;3,Box;0,Empty;5,Box”</span></p>
+
+<p class=MsoNormal style='margin-left:35.4pt;text-indent:35.4pt'><span
+style='font-size:10.0pt'>Case insensitive keyword, must <u>not</u> contain any
+spaces. The type is saved back always lowercase</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <b>Box</b>                        <b>Normal
+box</b>. Can be moved or resized by mouse dragging, depending on other settings.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                               Can
+be also moved automatically when other box is resized or moved, depending on other
+settings.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                               <i>To
+permit moving box from its adjacent sibling, there must be defined <b>Empty</b>
+space between them (with 0 width).</i></span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>                                                                              The
+<b>Empty</b> space is automatically created when the box is defined by its
+Start date.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <b>Solid</b>                      Can
+be moved, but cannot be resized</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <b>Left</b>                        Fixed
+left - its start cannot be changed, it can be only resized on right side and
+cannot be moved</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <b>Right</b>                     Fixed
+right - its end cannot be changed, it can be only resized on left side and
+cannot be moved</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <b>Fixed</b>                     Fixed
+both - it cannot be moved or resized</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <b>Milestone</b>             <i>(new
+7.0)</i> Zero width object. Movable, not resizable. Does <u>not</u> show any <b>Text</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                               <b>Text</b>
+can be custom icon file, <b>Class</b> can be custom icon file for hover.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <b>Stop</b>                       <i>(new
+7.0)</i> Fixed milestone. Zero width object, not movable, not resizable. Does <u>not</u>
+show <b>Text</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                               <b>Text</b>
+can be custom icon file, <b>Class</b> can be custom icon file for hover.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <b>Empty</b>                   <b>Empty
+space</b> between boxes, it is not interactive. Can have also set <b>0</b>
+width, to only separate adjacent boxes, to let them move separately.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                               Can
+be <u>automatically</u> shrunk or enlarged when other box is moved or resized,
+depending on other settings</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                               Two
+adjacent empty spaces are automatically merged together.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>                                                               Cannot
+be used when <b>Start</b> is set for the boxes</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <b>Nbsp</b>                      Not
+breakable, not resizable, not interactive <b>empty</b> <b>space</b> between
+boxes.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                               Can
+be placed only between two boxes to join them. When there is adjacent Empty
+space, the Nbsp is automatically removed.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>                                                               Cannot
+be used when <b>Start</b> is set for the boxes</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <b>Bound</b>
+                  If placed as the first box, it is not resizable, not movable <b>fixed</b>
+<b>start</b> box and is displayed <b>before</b> the start date. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                                              It
+is not possible to move boxes before or on the fixed start.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                               If
+placed as the last box, it is not resizable, not movable <b>fixed</b> <b>end</b>
+box. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                                              It
+is not possible to move boxes after or on the fixed end.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                               If
+placed anywhere else, it is <b>fixed not deletable box</b></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <b>End</b>                        If
+placed as the first box, it is not resizable, but <b>movable</b> <b>start</b>
+box and is displayed <b>before</b> the start date. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                                              When
+moving box before or on the start, the start is automatically moved before it.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                               If
+placed as the last box, it is not resizable, but <b>movable</b> <b>end</b> box.
+</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                                              When
+moving box after or on the end, the end is automatically moved after it</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                                               It
+should <u>not</u> be placed anywhere else.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>string</span></i><span
+style='font-size:10.0pt'>     <b><i>Text</i></b>       caption displayed on the
+box, it can contain also these special strings:</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <b>%d</b>
+– replaces it by Width displayed as date formatted by <a href="#CGanttRunFormat">GanttRunFormat</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               <b>%n</b>
+– replaces it by Width displayed as integer formatted by <a
+href="#CGanttRunFormat">GanttRunFormat</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               For
+<b>Milestone</b> and <b>Stop</b> it is <u>not</u> text, but custom icon file
+url (like Test/MyIcon.gif). Remember, the icon is shifted left by 8px (the CSS
+GxGanttMilestone width/2).</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>string</span></i><span
+style='font-size:10.0pt'>     <b><i>Class</i></b>      CSS class used for the
+box. This class can predefine the shape and color of the box</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               There
+are predefined 17 classes for all basic background colors: <b>Aqua</b>, <b>Black</b>,
+<b>Blue</b>, <b>Fuchsia</b>, <b>Gray,</b> <b>Green</b>, <b>Lime</b>, <b>Maroon</b>,
+<b>Navy</b>, <b>Olive</b>, <b>Orange</b>, <b>Purple</b>, <b>Red</b>, <b>Silver</b>,
+<b>Teal</b>, <b>White</b>, <b>Yellow</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               For
+custom classes you need to define CSS classes GxGanttRunXXXIn and
+GxGanttRunXXXOut, where XXX is the Class used here and the Gx is style prefix. </span></p>
+
+<p class=MsoNormal style='margin-left:70.8pt;text-indent:35.4pt'><span
+style='font-size:10.0pt'>The <b>Out</b> class defines border, the <b>In</b>
+class background and font.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               For
+custom class in <b>FastGantt</b>=’1’ you need to define one class Gx<b>F</b>GanttRunXXX,
+this class must <u>not</u> change padding, margin and border-width.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>string</span></i><span
+style='font-size:10.0pt'>     <b><i>Tip</i></b>         tooltip displayed when
+mouse hovers the box</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>string</span></i><span
+style='font-size:10.0pt'>     <b><i>Id</i></b>            <i>(new 7.0)</i>
+unique identification of the box (at least in its group), can be used in API
+methods (e.g <a href="#GetGanttRunBox">GetGanttRunBox</a>) to find the box.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>string</span></i><span
+style='font-size:10.0pt'>     <b><i>Group</i></b>    <i>(new 7.0)</i>
+Identification of the group of boxes, more boxes can belong to the same group.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>string</span></i><span
+style='font-size:10.0pt'>     <b><i>State</i></b>      <i>(new 7.0) </i>State
+of the box, used only when set <a href="#CGanttRunStates">GanttRunStates</a>=’1’.
+It is filled automatically after any change for the box. It is filled only for
+boxes with Id set.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               It
+can be: <b>added</b>, <b>deleted</b>, <b>moved</b>, <b>resized</b>, <b>changed</b>.
+It can contain more states separated by plus, e.g. “resized+moved+changed”</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               If
+some box is moved from one row to another, it will get <b>deleted</b> flag in
+source row and <b>added</b> flag in destination row. <b>moved</b> flag is only
+for move within one row.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>int</span></i><span
+style='font-size:10.0pt'>           <b>Top</b>        <i>(new 8.1) </i>Vertical
+position of the box, in pixels.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>int</span></i><span
+style='font-size:10.0pt'>           <b>Height</b>   <i>(new 8.1) </i>Height of
+the box, in pixels.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttRunStart><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunStart</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>          Gantt
+source – column name or exact value                  <span style='color:red'>new
+<b>6.1</b></span><span style='color:#0070C0'>; upd <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Start date of the Run boxes,
+usually column name, but can be also date string (M/d/yyyy hh:mm:ss) or count
+of milliseconds</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Used only if the <a
+href="#CGanttRun">GanttRun</a> does <u>not</u> contain Start dates, but only
+boxes widths.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Its presence also changed
+default saving format, see <a href="#CGanttRunSave">GanttRunSave</a>.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>(Since 7.0) </span></i><span
+style='font-size:10.0pt'>If the cells in this column are empty, they are filled
+on start and also updated automatically according to <a href="#CGanttRun">GanttRun</a>.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>(Since 7.0) </span></i><span
+style='font-size:10.0pt'>When its value is changed by user, the <a
+href="#CGanttRun">GanttRun</a> is modified according to the <a
+href="#CGanttRunAdjustStart">GanttRunAdjustStart</a> settings.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttRunEnd><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunEnd</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>            Gantt
+source – column name only                                             <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Actual computed end date of
+the <a href="#CGanttRun">GanttRun</a>.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>It is just support column,
+it should <u>not</u> contain any values in its cells on start.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It is filled on start and
+also updated automatically according to <a href="#CGanttRun">GanttRun</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When its value is changed by
+user, the <a href="#CGanttRun">GanttRun</a> is modified according to the
+GanttRunAdjustEnd settings.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt; &lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       <i>string    </i></span><a
+name=CGanttRunSave><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunSave</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>  </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        [0]                                                                               <span
+style='color:red'>new <b>6.2</b></span><span style='color:#0070C0'>; upd <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Type of <a href="#CGanttRun">GanttRun</a>
+box attribute structure for save.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'>             “<b>Width</b>,Type,Text,Class,Tip” if
+defined <a href="#CGanttRunStart">GanttRunStart</a> column or “<b>Start</b>,<b>End</b>,Type,Text,Class,Tip”
+if not</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>1</span></b><span
+style='font-size:10.0pt'>             “<b>Width</b>,Type,Text,Class,Tip”</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>2</span></b><span
+style='font-size:10.0pt'>             “<b>Start</b>,<b>Width</b>,Type,Text,Class,Tip”</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>3</span></b><span
+style='font-size:10.0pt'>             “<b>Start</b>,<b>End</b>,Type,Text,Class,Tip”</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>&nbsp;</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>&amp;4</span></b><span
+style='font-size:10.0pt'>          <i>(new 7.0) </i>Values 4 – 7 are similar to
+values 0 – 3, but use the short format </span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>Omits
+<b>box</b> type as default, <b>empty</b> type without <b>width</b> as
+completely empty, <b>empty</b> type with <b>width</b> as width with comma</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>For
+example “1,Box;2,Empty;3,Box;0,Empty;5,Box” is written as “1;2<b><span
+style='color:red'>,</span></b>;3;;5”</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt; &lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       <i>string    </i></span><a
+name=CGanttRunFormat><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunFormat</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'>  </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                                 <span
+style='color:red'>new <b>6.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'><a href="TypeDate.htm#CFormat">Date</a>
+or <a href="TypeNumber.htm#CFormat">number</a> format string (like for Type
+Date or Int) to display box width in the box caption, see <a href="#CGanttRun">GanttRun</a>,
+part <b>Text</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt; &lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       <i>string    </i></span><a
+name=CGanttRunTip><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunTip</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>  </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                                <span
+style='color:red'>new <b>6.4</b></span><span style='color:#0070C0'>; upd <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Tip shown on mouse hover the
+box. It can contain HTML code.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>By default it shows the Tip
+part from <a href="#CGanttRun">GanttRun</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can also show values from
+other cells in row, set by <b>*col*</b> where col is the column name.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can show also the
+specials: </span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><b><span style='font-size:10.0pt'>*Text*</span></b><span
+style='font-size:10.0pt'> - show the original box Tip part from <a
+href="#CGanttRun">GanttRun</a>, <b>*Index*</b> - the box index (from 1,
+excluding empty boxes)</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>*<b>RunText</b>*
+- <i>(new 7.0)</i> shows the whole run tip from <a href="#CGanttRunText">GanttRunText</a>.</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><b><span style='font-size:10.0pt'>*Start*</span></b><span
+style='font-size:10.0pt'> - start date of the box, <b>*End*</b> - end date of
+the box, <b>*Duration*</b> - length of the run in <a href="#CGanttRunFormat">GanttRunFormat</a>
+or in <a href="GanttCompute.htm#CGanttDataUnits">GanttDataUnits</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Example: “*Index*. box
+*Start* - *End*&amp;lt;br&gt;*Text*”</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt; &lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       <i>string    </i></span><a
+name=CGanttRunTipDateFormat><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttRunTipDateFormat</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Date format to display Start
+and End of the run in <a href="#CGanttRunTip">GanttRunTip</a> *Start* and *End*.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It is the same format as for <a
+href="TypeDate.htm#CFormat">Date</a> type.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt; &lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       <i>string    </i></span><a
+name=CGanttRunText><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunText</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>  </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>          Gantt
+source – column name or exact value                              <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Tip / information for the
+whole run, can be displayed as tooltip</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt; &lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       <i>bool      </i></span><a
+name=CGanttRunErrors><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunErrors</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'>       [1]                                                                                           <span
+style='color:red'>new <b>8.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the overlaid boxes will be
+marked as error boxes in red.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>int        </i></span><a
+name=CGanttRunGroupHover><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunGroupHover</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'>    [1]                                                                               <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If mouse hovers a box with
+Group attribute set, it can highlight all other boxes with the same Group
+value.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'> – never, <b>1</b> only in the same row, <b>2</b> - in
+the whole grid (can be slow)., <b>3</b> – in the whole grid, only editable
+Gantt cells (GanttEdit=’run’)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>bool      </i></span><a
+name=CGanttRunStates><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunStates</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'>       [1]                                                                                           <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>1</b>, it fills
+all changes in the box in the <b>State</b> part of the <a href="#CGanttRun">GanttRun</a>.
+Fills changes only for boxes with <b>Id</b> set.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>deleted</b> <b>boxes</b>
+are saved to the end as box with type ‘-‘ and empty width and without start/end
+date items.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>bool      </i></span><a
+name=CGanttRunMilestones><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunMilestones</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'>        [1]                                                                               <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If creating Run milestones by
+users is permitted.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>0</b>, zero
+length boxes cannot be created.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;Cfg&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>               <i>int        </i></span><a
+name=CfgFastGantt><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>FastGantt</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                       [0]                                                                                           <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>1</b>, it renders
+Run boxes simplified, only by one &lt;div&gt; tag per box. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The Run style looks slightly
+worse, but the chart is three times smaller and therefore much faster to
+display and change, especially for rows with 20 and more run boxes.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>After change of this
+setting you must rename all your custom CSS classes in Class part of the
+GanttRun.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Because the FastGantt boxes
+can be incorrectly rendered in Firefox with zoom!=100%, it is disabled for this
+browser. To set FastGantt also in Firefox set it to <b>2</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API event         </span></b><i><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>string    </span></i><a
+name=OnGetGanttRunText><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>OnGetGanttRunText</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>       (<i>TGrid</i>
+<b>grid</b>, <i>TRow</i> <b>row</b>, <i>string</i> <b>col</b>, <i>object </i><b>run</b><i>,
+int </i><b>index</b><i>, string</i><b> text</b>)     <span style='color:red'>new
+<b>8.1</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Called to get the Run box
+text to render it. It can return any HTML code or text or the <b>text</b>
+parameter.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>run</span></b><span
+style='font-size:10.0pt'> the parsed Run object (like got from <a
+href="#GetGanttRun">GetGanttRun</a>), the <b>index</b> is the box index inside
+the <b>run</b> array.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>text</span></b><span
+style='font-size:10.0pt'> is original text to be rendered, return it to avoid
+changes.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Moving><b><span style='font-size:20.0pt'>Run moving and
+resizing</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The run boxes are independent
+on each other, they can be resizes or moved  individually or together and also
+it is possible to change their position.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt; &lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       <i>string[]  </i></span><a
+name=CGanttRunResize><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunResize</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'>  </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>    [“Resize”]                                                                     <span
+style='color:red'>new <b>6.1</b></span><span style='color:#0070C0'>; upd <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Which boxes can be resized.
+Comma separated list of flag keywords, case insensitive</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>empty</span></i><span
+style='font-size:10.0pt'>     When set nothing, resizing is restricted</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Resize</span></b><span
+style='font-size:10.0pt'>    Only resizable boxes can be resized</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>All</span></b><span
+style='font-size:10.0pt'>          All boxes, including solid boxes can be
+resized</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>There are also attributes
+read when dragging with appropriate shift key: <b>GanttRunResizeCtrl</b>,<b>
+GanttRunResizeAlt</b>, <b>GanttRunResizeShift</b></span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 7.0</span></i><span
+style='font-size:10.0pt'> there are move actions for other mouse buttons (<b>Right</b>
+and <b>Middle</b>) as the last suffix: <b>GanttRunResizeRight, GanttRunResizeCtrlRight</b>,<b>
+GanttRunResizeAltRight</b>, <b>GanttRunResizeShiftRight</b>, <b>GanttRunResizeMiddle</b>,
+<b>GanttRunResizeCtrlMiddle</b>,<b> GanttRunResizeAltMiddle</b>, <b>GanttRunResizeShiftMiddle</b></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 7.0 </span></i><span
+style='font-size:10.0pt'>for touch screens (iPAD) are available events for
+count of fingers on pad, <b>GanttRunResize1</b>, <b>GanttRunResize2</b>, <b>GanttRunResize3</b>,
+..., but because by default in Defaults.xml is the ResizeGanttRun action
+attached only to OnDrag2Gantt event, these prefixes are ignored. To use them,
+you need to attach the ResizeGanttRun to appropriate OnDragXGantt event, but it
+should <u>not</u> be attached to the same events as MoveGanttRun or change the
+value of &lt;Actions GanttSizeTouch&gt;.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt; &lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       <i>string[]  </i></span><a
+name=CGanttRunMove><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunMove</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>  </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       [“Slide”]                                                                       <span
+style='color:red'>new <b>6.1</b></span><span style='color:#0070C0'>; upd <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>How the boxes can be move.
+Comma separated list of flag keywords, case insensitive</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>empty</span></i><span
+style='font-size:10.0pt'>     When set nothing, moving is restricted</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Slide</span></b><span
+style='font-size:10.0pt'>      The box can be shifted left or right, but cannot
+change the box order except GanttRunAdjust contains Error flag. The box cannot
+be moved outside the row.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Move</span></b><span
+style='font-size:10.0pt'>     The moved box will be replaced by empty space</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Copy</span></b><span
+style='font-size:10.0pt'>      The moved box will stay on the same position and
+is duplicated to the new position.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Remove </span></b><span
+style='font-size:10.0pt'>The moved box will be removed and next boxes will be
+shifted according to <b>GanttRunAdjustRemove</b>.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>&nbsp;</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>All</span></b><span
+style='font-size:10.0pt'>          Also fixed boxes (except Bound) can be moved</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Single</span></b><span
+style='font-size:10.0pt'>    Only one box will be moved, when there are more
+adjacent boxes without separating spaces</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>There are also attributes used
+when dragging with appropriate shift key: <b>GanttRunMoveCtrl</b>,<b> GanttRunMoveAlt</b>,
+<b>GanttRunMoveShift</b></span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>&nbsp;</span></i></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 7.0</span></i><span
+style='font-size:10.0pt'> there are move actions for other mouse buttons (<b>Right</b>
+and <b>Middle</b>) as the last suffix: <b>GanttRunMoveRight, GanttRunMoveCtrlRight</b>,<b>
+GanttRunMoveAltRight</b>, <b>GanttRunMoveShiftRight</b>, <b>GanttRunMoveMiddle</b>,
+<b>GanttRunMoveCtrlMiddle</b>,<b> GanttRunMoveAltMiddle</b>, <b>GanttRunMoveShiftMiddle</b></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 7.0 </span></i><span
+style='font-size:10.0pt'>for touch screens (iPAD) are available events for
+count of fingers on pad, <b>GanttRunMove1</b>, <b>GanttRunMove2</b>, <b>GanttRunMove3</b>,
+..., but because by default in Defaults.xml is the MoveGanttRun action attached
+only to OnDrag1Gantt and OnDrag3Gantt events, only the 1 and 3 prefixes are
+used. To use the other prefixes, you need to attach the MoveGanttRun to
+appropriate OnDragXGantt event, but it should <u>not</u> be attached to the
+same events as ResizeGanttRun or change the value of &lt;Actions
+GanttSizeTouch&gt;.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt; &lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       <i>string[]  </i></span><a
+name=CGanttRunAdjust><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunAdjust</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>      [“Shift”]                                                                       <span
+style='color:red'>new <b>6.1</b></span><span style='color:#0070C0'>; upd <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>How will be moved next or
+previous boxes when moving some box. Comma separated list of flag keywords,
+case insensitive.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The order of applying
+Error/Resize/Move is set by order of the flag keywords.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>empty</span></i><span
+style='font-size:10.0pt'>     When set nothing, the box will be moved within
+surrounding empty space only</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Shift</span></b><span
+style='font-size:10.0pt'>       The box will be moved or resized within
+surrounding empty space and if required, the next or previous boxes will be
+shifted and their empty spaces preserved.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Shrink</span></b><span
+style='font-size:10.0pt'>   The box will be moved or resized within surrounding
+empty space and if required, the next or previous boxes will be shifted and
+their empty spaces shrunk</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Slip</span></b><span
+style='font-size:10.0pt'>        The next or previous boxes will be shifted,
+all empty spaces will be preserved, including the adjacent. If there is fixed
+box, all the boxes will be moved next to the fixed box.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>All</span></b><span
+style='font-size:10.0pt'>          Also fixed boxes (except Bound) will be
+shifted if required, for Shift/Shrink/Slip</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Single</span></b><span
+style='font-size:10.0pt'>    When there are more adjacent boxes without space,
+the surrounding space will be taken as none, especially for Shift and Slip</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                If not
+present, the surrounding space is taken as the nearest space</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Append</span></b><span
+style='font-size:10.0pt'> When dragged to box end, attaches it to the box
+without space as adjacent – the boxes will be joined.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Error</span></b><span
+style='font-size:10.0pt'>    The box will be moved or resized even if there is
+no room for it. In this case it will be marked as error. See also <a
+href="#CGanttRunError">GanttRunError</a>. </span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Resize</span></b><span
+style='font-size:10.0pt'>    The box will be resized if there is no room for it
+</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Move</span></b><span
+style='font-size:10.0pt'>     The box will be moved left if there is no room
+for it (also shifting boxes on left side by Shift/Shrink/Slip will be permitted)</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Zoom</span></b><span
+style='font-size:10.0pt'>    <i>(new 7.0)</i> When copying/moving between
+grids, the box will preserve its width on screen and its physical width will be
+changed by zoom ratio of the grids.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>There are also attributes
+read when dragging with appropriate shift key and for specific GanttRunMove /
+GanttRunResize actions: </span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>GanttRunAdjustCtrl</span></b><span
+style='font-size:10.0pt'>,<b> GanttRunAdjustAlt</b>, <b>GanttRunAdjustShift</b></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>GanttRunAdjust<span
+style='color:red'>Resize</span>, GanttRunAdjust<span style='color:red'>Resize</span>Ctrl</span></b><span
+style='font-size:10.0pt'>,<b> GanttRunAdjust<span style='color:red'>Resize</span>Alt</b>,
+<b>GanttRunAdjust<span style='color:red'>Resize</span>Shift</b></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>GanttRunAdjust<span
+style='color:red'>Slide</span>, GanttRunAdjust<span style='color:red'>Slide</span>Ctrl</span></b><span
+style='font-size:10.0pt'>,<b> GanttRunAdjust<span style='color:red'>Slide</span>Alt</b>,
+<b>GanttRunAdjust<span style='color:red'>Slide</span>Shift</b></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>GanttRunAdjust<span
+style='color:red'>Move</span>, GanttRunAdjust<span style='color:red'>Move</span>Ctrl</span></b><span
+style='font-size:10.0pt'>,<b> GanttRunAdjust<span style='color:red'>Move</span>Alt</b>,
+<b>GanttRunAdjust<span style='color:red'>Move</span>Shift</b></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>GanttRunAdjust<span
+style='color:red'>Copy</span>, GanttRunAdjust<span style='color:red'>Copy</span>Ctrl</span></b><span
+style='font-size:10.0pt'>,<b> GanttRunAdjust<span style='color:red'>Copy</span>Alt</b>,
+<b>GanttRunAdjust<span style='color:red'>Copy</span>Shift</b></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>GanttRunAdjust<span
+style='color:red'>Remove</span>, GanttRunAdjust<span style='color:red'>Remove</span>Ctrl</span></b><span
+style='font-size:10.0pt'>,<b> GanttRunAdjust<span style='color:red'>Remove</span>Alt</b>,
+<b>GanttRunAdjust<span style='color:red'>Remove</span>Shift</b></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the exact attribute is not
+set, the universal one is used, e.g. the attributes are read in this order:
+GanttRunAdjustMoveCtrlRight, GanttRunAdjustMove, GanttRunAdjustCtrlRight,
+GanttRunAdjust</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>&nbsp;</span></i></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 7.0</span></i><span
+style='font-size:10.0pt'> there are adjust actions for other mouse buttons (<b>Right</b>
+and <b>Middle</b>) as the last suffix like <b>GanttRunAdjustRight</b>, <b>GanttRunAdjustCtrlRight</b>,
+<b>GanttRunAdjust<span style='color:red'>Resize</span>Right</b>,<b> GanttRunAdjust<span
+style='color:red'>Resize</span>CtrlRight</b>, ...</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 7.0 </span></i><span
+style='font-size:10.0pt'>for touch screens (iPAD) are available events for
+count of fingers on pad, <b>GanttRunAdjust1</b>, <b>GanttRunAdjust2</b>, <b>GanttRunAdjust3</b>,
+<b>GanttRunAdjust<span style='color:red'>Resize</span>1</b>, <b>GanttRunAdjust<span
+style='color:red'>Resize</span>2</b>, ..., but not all the prefixes are used by
+default, for more information see the touch postfixes for <a
+href="#CGanttRunMove">GanttRunResize</a> and <a href="#CGanttRunMove">GanttRunMove</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt; &lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       <i>string[]  </i></span><a
+name=CGanttRunAdjustStart><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunAdjustStart</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>      [“Slip”]                                                                         <span
+style='color:red'>new 7<b>.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adjust settings used when
+changed <a href="#CGanttRunStart">GanttRunStart</a> value. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The supported keywords are <i>empty</i>,
+<b>Shift</b>, <b>Shrink</b>, <b>Slip</b>, <b>All</b>, <b>Single</b></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For their meaning see <a
+href="#CGanttRunAdjust">GanttRunAdjust</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt; &lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       <i>string[]  </i></span><a
+name=CGanttRunAdjustCorrect><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttRunAdjustCorrect</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>           [“Slip”]                                                             <span
+style='color:red'>new 7<b>.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adjust settings used when
+moving run during correcting dependencies. Used also when moving <a
+href="GanttCompute.htm#Summary">GanttSummary</a> children.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The run never resizes during
+correcting, it means that its duration and also difference between end and
+start will not change. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The moving is done by trying
+to move the first box and the last box independently according to the Adjust
+setting and if the changes differ, the smaller change is applied.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The supported keywords are <i>empty</i>,
+<b>Shift</b>, <b>Shrink</b>, <b>Slip</b>, <b>All</b>, <b>Single</b></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For their meaning see <a
+href="#CGanttRunAdjust">GanttRunAdjust</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;      </span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'>            <i>bool      </i></span><a
+name=CGanttRunCorrectFixed><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttRunCorrectFixed</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>             [0]                                                                   <span
+style='color:red'>new 7<b>.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Used when correcting
+dependencies. For <b>1</b> it will check the run moving possibility like any
+other constraints.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The checking can slow down
+the correcting. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The checking should be used
+when the runs contain <b>fixed</b> boxes (Fixed, Left, Right, Stop, Bound).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string[][]
+</i></span><a name=CGanttRunNew><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttRunNew</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>           [1,Box]                                                                        <span
+style='color:red'>new <b>6.1</b></span><span style='color:#0070C0'>; upd <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>One or more boxes that will
+be created when adding new box to the run, by dragging empty space</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It has the same format as <a
+href="#CGanttRun">GanttRun</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If it contains more boxes,
+the last one will be resized a user while adding the boxes.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Set it to empty string to
+forbid adding new boxes.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>There are also attributes
+read when dragging with appropriate shift key: <b>GanttRunNewCtrl</b>,<b>
+GanttRunNewAlt</b>, <b>GanttRunNewShift</b></span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 7.0</span></i><span
+style='font-size:10.0pt'> there are also attributes for other mouse buttons (<b>Right</b>
+and <b>Middle</b>) as the last suffix: <b>GanttRunNewRight, GanttRunNewCtrlRight</b>,<b>
+GanttRunNewAltRight</b>, <b>GanttRunNewShiftRight</b>, <b>GanttRunNewMiddle</b>,
+<b>GanttRunNewCtrlMiddle</b>,<b> GanttRunNewAltMiddle</b>, <b>GanttRunNewShiftMiddle</b></span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 7.0 </span></i><span
+style='font-size:10.0pt'>for touch screens (iPAD) are available events for
+count of fingers on pad, <b>GanttRunNew1</b>, <b>GanttRunNew2</b>, <b>GanttRunNew3</b>,
+..., but because by default in Defaults.xml is the NewGanttRun action attached
+only to OnDrag3Gantt event, these prefixes are ignored. To use them, you need
+to attach the NewGanttRun to appropriate OnDragXGantt event.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string[][]
+</i></span><a name=CGanttRunNewStart><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttRunNewStart</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>          [1,Box]                                                            <span
+style='color:red'>new <b>6.1</b></span><span style='color:#0070C0'>; upd <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Setting <a
+href="#CGanttRunNew">GanttRunNew</a> when adding new box to the <b>empty</b>
+run, by dragging empty space.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can contain also some
+start or end box.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For more information see <a
+href="#CGanttRunNew">GanttRunNew</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string[][]
+</i></span><a name=CGanttRunTypes><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttRunTypes</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>      [
+]                                                                                            <span
+style='color:red'>new <b>6.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>List of predefined types of
+the boxes to select from popup menu, it has the same format as GanttRun except
+there is the type name (shown in menu) instead of width as the first item and
+no start/end items</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The empty values are ignored.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Used to let a user to change
+the type and class of clicked box from popup menu</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For example:
+“type1,,,Red;type2,,,Blue;type3,solid,xxx,White”</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt; &lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       <i>string[]  </i></span><a
+name=CGanttRunError><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttRunError</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>  </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        [
+“Sort” ]                                                                      <span
+style='color:red'>new <b>6.2</b>; chg <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>How will be the error boxes
+handled. Comma separated list of flag keywords, case insensitive.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Sort</span></b><span
+style='font-size:10.0pt'>        The boxes will be sorted by their start
+positions, after any change. Sorts errors also on start. <i>It is default value
+since 7.0.</i></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Merge</span></b><span
+style='font-size:10.0pt'>   <i>(new 7.0)</i> The overflowed boxes will be
+merged to one (the first box will be resized to the width of all the boxes and
+the rest boxes will be deleted). </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                It merges
+only boxes of type <b>Box</b> and <b>Solid</b>. All other boxes are still marked
+as error. The <b>Merge</b> always does <b>Sort</b> too.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API event         </span></b><i><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>bool      </span></i><a
+name=OnGanttRunDrop><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>OnGanttRunDrop</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>   </span><span
+style='font-size:8.0pt;font-family:"Arial","sans-serif";background:aqua'>(<i>TGrid</i>
+<b>grid</b>, <i>TRow</i> <b>row</b>, <i>string</i> <b>col</b>, <i>bool</i> <b>drop</b>,
+<i>object</i> <b>src</b>, <i>int</i> <b>index</b>, <i>string</i> <b>keyprefix</b>,
+<i>int</i> <b>x</b>, <i>int</i> <b>y</b>, <i>TGrid</i> <b>togrid</b>, <i>TRow</i>
+<b>torow</b>, <i>string</i> <b>tocol</b>, <i>int</i> <b>cellx</b>, <i>bool</i> <b>accept</b>) 
+</span><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>new <b>6.1</b></span><b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";color:#0070C0;background:aqua'>; upd 8.0</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Called during dragging and
+also when the dragged run box(es) is dropped. It is called also when it is
+dropped outside any grid.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It is called <u>only</u> for <a
+href="#CGanttRunMove">GanttRunMove</a>=<b>’Move</b>/<b>Copy</b>/<b>Remove’</b></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>grid</span></b><span
+style='font-size:10.0pt'>, <b>row</b>, <b>col</b> is source run from that is
+dragged.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>drop</span></b><span
+style='font-size:10.0pt'> is false when called during dragging to check if the
+box can be dropped and true when the box is being dropped.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>src</span></b><span
+style='font-size:10.0pt'> is parsed run that is dragged – two dimensional array
+of the dragged boxes.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>index</span></b><span
+style='font-size:10.0pt'> is RunIndex of the dragged box inside its source cell
+(<u>not</u> in <b>src</b>), if more boxes are dragged together, this is index
+of the one that was caught by mouse.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>keyprefix</span></b><span
+style='font-size:10.0pt'> is prefix of shift keys: “Ctrl”, “Alt”, “Shift” and <i>(since
+7.0)</i> also mouse button “Right” or “Middle”. The key is before the mouse,
+e.g. keyprefix=’CtrlRight’</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>x</span></b><span
+style='font-size:10.0pt'>, <b>y</b> is mouse position in page in time of drop,
+in pixels.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>togrid</span></b><span
+style='font-size:10.0pt'>, <b>torow</b>, <b>tocol</b> is destination cell to
+that is dropped. It can be null if dropped outside any grid</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>cellx</span></b><span
+style='font-size:10.0pt'> is drop position inside the destination cell, in
+pixels.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>accept</span></b><span
+style='font-size:10.0pt'> <i>(since 8.0)</i> is actual state, if the box can be
+dropped here.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Return false to suppress drop,
+true to permit drop or null to use actual <b>accept</b> state.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=API><b><span style='font-size:20.0pt'>Run API</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>object   </i></span><a
+name=GetGanttRun><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>GetGanttRun</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>  (<i>TRow
+</i><b>row</b>, <i>string</i> <b>col</b>)                                                             <span
+style='color:red'>new <b>6.1; </b>chg<b> 7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returns parsed GanttRun value
+for given <b>Gantt</b> cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returned object is two
+dimensional array with the parsed boxes in format:
+[[width,type,text,class,tip,id,group], [width,type,text,class,tip,id,group],
+... ]</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the boxes are not joined,
+every even item is <b>Empty</b> type box.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The width (first item) is in <b><i><s><span
+style='color:#0070C0'>pixels</span></s></i></b> <b><span style='color:red'>milliseconds</span></b>
+and without excluded parts. The type (second item) is always set. <i>In 7.0 the
+width units were changed from pixels to milliseconds.</i></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It contains also property <b><u>Start</u></b>
+as left position (in <b>milliseconds</b> from the first date in Gantt and
+without excluded parts) from the cell left edge. Regardless on the first box is
+start End/Bound type or not.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>object   </i></span><a
+name=SetGanttRun><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>SetGanttRun</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>  (<i>TRow
+</i><b>row</b>, <i>string</i> <b>col</b>, <i>object</i> <b>run</b>)                                            <span
+style='color:red'>new <b>6.1; </b>chg<b> 7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Writes parsed GanttRun into
+the Run source cell value for given <b>Gantt</b> cell.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt;color:red'>The <b>run</b>
+must be the object returned from <a href="#GetGanttRun">GetGanttRun</a>!</span></i><span
+style='font-size:10.0pt'>  <i>Never create new <b>run</b> object!</i></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>You can get the run object by
+<a href="#GetGanttRun">GetGanttRun</a>, modify its individual boxes and / or <b>Start</b>
+property and set it back by SetGanttRun. Never create new run object!</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>In 7.0 the width units were
+changed from pixels to milliseconds.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>object   </i></span><a
+name=GetGanttRunBox><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>GetGanttRunBox</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>   (<i>TRow
+</i><b>row</b>, <i>string</i> <b>col</b>, <i>int</i> <b>index</b>) or (<i>TRow </i><b>row</b>,
+<i>string</i> <b>col</b>, <i>string</i> <b>id</b>, <i>string</i> <b>group</b>=null)         <span
+style='color:red'>new <b>7.0</b></span><span style='color:#0070C0'>; upd <b>8.1</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returns given box from the
+Gantt Run cell. Returns null if there is no such box.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The cell can be identified by
+number <b>index</b> or by string <b>id</b>, optionally with string <b>group</b>.
+The <b>id</b> can be number, but must be in string type variable.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returns object with these
+properties:</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                <i>int</i> <b>Index</b>
+– index of the box inside its Run</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                <i>int</i> <b>Start</b>
+– start date in milliseconds</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                <i>int</i> <b>End</b>
+– end date in milliseconds, it is affected also by <a
+href="GanttCompute.htm#CGanttEndLast">GanttEndLast</a> value</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                <i>int</i> <b>Length</b>
+– box duration in milliseconds, without excluded dates</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                <i>int</i> <b>Left</b>
+– left side position in chart in pixels, including excluded dates and is
+affected by zoom</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                <i>int</i> <b>Width</b>
+– width of the box in chart in pixels, including excluded dates and is affected
+by zoom</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                <i>int</i> <b>Top</b>
+– <i>(new 8.1) </i>vertical position in row, in pixels, it returns the Top
+attribute of GanttRun, it does not measure anything</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                <i>int</i> <b>Height</b>
+– <i>(new 8.1) </i>height of the box, in pixels, it returns the Height
+attribute of GanttRun, it does not measure anything</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                <i>string</i>
+<b>Type</b>, <i>string</i> <b>Text</b>, <i>string</i> <b>Class</b>, <i>string</i>
+<b>Tip</b>, <i>string</i> <b>Id</b>, <i>string</i> <b>Group</b>, <i>string</i> <b>State</b>
+– attributes set for the box</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                <i>TRow</i> <b>Row</b>,
+<i>string</i> <b>Col</b> – parameters given to the function</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                <i>(new 7.1) </i>object[]
+<b>Data</b> – raw box data array (always starting by Width) for access also
+custom box attributes</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>To get a box on given
+position in pixels, use <a href="GanttAPI.htm#GetGanttXY">GetGanttXY</a> and
+call GetGanttRunBox with the RunIndex returned in object by GetGanttXY.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>int        </i></span><a
+name=SetGanttRunBox><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>SetGanttRunBox</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>    (<i>object</i>
+<b>box</b>, <i>string</i> <b>adjust</b>, <i>bool</i> <b>test</b> = 0)                        <span
+style='color:red'>new <b>7.0</b></span><span style='color:#0070C0'>; upd <b>8.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Changes given box. Shows
+changes in the cell. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returns <b>0</b> if the box
+does not exist, <b>1</b> if the box cannot be changed due adjust, <b>2</b> if
+the box is changed or can be changed.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The box must have set the <b>Row</b>
++ <b>Index</b> or <b>Id</b> (+<b>Row</b>+<b>Group</b>) attribute to identify
+it.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>adjust</span></b><span
+style='font-size:10.0pt'> is the way how other boxes will be moved when the box
+position or size is changed, comma separated list of keywords, see <a
+href="#CGanttRunAdjust">GanttRunAdjust</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>To change box size you should
+set only some position attributes: Start+End or Start+Length or End+Length or
+Left+Width.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>If you have box got by
+GetGanttRunBox and you want to change the <b>Left</b> or <b>Width</b>, you must
+null its Start, End and Length attributes.</span></i></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>(Since 8.0) </span></i><span
+style='font-size:10.0pt'>For <b>test </b>= 1 does not modify the run, just
+tests possibility of the change due adjust.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>bool      </i></span><a
+name=AddGanttRunBox><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>AddGanttRunBox</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>  (<i>object</i>
+<b>box</b>, <i>string</i> <b>adjust</b>, <i>string</i> <b>id</b>=null, <i>string</i>
+<b>group</b>=null, <i>bool</i> <b>test</b> = 0)         <span style='color:
+red'>new <b>7.0</b>; chg <b>8.0 </b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds the box to the run. If
+set <b>id</b> and <b>group</b>, adds it before the box with the given <b>id</b>+<b>group</b>
+or <b>id</b> as number index. If no such box, adds it to the end.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The box must have set at
+least <b>Row</b> attribute.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returns <b>0</b> if the box
+does not exist, <b>1</b> if the box cannot be added due adjust, <b>2</b> if the
+box is added or can be added.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>(Since 8.0)</span></i><span
+style='font-size:10.0pt'> If the box has set <b>Left</b> or <b>Start</b>
+attribute and no <b>id</b> is passed, the box is placed and sorted to given
+position, like the box is dragged.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>(Since 8.0) </span></i><span
+style='font-size:10.0pt'>For <b>test </b>= 1 does not modify the run, just
+tests possibility of the adding due adjust.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>bool      </i></span><a
+name=DelGanttRunBox><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>DelGanttRunBox</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>    (<i>object</i>
+<b>box</b>)                                                                             <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes given box. Shows
+changes in the cell. If the box does not exist, returns false, otherwise true.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The box must have set the <b>Index</b>
+or <b>Id</b> (<b>Group</b>) attribute to identify it.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Remember, if you are
+deleting more boxes found by FindGanttRunBoxes, you must iterate the array from
+end, to not break down the box indexes!</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>object   </i></span><a
+name=ScrollToGanttRunBox><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>ScrollToGanttRunBox</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>   (<i>object</i>
+<b>box</b>, <i>int</i> <b>type</b> = 0)                                               <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Scrolls the box into view.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The box must have set the <b>Index</b>
+or <b>Id</b> (<b>Group</b>) attribute to identify it.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>type</span></b><span
+style='font-size:10.0pt'> is <b>0</b> for the smallest scroll, <b>1</b> to show
+the box on the left, <b>2</b> to show the box centered.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>object   </i></span><a
+name=GetGanttRunBoxTag><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>GetGanttRunBoxTag</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>      (<i>object</i>
+<b>box</b>)                                                                 <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returns outer HTML tag of the
+given box.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The box must have set the <b>Index</b>
+or <b>Id</b> (<b>Group</b>) attribute to identify it.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can be used to mark the
+box by changing its className or inline style or its firstChild className or
+inline style.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It should <u>not</u> be used
+to change box position or size.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>object[] </i></span><a
+name=FindGanttRunBoxes><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>FindGanttRunBoxes</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>       (<i>object</i>
+<b>box</b>, <i>int</i> <b>type</b> = 0)                                              <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Searches grid for boxes with
+the same attributes as the given box.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returns array of the objects,
+the objects are the same as from <a href="#GetGanttRunBox">GetGanttRunBox</a>
+method.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Only these attributes are
+searched for: <b>Id</b>, <b>Group</b>, <b>Type</b>, <b>Text</b>, <b>Class</b>
+and <b>Tip</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the box contains <b>Row</b>
+property, searches only within this row.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>type</span></b><span
+style='font-size:10.0pt'>&amp;1 = <b>1</b> – without not expanded children, <b>type</b>&amp;2
+= <b>2</b> – only visible rows, </span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>type</span></b><span
+style='font-size:10.0pt'>&amp;4 = <b>4</b> – case insensitive search, <b>type</b>&amp;8
+= <b>8</b> – returns also boxes that contain given string(s)</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>type</span></b><span
+style='font-size:10.0pt'>&amp;16=<b>16</b> – searches only editable runs
+(GanttEdit=’run’)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API event         </span></b><i><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>bool      </span></i><a
+name=OnGanttRunBoxChanged><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>OnGanttRunBoxChanged</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>      (<i>TGrid</i>
+<b>grid</b>, <i>object</i> <b>box</b>, <i>object</i> <b>old</b>)                   <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Called after change in any
+Run box, before the changes are displayed.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It is called only when set <a
+href="#CGanttRunStates">GanttRunStates</a>=”1”. It is called only for box with <b>Id</b>
+set.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>box</b> is actual box
+settings like returned by <a href="#GetGanttRunBox">GetGanttRunBox</a>. The <b>box</b>
+is null for deleted box. It has already set its new <b>State</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>old</b> is original
+box settings before change. The <b>old</b> is null for added box. For deleted
+box it has set State=”<b>deleted</b>”, otherwise the original state.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When box is moved from one
+row to another, the event is called twice, first for adding the box to new row
+and next for deleting the box from old row.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If defined this event, all
+newly created boxes (except bounds and empty) get generated new id “new”+temp
+index.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Return true if you changed
+some parameter in <b>box</b> to save the change.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API event         </span></b><i><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>bool      </span></i><a
+name=OnGanttRunBoxNew><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>OnGanttRunBoxNew</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>      (<i>TGrid</i>
+<b>grid</b>, <i>object</i> <b>box</b>, <i>bool</i> <b>copy</b>)                                <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Called after new box was
+created by dragging or the box was copied by dragging with GanttRunMove=’Copy’.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>copy</span></b><span
+style='font-size:10.0pt'> is <b>1</b> if the box was copied, <b>0</b> if it was
+created new. The copied box has still its original <b>Id</b> (duplicate), so
+you should change it here.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If defined
+OnGanttRunBoxChanged, this event is called before OnGanttRunBoxChanged and the
+new box has already set its id “newXXX”</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>box</b> is actual box
+settings like returned by <a href="#GetGanttRunBox">GetGanttRunBox</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Return true if you changed
+some parameter in <b>box</b> to save the change.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Actions><b><span style='font-size:20.0pt'>Run actions</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsMoveGanttRun><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>MoveGanttRun</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>         Attached to <b>OnDragGantt</b>,
+cannot be attached anywhere else    <span style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Moves one run box by mouse
+dragging according to GanttRunMove and GanttRunAdjust settings</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Fails, if mouse is not above
+run box or the run box is fixed.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsResizeGanttRun><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>ResizeGanttRun</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>      Attached
+to <b>OnDragGantt</b>, cannot be attached anywhere else    <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Moves one run box by mouse
+dragging according to GanttRunResize and GanttRunAdjust settings</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Fails, if mouse is not above
+run box edge or the run box is solid or its edge is fixed.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsCreateGanttRun><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>CreateGanttRun</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>       Attached
+to <b>OnDragGantt</b>, cannot be attached anywhere else    <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Creates new run box by mouse
+dragging according to GanttRunNew, GanttRunResize and GanttRunAdjust settings.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Fails, if run box cannot be
+created here</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttRun><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttRun</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                   Not
+attached to any event                                             <span
+style='color:red'>new <b>6.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes one run box under
+mouse cursor</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no run
+box under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttRunGroup><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttRunGroup</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>   Not
+attached to any event                                             <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes all boxes in actual
+row that have the same Group value as the box under mouse cursor </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttRunGroupAll><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>DeleteGanttRunGroupAll</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>         Not
+attached to any event                                 <span style='color:red'>new
+<b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes all boxes in the
+whole grid that have the same Group value as the box under mouse cursor </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttRunAll><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttRunAll</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'> </span><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'>...F</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>    Not
+attached to any event                                             <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes all boxes in the
+whole grid that have the same Group value as the box under mouse cursor </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsEditGanttRun><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>EditGanttRun</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>                          Attached
+to <b>OnDblClickGantt</b> event                             <span
+style='color:red'>new <b>6.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit text
+shown on the run box under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsEditGanttRunTip><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>EditGanttRunTip</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                  Not
+attached to any event                                            <span
+style='color:red'>new <b>6.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit text
+shown as tooltip for the run box under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsChooseGanttRunType><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>ChooseGanttRunType</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>   Not
+attached to any event                                             <span
+style='color:red'>new <b>6.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to choose type of
+the run box under mouse cursor. The possible run types are defined by <a
+href="GanttRun.htm#CGanttRunTypes">GanttRunTypes</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsChooseGanttRunGroupType><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>ChooseGanttRunGroupType</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>           Not
+attached to any event                     <span style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to choose type of
+all boxes in the actual row with the same Group value as box under mouse
+cursor. The possible run types are defined by <a
+href="GanttRun.htm#CGanttRunTypes">GanttRunTypes</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsChooseGanttRunGroupAllType><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>ChooseGanttRunGroupAllType</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>     Not
+attached to any event                     <span style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to choose type of
+all boxes in the whole grid with the same Group value as box under mouse
+cursor. The possible run types are defined by <a
+href="GanttRun.htm#CGanttRunTypes">GanttRunTypes</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsSetGanttRunPercent><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>SetGanttRunPercent</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                   Attached
+to <b>OnCtrlRightClickGantt</b> event         <span style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Changes % of completed to
+position under mouse cursor. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if mouse is not
+above Run bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsEditGanttRunPercent><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>EditGanttRunPercent</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                  Attached
+to <b>OnShiftRightClickGantt</b> event       <span style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit
+percentage completion of the run set by <a href="#CGanttRunComplete">GanttRunComplete</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsEditGanttRunText><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>EditGanttRunText</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                         Not
+attached to any event                                 <span style='color:red'>new
+<b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit the text
+for whole task in <a href="#CGanttRunText">GanttRunText</a></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsNewGanttRunMilestone><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>NewGanttRunMilestone</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'> Attached
+to <b>OnDblClickGantt</b> event                  <span style='color:red'>new <b>7.0</b></span> .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds new Run box with zero
+width and type Milestone. There can be more milestones defined by Run in one
+cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsNewGanttRunStop><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>NewGanttRunStop</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>             Attached
+to <b>OnDblClickGantt</b> event                  <span style='color:red'>new <b>7.0</b></span> .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds new Run box with zero
+width and type Stop (not movable milestone). There can be more milestones
+defined by Run in one cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Formulas><b><span style='font-size:20.0pt'>Run formulas</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>formula</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>            <i>int        </i></span><a
+name=ganttrunmaxend><b><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>ganttrunmaxend</span></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>    (<i>string</i>
+<b>ganttcol</b>)                                                                       <span
+style='color:red'>new <b>6.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Calculates maximal end date
+(in milliseconds) of all child Runs.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Used to get Run range of
+child Runs and show it as Main Bar.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>ganttcol</span></b><span
+style='font-size:10.0pt'> – column showing the Gantt chart, it should contain
+the <a href="#Run">Run</a> bars.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Example: &lt;I Calculated=&quot;1&quot;
+CalcOrder=&quot;GGanttStart,GGanttEnd&quot;
+GGanttStartFormula=&quot;ganttrunminstart('G')&quot;
+GGanttEndFormula=&quot;ganttrunmaxend('G')&quot;/&gt;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>formula</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>            <i>int        </i></span><a
+name=ganttrunend><b><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>ganttrunend</span></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>   (<i>string</i>
+<b>ganttcol</b>)                                                                                   <span
+style='color:red'>new <b>6.2</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Calculates end date (in
+milliseconds) of one Run.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>ganttcol</span></b><span
+style='font-size:10.0pt'> – column showing the Gantt chart, it should contain
+the <a href="#Run">Run</a> bars.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>formula</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>            <i>int        </i></span><a
+name=ganttrunminstart><b><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>ganttrunminstart</span></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>    (<i>string</i>
+<b>ganttcol</b>)                                                                       <span
+style='color:red'>new <b>6.2</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Calculates minimal start date
+(in milliseconds) of all child Runs.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Used to get Run range of
+child Runs and show it as Main Bar.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>ganttcol</span></b><span
+style='font-size:10.0pt'> – column showing the Gantt chart, it should contain
+the <a href="#Run">Run</a> bars.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Example: &lt;I Calculated=&quot;1&quot;
+CalcOrder=&quot;GGanttStart,GGanttEnd&quot;
+GGanttStartFormula=&quot;ganttrunminstart('G')&quot;
+GGanttEndFormula=&quot;ganttrunmaxend('G')&quot;/&gt;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>formula</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>            <i>int        </i></span><a
+name=ganttrunstart><b><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>ganttrunstart</span></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'> (<i>string</i>
+<b>ganttcol</b>)                                                                                   <span
+style='color:red'>new <b>6.2</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Calculates start date (in
+milliseconds) of one Run.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>ganttcol</span></b><span
+style='font-size:10.0pt'> – column showing the Gantt chart, it should contain
+the <a href="#Run">Run</a> bars.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>formula</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>            <i>int        </i></span><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'>ganttrunduration</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>     (<i>string</i>
+<b>ganttcol</b>)                                                                       <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Calculates duration of the
+run, without empty spaces and start/end boxes.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returns value in
+GanttDataUnits.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>ganttcol</span></b><span
+style='font-size:10.0pt'> – column showing the Gantt chart, it should contain
+the <a href="#Run">Run</a> bars.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+</div>
+
+</body>
+
+</html>
