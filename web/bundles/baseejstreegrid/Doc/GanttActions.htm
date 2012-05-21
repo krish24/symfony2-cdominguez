@@ -1,0 +1,1089 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1250">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>TreeGrid - Gantt chart</title>
+
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+span.apple-style-span
+	{mso-style-name:apple-style-span;}
+span.apple-converted-space
+	{mso-style-name:apple-converted-space;}
+@page WordSection1
+	{size:841.9pt 595.3pt;
+	margin:42.55pt 70.9pt 42.55pt 70.9pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+<div class=WordSection1>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:16.0pt'>TreeGrid v<span style='color:blue'>6.6</span></span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:36.0pt'>Interactive Gantt chart</span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-size:10.0pt'><a href="Index.html">TreeGrid documentation index</a></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><span style='font-size:10.0pt;
+color:black'>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><span style='font-size:10.0pt;
+color:black'>The Gantt chart is interactive, every setting can be also changed
+by mouse inside the Gantt chart. What can be changed by a user is controlled by
+<a href="#GanttEdit">GanttEdit</a>.</span></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><i><span style='font-size:10.0pt'>All
+the mouse controlling actions can be fully customized in &lt;Actions/&gt; tag,
+you can specify what mouse event will provide which action. Also for every row
+can be specified what can be changed by a user (main task bar, milestone, flow
+bars, run bars, flags, dependencies, resources).</span></i></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><b><i><span style='font-size:
+10.0pt;color:#0A7EA4'>New main (task) bar, flow bars and run bars</span></i></b></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>are created
+by mouse dragging on empty Gantt space. The flow bar is created when the main
+bar already exists.</span></span><span class=apple-converted-space><span
+style='font-size:10.0pt;color:black'>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><b><i><span style='font-size:
+10.0pt;color:#0A7EA4'>New milestone</span></i></b></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>is created by
+double click or from popup menu when neither milestone nor main bar exists.</span></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><b><i><span style='font-size:
+10.0pt;color:#0A7EA4'>New flag</span></i></b></span><span
+class=apple-converted-space><b><span style='font-size:10.0pt;color:black'>&nbsp;</span></b></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>is created by
+double click anywhere except the main bar or milestone or from popup menu.</span></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+style='font-size:10.0pt;color:black'><br>
+</span><span class=apple-style-span><b><i><span style='font-size:10.0pt;
+color:#0A7EA4'>Main bar, flow bars and run bars are resized</span></i></b></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>by dragging
+their edges.</span></span><span class=apple-converted-space><span
+style='font-size:10.0pt;color:black'>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><b><i><span style='font-size:
+10.0pt;color:#0A7EA4'>Main bar, flow bars, run bars, milestone and flags are
+moved</span></i></b></span><span class=apple-converted-space><b><span
+style='font-size:10.0pt;color:black'>&nbsp;</span></b></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>by mouse
+dragging.</span></span><span class=apple-converted-space><span
+style='font-size:10.0pt;color:black'>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><b><i><span style='font-size:
+10.0pt;color:#0A7EA4'>Run bars</span></i></b></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'> can be
+copied or moved between rows or grids by mouse dragging, according to the Run
+settings.</span></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><b><i><span style='font-size:
+10.0pt;color:#0A7EA4'>Main bar, flow bars are deleted</span></i></b></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>by resizing
+their width to zero or by ctrl + click or from popup menu.</span></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><b><i><span style='font-size:
+10.0pt;color:#0A7EA4'>Run bars are deleted</span></i></b></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>by resizing
+their width to zero or from popup menu.</span></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><b><i><span style='font-size:
+10.0pt;color:#0A7EA4'>Milestone and flags are deleted</span></i></b></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>by ctrl +
+click or from popup menu.</span></span><span class=apple-converted-space><span
+style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+style='font-size:10.0pt;color:black'><br>
+</span><span class=apple-style-span><b><i><span style='font-size:10.0pt;
+color:#0A7EA4'>Resources are changed</span></i></b></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>by double
+click to main bar or milestone or from popup menu.</span></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><b><i><span style='font-size:
+10.0pt;color:#0A7EA4'>Flag text is changed</span></i></b></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>by double
+click to the flag or from popup menu.</span></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><b><i><span style='font-size:
+10.0pt;color:#0A7EA4'>The percent completed is set</span></i></b></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>by ctrl +
+right click to main bar or from popup menu.</span></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+style='font-size:10.0pt;color:black'><br>
+</span><span class=apple-style-span><b><i><span style='font-size:10.0pt;
+color:#0A7EA4'>New dependencies</span></i></b></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>are created
+by dragging from starting to ending main bar or milestone. Dragging left half
+of main bar creates 's' and right half 'f' dependency type.</span></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><b><i><span style='font-size:
+10.0pt;color:#0A7EA4'>Dependencies are deleted</span></i></b></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>by ctrl +
+click to the ending or starting point next to main bar (the ending dependencies
+are deleted first) or by deleting main bar or from popup menu.</span></span><span
+style='font-size:10.0pt;color:black'><br>
+<span class=apple-style-span>On the right click is displayed the</span><span
+class=apple-converted-space>&nbsp;</span></span><span class=apple-style-span><b><i><span
+style='font-size:10.0pt;color:#0A7EA4'>popup menu</span></i></b></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>with the
+mentioned options. The options set is dependent on what is clicked.</span></span><span
+style='font-size:10.0pt;color:black'><br>
+</span><span class=apple-style-span><b><i><span style='font-size:10.0pt;
+color:#0A7EA4'>Every change can be undone</span></i></b></span><span
+class=apple-converted-space><span style='font-size:10.0pt;color:black'>&nbsp;</span></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>by Ctrl+Z or
+redone by Ctrl+Y (the grid must be focused) and have set &lt;Cfg <a
+href="Undo.htm#CfgUndo">Undo</a>=’1’/&gt;.</span></span><span style='font-size:
+10.0pt;color:black'><br>
+The Gantt chart actions are attached to events in </span><b><span
+style='font-size:16.0pt;color:#3366FF'>&lt;Actions/&gt;</span></b><span
+style='font-size:10.0pt;color:black'> tag. The default settings see in
+&lt;Actions/&gt; tag in <b>Defaults.xml</b> file.</span></p>
+
+<p class=MsoNormal><span lang=CS>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Edit><b><span style='font-size:20.0pt'>Edit settings</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string[]</i>
+ </span><a name=CGanttEdit><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttEdit</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>            [“all”]                                                                              
+<span style='color:red'>renamed <b>6.0</b></span> <span style='color:blue'>upd <b>6.4       </b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Which parts can be edited /
+moved / changed by user. Comma separated list of flag names, case insensitive.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>All</span></b><span
+style='font-size:10.0pt'>                          All Gantt items are editable
+/ movable</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Main</span></b><span
+style='font-size:10.0pt'>                     Main bars and milestones can be
+created, deleted and modified directly in Gantt chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Flow</span></b><span
+style='font-size:10.0pt'>                      Flow bars can be created,
+deleted and modified directly in Gantt chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Run</span></b><span
+style='font-size:10.0pt'>                        Run bars can be created,
+deleted and modified directly in Gantt chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Flags</span></b><span
+style='font-size:10.0pt'>                     Flags can be created, deleted,
+moved and modified directly in Gantt chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Points</span></b><span
+style='font-size:10.0pt'>                    <i>(new 6.4)</i> Points can be
+created, deleted, moved and modified directly in Gantt chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Constraints</span></b><span
+style='font-size:10.0pt'>          <i>(new 6.3)</i> Constraints can be created,
+deleted and moved directly in Gantt chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Dependency</span></b><span
+style='font-size:10.0pt'>         Dependency lines can be created and deleted
+directly in Gantt chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>DependencyTypes</span></b><span
+style='font-size:10.0pt'>             <i>(new 6.3)</i> Dependency type can be
+set by dragging to different bar edge (ss,sf,fs,ff)</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>DependencyLags</span></b><span
+style='font-size:10.0pt'>               <i>(new 6.3)</i> Dependency lag can be
+changed</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Resources</span></b><span
+style='font-size:10.0pt'>            Resources can be assigned or entered
+directly in Gantt chart</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>bool</i>
+     </span><a name=CGanttAdding><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttAdding</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>    [1]                                                                                              
+        <span style='color:red'>new</span> <b><span style='color:red'>6.4</span></b>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If new Gantt objects can be
+added to the chart</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>bool</i>
+     </span><a name=CGanttDeleting><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttDeleting</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> [1]                                                                                              
+        <span style='color:red'>new</span> <b><span style='color:red'>6.4</span></b>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If Gantt objects can be
+deleted from the chart</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>int</i>
+       </span><a name=CGanttResizeDelete><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttResizeDelete</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> [1]                                                                                  
+        <span style='color:red'>new</span> <b><span style='color:red'>6.1</span></b>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the Main, Flow and Run
+bars can be deleted by resizing them to zero width.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'> – no, <b>1</b> – yes, <b>2</b> – show confirm message</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>int</i>
+       </span><a name=CGanttCheck><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttCheck</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>      [3]                                                                                           <span
+style='color:red'>new <b>6.3</b>;</span><span style='color:#0070C0'>upd <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Check if Gantt source cell
+change by a user edit is correct.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'> – no, <b>1</b> restrict incorrect changes, <b>2</b> –
+alert warning and restrict incorrect changes, <b>3</b> – <i>(new 7.0) </i>alert
+warning by message timeout</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It checks all dates to be
+within constraints, circular dependencies, percentage complete, negative
+duration, End&gt;Start</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>int</i>
+       </span><a name=CGanttCheckTime><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttCheckTime</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>     [2000]                                                                                      <span
+style='color:red'>new <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Time in milliseconds, how
+long will be displayed alert message for <a href="#CGanttCheck">GanttCheck</a>
+= ‘3’</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>bool</i>
+     </span><a name=CGanttEditStartMove><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttEditStartMove</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>          [1]                                                                      
+        <span style='color:red'>new <b>6.5</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>0</b>, editing
+start resizes the task (preserves end and changes duration)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>1</b>, editing
+start moves the task (changes end and preserves duration)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>int</i>
+       </span><a name=CGanttHover><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttHover</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       [1]                                                                                             
+<span style='color:red'>renamed <b>6.0</b></span>            .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the Gantt items under
+mouse cursor will be highlighted.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'> – never, <b>1</b> – only when it is editable /
+movable, <b>2</b> – always</span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Dragging><b><span style='font-size:20.0pt'>Dragging
+actions</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span lang=CS>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDragGantt><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>DragGantt</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>          Attached to <b>OnDragGantt</b>
+event, cannot be attached elsewhere                         .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Universal action for dragging
+in Gantt chart. Changes Gantt chart content by mouse dragging. It can be used
+only for <b>OnDragGantt</b> event.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When mouse is above bar edge,
+it resizes the bar horizontally. When the bar is resized to width 0, it is
+deleted (if set <a href="#CGanttResizeDelete">GanttResizeDelete</a>). The Flow
+bar edge has precedence to Main bar. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When mouse is above bar but
+not above its edge, it moves the bar horizontally. </span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>The
+Flow bar edge has precedence to Main bar and milestone. The flag has precedence
+to Flow bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When moving Main bar and
+creating dependencies is permitted, mouse must be always above the actual row,
+otherwise dependency is being created.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When mouse is above empty
+place, it creates and resizes new Main bar. If the Main bar already exists in
+the row, it creates and resizes new Flow bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When mouse is above milestone
+or flag, it moves the milestone or flag to the new position in the same row.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When mouse is above Main bar
+but not above its edge and dragging is done to another row, it connects
+dependency line with another Main bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                Connects
+always from the first bar to the second bar. When dependency types
+(ss,sf,fs,ff) are permitted, the left half of bar specifies ‘s’, the right ‘f’.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>You can specify &lt;Actions OnDragGantt=’DragGantt’/&gt;
+to provide all Gantt dragging to single drag or you can specify individual drag
+actions separately like: </span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>&lt;Actions
+OnDragGantt=&quot;DragGanttResize OR DragGanttFlag&quot;
+CtrlDragGantt=&quot;DragGanttNew&quot; ShiftDragGantt=&quot;DragGanttDependency&quot;/&gt;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsGanttResize><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>DragGanttResize</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>                 Not attached
+to any event, can be attached to <b>OnDragGantt</b> only      .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Resizing bar action from <b>DragGantt</b>.
+It can be used only for <b>OnDragGantt</b> event.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When mouse is above bar edge,
+it resizes the bar horizontally. When the bar is resized to width 0, it is
+deleted. The Flow bar edge has precedence to Main bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDragGanttNew><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>DragGanttNew</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>           Not attached to
+any event, can be attached to <b>OnDragGantt</b> only            .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Creating new bar action from <b>DragGantt</b>.
+It can be used only for <b>OnDragGantt</b> event.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Creates and resizes new Main
+bar. If the Main bar already exists in the row, it creates and resizes new Flow
+bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDragGanttMove><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>DragGanttMove</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>        Not attached to any
+event, can be attached to <b>OnDragGantt</b> only            .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Moving bar, milestone or flag
+action from <b>DragGantt</b>. It can be used only for <b>OnDragGantt</b> event.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When mouse is above bar,
+milestone or flag, it moves the bar, milestone or flag to the new position in
+the same row.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDragGanttDependency><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DragGanttDependency</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>              Not
+attached to any event, can be attached to <b>OnDragGantt</b> only        .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Connects Gantt chart row with
+another row by dependency line, by mouse dragging. It can be used only for <b>OnDragGantt</b>
+event.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Connects always from the
+first Main bar to the second Main bar.  </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When dependency types
+(ss,sf,fs,ff) are permitted, the left half of bar and the left side specifies
+‘s’, the right half of bar and right side specifies ‘f’.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Deleting><b><span style='font-size:20.0pt'>Deleting
+actions</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttConstraint><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>DeleteGanttConstraint</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>   Attached
+to <b>OnCtrlClickGantt</b> event                              <span
+style='color:red'>new <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes the constraint under
+mouse cursor</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no
+constraint under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttConstraints><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>DeleteGanttConstraints</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>            Not
+attached to any event                                 <span style='color:red'>new
+<b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes all constraint in the
+actual row</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no
+constraint in the row.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttFlag><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttFlag</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                   Attached
+to <b>OnCtrlClickGantt</b> event                                         .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes one flag under mouse
+cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no flag
+under mouse cursor</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttPoint><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttPoint</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                Attached
+to <b>OnCtrlClickGantt</b> event                             <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes the point under mouse
+cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no point
+under mouse cursor</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttFlow><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttFlow</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                  Attached
+to <b>OnCtrlClickGantt</b> event                                          .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes one Flow bar under
+mouse cursor</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no Flow
+under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttMain><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttMain</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                  Attached
+to <b>OnCtrlClickGantt</b> event                                          .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes Main bar if it is
+under mouse cursor</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is not Main
+bar under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttDependency><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>DeleteGanttDependency</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>          Attached
+to <b>OnCtrlClickGantt</b> event                             .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes one dependency line
+ending under mouse cursor. The dependency is under mouse cursor only next to
+the Main bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If there are more
+dependencies under mouse cursor, first are deleted incoming dependencies and if
+no incoming dependency under mouse cursor, the outcoming dependencies are
+deleted. Other order is not specified.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no dependency
+ending (start or end) is under mouse cursor</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttDependencies><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>DeleteGanttDependencies</span></u></b></a><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'> </span></b><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'>...F</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>        Attached
+to <b>OnCtrlClickGantt</b> event                  .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes all incoming and
+outcoming dependencies from actual or focused Gantt cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no
+dependency from and to the Gantt cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttAll><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttAll</span></u></b></a><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'> </span></b><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'>...F</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>              Not
+attached to any event                                                        .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes all Gantt items from
+the actual or focused Gantt cell, including all dependencies.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttBase><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttBase</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                 Attached
+to <b>OnCtrlClickGantt</b> event                             <span
+style='color:red'>new <b>6.6</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes or undeletes <a
+href="GanttCompute.htm#CGanttBase">GanttBase</a> when clicked above the line.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Undelete means setting it to
+automatically calculated value.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttFinish><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttFinish</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>              Attached
+to <b>OnCtrlClickGantt</b> event                             <span
+style='color:red'>new <b>6.6</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes or undeletes <a
+href="GanttCompute.htm#CGanttFinish">GanttFinish</a> when clicked above the
+line.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Undelete means setting it to
+automatically calculated value.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Changing><b><span style='font-size:20.0pt'>Changing
+actions</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsSetGanttPercent><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>SetGanttPercent</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                 Attached
+to <b>OnCtrlRightClickGantt</b> event                                 .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Changes % of completed to
+position under mouse cursor. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if mouse is not
+above Main bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsEditGanttText><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>EditGanttText</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>             Attached to <b>OnDblClickGantt</b>
+event                                          <span style='color:red'>new <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit tooltip
+text of main bar or milestone under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsEditGanttFlowText><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>EditGanttFlowText</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'> Attached
+to <b>OnDblClickGantt</b> event                                          <span
+style='color:red'>new <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit tooltip
+text of real flow bar under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsEditGanttFlag><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>EditGanttFlag</span></u></b></a><b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'> </span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>            Attached
+to <b>OnDblClickGantt</b> event                                                     .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit text of
+flag under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is not flag
+under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsChooseGanttFlagIcon><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>ChooseGanttFlagIcon</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>    Not
+attached to any event                                             <span
+style='color:red'>new <b>6.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to choose icon of
+the flag under mouse cursor. The possible icons are defined by <a
+href="GanttObjects.htm#CGanttFlagIconList">GanttFlagIconList</a> and <a
+href="GanttObjects.htm#CGanttFlagIconNames">GanttFlagIconNames</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsEditGanttDependencyLag></a><a name=EditGanttDependencyLag><b><u><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'>EditGanttDependencyLag</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                  Attached
+to <b>OnDblClickGantt</b> event      <span style='color:red'>new <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit value of
+dependency lag. A user must click to start of dependency near to (but not to)
+main bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>By default is the action
+attached to event <b>OnDblClickGantt</b> (double click to Gantt cell).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no
+dependency start under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsNewGanttMilestone><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>NewGanttMilestone</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>           Attached
+to <b>OnDblClickGantt</b> event                                         .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds new milestone defined by
+GanttStart on mouse position, only when the cell has neither main bar nor
+milestone</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is already
+milestone or main bar in the cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsNewGanttEndMilestone><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>NewGanttEndMilestone</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>             Not
+attached to any event                                <span style='color:red'>new
+<b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds new milestone defined by
+GanttEnd on mouse position, only when the cell has neither main bar nor
+milestone</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is already
+milestone or main bar in the cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsNewGanttFlag><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>NewGanttFlag</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>             Attached to <b>OnDblClickGantt</b>
+event                                                     .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds new flag on mouse
+position and lets a user edit its text.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsNewGanttPoint><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>NewGanttPoint</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>          Attached to <b>OnDblClickGantt</b>
+event                                         <span style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds new point on mouse
+position.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsNewGanttConstraint><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>NewGanttConstraint</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>         Not
+attached to any event                                             <span
+style='color:red'>new <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds new constraint on mouse
+position.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Menu><b><span style='font-size:20.0pt'>Popup menu</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>By default is the Gantt menu
+shown on right click on the Gant item.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It contains menu items
+available for the click location, for the clicked Gantt item.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It is possible to add new
+menu items by <a href="#CMenu">Menu</a> attribute.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsGanttMenu></a><a name=GanttMenu><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>GanttMenu</span></u></b></a><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'>     </span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>Attached
+to <b>OnRightClickGantt</b> event                                                              .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Shows popup menu with
+available actions for given clicked point in the Gantt cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt; &lt;cell&gt;       </span></b><i><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>string</span></i><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> [<b>*</b>]
+</span><a name=CMenu><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>Menu</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                                                                                                                              <span
+style='color:red'>chg <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Context (popup) menu for the
+Gantt cell to add custom items to the default Gantt menu.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>This popup menu is displayed
+when user right clicks to cell. After user selects the <u>custom</u> menu item,
+the <a href="#OnContextMenu">OnContextMenu</a> event is called.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can be first character
+separated array of menu item names. They can contain any HTML code. Separator
+can be shown as item named ‘-‘</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Or it can be in standard <a
+href="Menu.htm">TreeGrid menu</a> format as complex menu with <b>sub levels</b>,
+<b>sub menus</b>, <b>columns</b> and so on.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>See also API <a
+href="Menu.htm#ShowMenu">ShowMenu</a> function to show custom menu from
+JavaScript.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>To hide some default menu
+item set its text in &lt;Lang&gt;&lt;Gantt&gt;&lt;/Lang&gt; to empty string.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The predefined menu item
+texts are defined in Text.xml, in &lt;Lang&gt;&lt;Gantt&gt;&lt;/Lang&gt;:</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>DelGanttDepStart=&quot;Disconnect
+line to &amp;lt;b style='color:#00AA00;'&gt; %d&amp;lt;/b&gt;&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>DelGanttDepEnd=&quot;Disconnect
+line from &amp;lt;b style='color:blue;'&gt; %d&amp;lt;/b&gt;&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>DelAllGanttDep=&quot;Disconnect
+all dependency lines&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>DelGanttMainDep=&quot;Delete
+main bar and dependencies&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>DelGanttMain=&quot;Delete
+main bar&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>DelGanttMilestoneDep=&quot;Delete
+milestone and dependencies&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>DelGanttMilestone=&quot;Delete
+milestone&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>SetGanttPercent=&quot;Update
+completed status to selected point&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>EditGanttPercent=&quot;Enter
+completed status&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>DelGanttFlow=&quot;Delete
+real flow&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>DelGanttFlowPart=&quot;Delete
+selected real flow bar&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>DelGanttFlags=&quot;Delete
+all flags&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>DelGanttFlag=&quot;Delete
+selected flag&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>EditGanttFlag=&quot;Enter
+the flag text&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>ChooseGanttFlagIcon=&quot;Select
+the flag icon&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>DelGanttAll=&quot;Clear
+the gantt cell&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>NewGanttFlag=&quot;Add
+new flag to selected point&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>EditGanttResource=&quot;Change
+resources&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>AssignGanttResource=&quot;Assign
+resources&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>CorrectAllDependencies=&quot;Correct
+all dependencies in chart&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>CorrectRelatedDependencies=&quot;Correct
+related dependencies&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>EditGanttText=&quot;Enter
+the main bar information&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>EditGanttFlowText=&quot;Enter
+the real flow information&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>DelGanttRun=&quot;Delete
+all the boxes&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>DelGanttRunPart=&quot;Delete
+the box&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>EditGanttRun=&quot;Change
+the box text&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>EditGanttRunTip=&quot;Change
+the box information&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>ChooseGanttRunType=&quot;Select
+the box type&quot;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API event         </span></b><i><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>bool      </span></i><a
+name=OnGanttMenu><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>OnGanttMenu</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>           (<i>TGrid</i>
+<b>grid</b>, <i>TRow</i> <b>row</b>, <i>string</i> <b>col</b>, <i>TMenu </i><b>Menu</b>,
+<i>object</i> <b>GanttXY</b>)            <span style='color:red'>new <b>6.1</b></span> .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Called before the Gantt popup
+menu is displayed for the appropriate cell.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Menu</span></b><span
+style='font-size:10.0pt'> is TreeGrid JavaScript <a href="Menu.htm">TMenu</a>
+object, here can be changed, items modified, added or deleted and so on.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>GanttXY</span></b><span
+style='font-size:10.0pt'> is object returned by <a
+href="GanttAPI.htm#GetGanttXY">GetGanttXY</a> method and contains information
+about the Gantt bar(s) under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Return true to cancel showing
+menu.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API event         </span></b><i><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>bool      </span></i><a
+name=OnContextMenu><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>OnContextMenu</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>     (<i>TGrid</i>
+<b>grid</b>, <i>TRow</i> <b>row</b>, <i>string</i> <b>col</b>, <i>string</i> <b>result</b>)                        <span
+style='color:red'>chg <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Called when a user clicks to <u>custom</u>
+item in Gantt context menu set by <a href="#CMenu">Menu</a> attribute.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>result is Value or Name of
+the clicked item or all value.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Return true to <u>not</u>
+close the menu.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+</div>
+
+</body>
+
+</html>

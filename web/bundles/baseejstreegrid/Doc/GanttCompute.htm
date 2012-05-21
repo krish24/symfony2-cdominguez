@@ -1,0 +1,2170 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1250">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>TreeGrid - Gantt chart</title>
+
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+span.apple-style-span
+	{mso-style-name:apple-style-span;}
+span.apple-converted-space
+	{mso-style-name:apple-converted-space;}
+@page WordSection1
+	{size:841.9pt 595.3pt;
+	margin:42.55pt 70.9pt 42.55pt 70.9pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+<div class=WordSection1>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:16.0pt'>TreeGrid v<span style='color:blue'>6.6</span></span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:36.0pt'>Gantt compute</span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-size:10.0pt'><a href="Index.html">TreeGrid documentation index</a></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>TreeGrid Gantt chart support
+various features for project management computations.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Dependencies</span></b><span
+style='font-size:10.0pt'> between tasks. These dependencies can be
+automatically checked and corrected after any change in the Gantt.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                It is
+possible to set dependency <b>type</b> (ss,sf,fs,ff), dependency <b>lag</b> (reserved
+time between dependency start and its end), and dependency <b>float</b>
+(maximal permitted time between dependency start+lag and its end)</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Baseline</span></b><span
+style='font-size:10.0pt'> – base start date of the whole project, no task
+should start before this date, all first tasks should start on this date. </span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Finish</span></b><span
+style='font-size:10.0pt'> <b>date</b> – finish date of the whole project, no
+task should end after this date, used to calculate critical path.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Date constraints</span></b><span
+style='font-size:10.0pt'> – early start, late start, mandatory start, early
+end, late end, mandatory end – maximal and minimal end and start date of the
+task</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Critical path</span></b><span
+style='font-size:10.0pt'> – marks the tasks, that cannot move to future (be
+delayed) to <u>not</u> affect project finish date</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Summary tasks</span></b><span
+style='font-size:10.0pt'> – group of tasks and their start, end and duration is
+summary of its children, their changes affect also their children</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Calendars</span></b><span
+style='font-size:10.0pt'> (<b>holidays)</b> – excluding any dates or date
+ranges from the Gantt chart. These dates are ignored in calculations and can be
+highlighted or even hidden from display. Described in separate document <a
+href="GanttCalendars.htm">GanttCalendars</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Data><b><span style='font-size:20.0pt'>Data units</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Base units for calculations
+and duration</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>string</i>    </span><a
+name=CGanttDataUnits><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttDataUnits</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        [‘d’]                                                                             <span
+style='color:red'>chg <b>6.3</b></span><span style='color:blue'>;upd.6.6</span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Base unit time for Gantt data
+lengths, namely for attributes <a href="GanttObjects.htm#CGanttDuration">GanttDuration</a>,
+<a href="GanttObjects.htm#CGanttRun">GanttRun</a> (width) and <a
+href="#CGanttDescendants">GanttDescendants</a> and <a href="#CGanttAncestors">GanttAncestors</a>
+(lag, float). </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Also <b>material</b> <b>resources</b>
+are consumed per one GanttDataUnits.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If not set, the values are in
+milliseconds.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If used Gantt calendar (<a
+href="GanttCalendars.htm#CGanttExclude">GanttExclude</a> or <a
+href="GanttCalendars.htm#CGanttCalendar">GanttCalendar</a>), these units are in
+workdays, it means <u>without</u> the excluded dates.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>To these units are usually
+the values rounded for calculations (but not for display, here are used <a
+href="GanttDisplay.htm#CGanttUnits">GanttUnits</a>).</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 6.4</span></i><span
+style='font-size:10.0pt'> it can be also any number for <b>number units</b>, “<b>1</b>”as
+base number units, but it can be for example “0.5”, “2”, “10”, “0.2”, ...</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 6.6</span></i><span
+style='font-size:10.0pt'> it is also possible to replace the unit character by
+its value in milliseconds, for example ‘d’ is 24*60*60*1000=’86400000’. And use
+such way for some custom units, for example “8 hours” units can be set as “28800000”.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The supported units are:</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>‘<b>ms</b>’
+– milliseconds, “<b>ms10</b>” – 10 milliseconds, “<b>ms100</b>” – 100
+milliseconds,</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>‘<b>s</b>’
+– seconds, ‘<b>s2</b>’ – 2 seconds, ’<b>s5</b>’ – 5 seconds, ’<b>s10</b>’ – 10
+seconds, ’<b>s15</b>’ – 15 seconds, ’<b>s30</b>’ – 30 seconds,</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'> ‘<b>m</b>’
+- minutes, ‘<b>m2</b>’ – 2 minutes, ’<b>m5</b>’ – 5 minutes, ’<b>m10</b>’ – 10
+minutes, ’<b>m15</b>’ – quarters of hour, ’<b>m30</b>’ – halves of hour, </span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>’<b>h</b>’
+- hours, ’<b>h2</b>’ – 2 hours, ’<b>h3</b>’ – 3 hours, ’<b>h6</b>’ – quarters
+of day, ’<b>h8</b>’ – thirds of day, ’<b>h12</b>’ – halves of day, </span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>’<b>d</b>’
+- days, ’<b>w</b>’ – weeks (starting by Sunday), <b>’w1’</b> – weeks (starting
+by Monday, in Hirji starts by Saturday), </span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>’<b>M</b>’
+- months, ’<b>M3</b>’ – quarters of year, ’<b>M6</b>’ – halves of year, ’<b>y</b>’
+– years</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The “<b>ms</b>” units can be used
+for any integer values, not only dates.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;color:#339966'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>string</i>    </span><a
+name=CGanttDataModifiers><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttDataModifiers</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>          [‘’]                                                                               <span
+style='color:red'>new <b>6.3</b>       </span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Comma separated list of
+possible modifiers of <a href="#CGanttDataUnits">GanttDataUnits</a> in format
+name1:value1,name2:value2,....</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>These modifiers can be used
+to multiply or divide the duration value.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For example
+GanttDataUnits=’h’ GanttDataModifiers=”dd:24,d:8,h:1,m:1/60”
+GanttDuration=”7d”. It means the 7d value is 56 hours (7x8)</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Remember the difference
+between these custom modifiers and TreeGrid Gantt units. The custom modifiers
+can be used only for duration set in data units and multiply the value. The
+Gantt units are used in other settings and represent fixed size. The Gantt
+units cannot be renamed.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>int</i>        </span><a
+name=CGanttEndLast><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttEndLast</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>           [1]                                                                               <span
+style='color:red'>new <b>6.3</b></span><span style='color:blue'>;upd.8.1</span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>1</b>, ending
+date (<a href="GanttObject.htm#CGanttEnd">GanttEnd</a>, second date in <a
+href="GanttObject.htm#CGanttFlow">Flow</a> or <a href="#CGanttRun.htm">Run</a>)
+means the last included date. </span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>(Since 8.1) </span></i><span
+style='font-size:10.0pt'>If set to <b>2</b>, it is used also for <a
+href="#CGanttFinish">GanttFinish</a>, <a href="#CGanttMaxEnd">GanttMaxEnd</a>
+and <a href="#CGanttMinEnd">GanttMinEnd</a>.</span></p>
+
+<p class=MsoNormal style='text-align:justify'><span style='font-size:10.0pt'>It
+means the ending date is always increased for one <a href="#CGanttDataUnits">GanttDataUnits</a>
+unit for display and compute Gantt chart.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For example range
+“1/1/2000~1/3/2000” with units ‘d’ (days) will be <b>3</b> days for
+GanttEndLast=’1’ and <b>2</b> days for GanttEndLast=’0’.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Dependencies><b><span style='font-size:20.0pt'>Defining<span
+style='color:blue'> dependencies</span></span></b></a></p>
+
+</div>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:10.0pt'>Dependencies between tasks</span></b><span
+style='font-size:10.0pt'> - <i>lines and arrows between <b>main bars</b>, <b>milestones</b>,
+<b>run</b> or <b>flow</b></i></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span style='font-size:10.0pt'>The
+dependencies are defined in <a href="#CGanttDescendants">GanttDescendants</a>
+as next dependencies or in <a href="#CGanttAncestors">GanttAncestors</a> as
+previous dependencies or in both (they are mirrored).</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 6.3</span></i><span
+style='font-size:10.0pt'> the dependencies can be connected also to <b>Run</b> or
+<b>Flow</b>, see <a href="#CGanttDependencyObjects">GanttDependencyObjects</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>There are supported four <b>dependency
+types</b> (<b>fs</b> finish-start, <b>ss</b> start-start, <b>sf</b>
+start-finish, <b>ff</b> finish-finish).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the dependency start is
+different from the dependency end (in time), the dependency can be marked as
+incorrect and shown in different color (usually in red), according to the <a
+href="#CGanttIncorrectDependencies">GanttIncorrectDependencies</a> setting.</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>The
+incorrect dependencies can be automatically corrected by moving the task to
+future. There is also available method to correct all incorrect dependencies in
+grid or for the specified task.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>You can correct all incorrect
+dependencies automatically by setting <a href="#CGanttCorrectDependencies">GanttCorrectDependencies</a></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Every dependency can have
+specified a <b>lag</b> – reserved time between dependency start and its end,
+the lag is used to check if the dependency is correct or not and when
+correcting dependencies.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Every dependency can have
+specified a <b>float</b> – maximal permitted time between dependency start+lag
+and its end , the float is used to check if the dependency is correct or not
+and when correcting dependencies.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttDescendants><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttDescendants</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                       Gantt
+source – column name or exact value      <span style='color:red'>new <b>6.3       </b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>A list of row ids of (next)
+dependent tasks, separated by semicolon. The dependencies are shown as arrows.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can contain also
+information about dependency <b>type</b>, <b>lag</b> and <b>float</b>. The
+complete format is <b><span style='color:blue'>id</span>type+/-lag!float</b></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Type</span></b><span
+style='font-size:10.0pt'> sets edges of task connected, possible dependency
+types: <b>SS</b> (start-&gt;start), <b>SF</b> (start-&gt;end) <b><span
+style='color:blue'>FS</span></b> (end-&gt;start, <i>default</i>), <b>FF</b>
+(end -&gt; end)</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Lag</span></b><span
+style='font-size:10.0pt'> is reserved time between end of task (<a
+href="GanttObjects.htm#CGanttEnd">GanttEnd</a>) and dependency start, in<span
+style='color:#339966'> <a href="#CGanttDataUnits">GanttDataUnits</a></span> or
+with time unit character like +3d is three days. The default value of lag is <b>0</b>.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Float</span></b><span
+style='font-size:10.0pt'> is maximal permitted time between<span
+style='color:#339966'> </span>dependency start and dependency end, in<span
+style='color:#339966'> <a href="#CGanttDataUnits">GanttDataUnits</a>. </span>The
+dependencies that have the time between start and end larger than their float
+are marked as incorrect and the tasks should be corrected. If the value is
+missing (empty space after !), the float is unlimited. The default value of float
+is <b>empty</b> (unlimited) or <b>0</b> (strict), according to <a
+href="#CGanttIncorrectDependencies">GanttIncorrectDependencies</a> and <a
+href="#CGanttStrict">GanttStrict</a> setting. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Example: 10; 11ss; 12+3;
+13ff-1d; 14+22h!; 15sf-4!2 means in full notation: 10fs+0!0; 11ss+0!0;
+12fs+3!0; 13ff-1d!0; 14fs+22h!; 15sf-4!2</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since v6.3 replaces
+Dependencies, DependencyTypes and DependencyLags</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttAncestors><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttAncestors</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                              Gantt
+source – column name or exact value      <span style='color:red'>new <b>6.3       </b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>A list of row ids of previous
+tasks that this task depends on. The format is the same as <a
+href="#CGanttDescendants">GanttDescendants</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>One dependency between two
+tasks can be set in <b>GanttDescendants</b> of the first tasks or in <b>GanttAncestors</b>
+of the second tasks.<i> If in the grid there are both columns, they are
+mirrored, but it <b>slows down</b> the grid.</i></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The ancestors settings have
+only changed the task id, all other settings (type,lag,float) are the same as
+if the dependency is defined in descendants.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:silver'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:silver'>        <i>string    </i></span><a
+name=CGanttDependencies><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:silver'>GanttDependencies</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:silver'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:silver'>                                Gantt
+source – column name or exact value            <b><span style='color:red'>deleted
+6.3</span></b>.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Replaced by <a
+href="#CGanttDescendants"><span style='text-decoration:none'>GanttDescendants</span></a>.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;color:silver'>A list of row
+ids of (next) dependent tasks, separated by semicolon. The dependencies are
+shown as arrows. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;color:silver'>By default
+(depending on css style) are correct arrows in blue and incorrect arrows
+(start+lag &gt; end) are in red.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;color:silver'>Any task can be
+dependent on more others.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;color:silver'>The arrows start
+from this task and points to the tasks specified by dependencies ids. See also <a
+href="#CGanttDependencyTypes"><span style='color:silver'>GanttDependencyTypes</span></a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:silver'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:silver'>        <i>string    </i></span><a
+name=CGanttDependencyTypes><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:silver'>GanttDependencyTypes</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:silver'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:silver'>         [“fs”]     Gantt
+source – column name or exact value            <b><span style='color:red'>deleted
+6.3</span></b>.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Replaced by <a
+href="#CGanttDescendants"><span style='text-decoration:none'>GanttDescendants</span></a>.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;color:silver'>A list of
+dependency types for individual <a href="#CGanttDependencies"><span
+style='color:silver'>GanttDependencies</span></a>, separated by semicolon, case
+insensitive</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;color:silver'>Possible
+dependency types: <b>SF</b> (start-&gt;start), <b>SF</b> (start-&gt;end) <b>FS</b>
+(end-&gt;start, <i>default</i>), <b>FF</b> (end -&gt; end)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:silver'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:silver'>        <i>string    </i>
+</span><a name=CGanttDependencyLags><b><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:silver'>GanttDependencyLags</span></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:silver'>            [0]        Gantt
+source – column name or exact value            <b><span style='color:red'>deleted
+6.3</span></b>.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Replaced by <a
+href="#CGanttDescendants"><span style='text-decoration:none'>GanttDescendants</span></a>.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;color:silver'>A list of
+dependency lags for individual <a href="#CGanttDependencies"><span
+style='color:silver'>GanttDependencies</span></a>, separated by semicolon</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;color:silver'>The lag is
+reserved time between <a href="#CGanttEnd"><span style='color:silver'>GanttEnd</span></a>
+and dependency start, in <a href="#CGanttDataUnits"><span style='color:silver'>GanttDataUnits</span></a>.
+Can be column name or array of integers.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>int        </i></span><a
+name=CGanttMaxDependencies><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttMaxDependencies</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>          [100]                                                                           .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Maximum of rendered crossing
+dependencies. When the maximum is reached, some crossing dependencies will be
+rendered partially.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For large tables and specific
+sorting or grouping there can be thousands of crossing dependencies and it can
+lock the grid because it will be too slow to render.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>int        </i></span><a
+name=CGanttAllDependencies><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttAllDependencies</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>              [2]                                                       <span
+style='color:red'>new <b>6.6</b>; chg <b>8.0</b></span>.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'>             Shows dependencies between <b>visible</b>
+tasks. <i>It was default and only setting in TreeGrid prior 6.6!</i></span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>Correcting
+dependencies affects also only visible tasks and ignores all hidden
+dependencies, so it will give different results for different filters.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>1</span></b><span
+style='font-size:10.0pt'>             Shows all dependencies. The dependency
+between visible and hidden task will be unconnected and also other visual
+distortions can be displayed.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                Correcting
+dependencies affects always all tasks, so it does not depend on filter
+settings.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>2</span></b><span
+style='font-size:10.0pt'>             Shows dependencies between <b>visible</b>
+tasks, but calculates and corrects always <b>all</b> dependencies and tasks.<i>
+Added and default value since 8.0</i></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>bool      </i></span><a
+name=CGanttDeleteDependencies><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttDeleteDependencies</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>    [0]                                                                   <span
+style='color:red'>new <b>6.7</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>1</b> and a user
+deletes row, all dependencies to and from the row task will be deleted too.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>bool      </i></span><a
+name=CGanttDragDependenciesAlways><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttDragDependenciesAlways</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>  [0]                                                       <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For <b>1</b> when creating
+dependency by mouse dragging, it is possible to connect the dependency outside
+the bar(s), the dependency will be assigned to the nearest edge of the bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDragGanttDependency><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DragGanttDependency</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>             Attached
+to <b>OnDragGantt</b>, cannot be attached anywhere else   .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Connects Gantt chart row with
+another row by dependency line, by mouse dragging. It can be used only for <b>OnDragGantt</b>
+event.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Connects always from the
+first Main bar to the second Main bar.  </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When dependency types
+(ss,sf,fs,ff) are permitted, the left half of bar and the left side specifies
+‘s’, the right half of bar and right side specifies ‘f’.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttDependency><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>DeleteGanttDependency</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>          Attached
+to <b>OnCtrlClickGantt</b> event                             .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes one dependency line
+ending under mouse cursor. The dependency is under mouse cursor only next to
+the Main bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If there are more dependencies
+under mouse cursor, first are deleted incoming dependencies and if no incoming
+dependency under mouse cursor, the outgoing dependencies are deleted. Other
+order is not specified.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no
+dependency ending (start or end) is under mouse cursor</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttDependencies><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>DeleteGanttDependencies</span></u></b></a><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'> </span></b><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'>...F</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>        Attached
+to <b>OnCtrlClickGantt</b> event                  .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes all incoming and outgoing
+dependencies from actual or focused Gantt cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no
+dependency from and to the Gantt cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsEditGanttDependencyLag></a><a name=EditGanttDependencyLag><b><u><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'>EditGanttDependencyLag</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                  Attached
+to <b>OnDblClickGantt</b> event      <span style='color:red'>new <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit value of
+dependency lag. A user must click to start of dependency near to (but not to)
+main bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>By default is the action
+attached to event <b>OnDblClickGantt</b> (double click to Gantt cell).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no
+dependency start under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Correcting><b><span style='font-size:20.0pt'>Correcting<span
+style='color:blue'> dependencies</span></span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>int        </i></span><a
+name=CGanttIncorrectDependencies><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttIncorrectDependencies</span></u></b></a><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:yellow'>       </span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>[1]                                                       <span
+style='color:red'>new <b>6.3</b>       </span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Which dependencies are marked
+as incorrect.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'> – none</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>1</span></b><span
+style='font-size:10.0pt'> – only dependencies with start <b>before</b> end (it
+means that default dependency <a href="#CGanttDescendants">float</a> is <b>empty</b>
+= unlimited), see also <a href="#CGanttStrict">GanttStrict</a>.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>2</span></b><span
+style='font-size:10.0pt'> – <b>also</b> dependencies with start <b>after</b>
+end (it means that default dependency <a href="#CGanttDescendants">float</a> is
+<b>0</b> = strict)</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt;color:red'>This value is temporary
+set to <b>0</b> if units for compute exclude reach </span></i><i><span
+style='font-size:10.0pt'><a href="#CGanttMaxExclude">GanttMaxExclude</a><span
+style='color:red'> count (due too <b>low</b> <b>zoom</b> level).</span></span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>After change by API call
+GanttRefreshDependencies(<b>2</b>)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>bool      </i></span><a
+name=CGanttstrict><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttStrict</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>        [1]                    Saved
+to cookies, to avoid it set &lt;<b>Cfg</b> <b>GanttLap</b>=’1’/&gt;  <span
+style='color:red'>new <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>How it behaves when
+correcting dependencies, both ways, manual and automatic correcting.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'>             Restricts tasks to not start before <a
+href="#CGanttBase">GanttBase</a>, but even the first tasks can start later.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                The tasks need
+<u>not</u> be close to their ancestors.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>1</span></b><span
+style='font-size:10.0pt'>             Forces all first tasks (without incoming
+dependencies) to start directly on <a href="#CGanttBase">GanttBase</a> or at <a
+href="#CGanttMinStart">GanttMinStart</a>.</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>All
+next tasks are moved left as much as possible to be as close as possible to
+their ancestors.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>int        </i></span><a
+name=CGanttCorrectDependencies><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttCorrectDependencies</span></u></b></a><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:yellow'> </span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>[2]        Saved
+to cookies, to avoid it set &lt;<b>Cfg</b> <b>GanttLap</b>=’1’/&gt; <span
+style='color:red'>new <b>6.3</b> </span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If and how will be updated
+incorrect dependencies between tasks after task resize, move or dependency
+change.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The automatic correction
+moves the previous and next tasks, it never resizes tasks and never changes
+dependency.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set and a user deletes
+task containing dependencies, they are deleted too.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'> – no, <b>1</b> – automatic update all dependent
+tasks, <b>2</b> – ask user</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If Gantt chart contains some
+dependency errors already on start, they are not affected by this setting, you
+can correct them in API event like:</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                </span><span
+style='font-size:10.0pt;font-family:"Courier New"'>Grids.OnReady = function(G){
+G.ActionCorrectAllDependencies(); }</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>bool      </i></span><a
+name=CGanttCorrectDependenciesFixed><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttCorrectDependenciesFixed</span></u></b></a><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:yellow'> </span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>[0]       Saved
+to cookies, to avoid it set &lt;<b>Cfg</b> <b>GanttLap</b>=’1’/&gt; <span
+style='color:red'>new <b>6.3</b> </span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When automatically correcting
+dependencies after a task is moved or resized, for <b>1</b> it never moves this
+task, rather moves all the other tasks instead to correct the dependencies.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For <b>0</b> it works the
+same as manual correcting dependencies and can also move the changed task.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>int        </i></span><a
+name=CGanttCheckDependencies><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttCheckDependencies</span></u></b></a><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:yellow'>   </span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>[2]        Saved
+to cookies, to avoid it set &lt;<b>Cfg</b> <b>GanttLap</b>=’1’/&gt; <span
+style='color:red'>new <b>6.3</b></span><b><span style='color:blue'>;</span></b><span
+style='color:blue'>upd <b>6.7</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If and how will be checked
+circular dependencies between tasks.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If there is already some
+circular dependency among dependent tasks, the next one is always permitted.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'> – don’t check, <b>1</b> - restrict circular
+dependencies, <b>2</b> - ask user, <b>3</b> - (new 6.7) shows alert about the
+circular dependency</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>bool      </i></span><a
+name=CGanttFixComplete><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFixComplete</span></u></b></a><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:yellow'> </span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>[0]        Saved
+to cookies, to avoid it set &lt;<b>Cfg</b> <b>GanttLap</b>=’1’/&gt;  <span
+style='color:red'>new <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set, only not yet started
+tasks will be automatically corrected. The tasks with Complete&gt;0 will behave
+like with Early and Late Start constraints on its start date.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>After change by API call
+GanttRefreshDependencies(<b>2</b>)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:silver'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:silver'>                 <i>string    </i></span><a
+name=CGanttDependencyObjects><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:silver'>GanttDependencyObjects</span></u></b></a><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:silver'>    </span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:silver'>[&quot;Main&quot;]                                                     <span style='color:red'>deleted
+<b>6.4</b>            </span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Replaced by <a
+href="GanttObjects.htm#CGanttObject">GanttObject</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;color:silver'>Comma separated
+list of Gantt objects where can be attached dependencies (and the objects can
+be also moved to correct them). Case insensitive.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;color:silver'>Permitted
+objects are <b>Main</b>, <b>Flow</b>, <b>Run</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;color:silver'>If cell contains
+more of these objects, the first existing one from this list will be used.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>void      </i></span><a
+name=CorrectDependencies><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>CorrectDependencies</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>   (<i>TRow
+</i><b>row</b>, <i>string</i> <b>col</b>)                                                  <span
+style='color:red'>new <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Corrects all dependencies
+related to the given cell, only when set <a href="CGanttCorrectDependencies">GanttCorrectDependencies</a>
+(shows also confirm message for value 2).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Call it after some Gantt
+source, that affects dependencies, changes in another way than direct user
+interaction or edit.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API event</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>         <i>bool      </i></span><a
+name=OnCheckDependencies><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>OnCheckDependencies</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>          (<i>TGrid</i>
+<b>grid</b>, <i>TRow </i><b>row</b>, <i>string</i> <b>col</b>, <i>string</i> <b>newval</b>)            <span
+style='color:red'>new <b>6.3</b></span> .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Called to check newly created
+dependency by dragging.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Return false to not create
+the dependency.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>newval</span></b><span
+style='font-size:10.0pt'> is new value for the Gantt dependency, it contains
+all dependencies for the cell, <b>col</b> is Gantt column.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>object[] </i></span><a
+name=GetIncorrectDependencies><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:aqua'>GetIncorrectDependencies</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>  (<i>string</i>
+<b>col</b> = null)                                              <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returns array of all incorrect
+dependencies in grid. <b>col</b> is Gantt column.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The array items are also
+arrays with these items [source_row, dest_row, shift_strict, shift]. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>shift_strict </b>is
+expected shift in ms in GanttStrict mode, the <b>shift</b> is expected shift
+without strict mode. The <b>shift</b> can be 0.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>object [id] </i></span><a
+name=GetTasksToSchedule><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>GetTasksToSchedule</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>            (<i>TRow</i>
+<b>row</b> = null, <i>string</i> <b>col</b> = null, <i>TRow</i> [] <b>tasks</b>
+= null)      <span style='color:red'>new <b>7.1</b></span> .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returns array of tasks to be
+scheduled (moved) to satisfy the dependencies and constraints.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The returned array has such
+structure: { id1: [row1,move1], id2: [row2,move2], ... }</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Where the <b>idX</b> is the
+id of the row, <b>rowX</b> is the row object and <b>moveX</b> is the expected
+move of the task in milliseconds, positive to the left, negative to the right.
+In the <b>moveX</b> are holidays excluded.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It returns the tasks
+according to the actual scheduling settings (<a href="#CGanttStrict">GanttStrict</a>,
+<a href="#CGanttIncorrectDependencies">GanttIncorrectDependencies</a>, <a
+href="#CGanttFixComplete">GanttFixComplete</a>, <a href="#CGanttBase">GanttBase</a>,
+<a href="#CGanttBasePreferred">GanttBasePreferred</a>, <a
+href="#CGanttUseConstraints">GanttUseConstraints</a>), you can temporary change
+these settings to get differently scheduled tasks.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>It is <u>not</u> possible
+to temporary change the individual task dates, constraints or dependencies to
+use in this method.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set <b>row</b> and <a
+href="#CGanttCorrectDependenciesFixed">GanttCorrectDependenciesFixed</a> = 1,
+this tasks is scheduled to not move (to move all other dependent tasks instead)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>col</b> is the Gantt
+column, if not set, it is the first Gantt column in the chart</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>tasks</b> is an array
+of tasks to schedule. If not set and <b>row</b> is set, it schedules all tasks
+dependent on the <b>row</b>. If set neither <b>row</b> nor <b>tasks</b>, it
+schedules all tasks in the chart.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API event</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>         <i>bool</i>      </span><a
+name=OnCorrectDependencies><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:aqua'>OnCorrectDependencies</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>        (<i>TGrid</i>
+<b>grid</b>, <i>object[<b>id</b>]</i> <b>A</b>, <i>TRow[]</i> <b>R</b>, <i>bool</i>
+<b>error</b> ) <span style='color:red'>new <b>6.7</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Called when dependencies are
+being corrected.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>A</span></b><span
+style='font-size:10.0pt'> is array of objects with expected (but not yet done)
+move, it has such structure: A = { id1: [row1,move1], id2: [row2,move2], ... }</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Where the <b>idX</b> is the
+id of the row, <b>rowX</b> is the row object and <b>moveX</b> is the expected
+move of the task in milliseconds, positive to the left, negative to the right.
+In the <b>moveX</b> are holidays excluded.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It is possible to delete old
+or add new items into the <b>A</b>, to move another tasks.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>R</b> is array of all
+row objects that are checked in the group: R = [row1,row2, ...]. Do <u>not</u>
+modify this array.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>error</span></b><span
+style='font-size:10.0pt'> is set when the dependencies cannot be corrected.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Return false when the tasks
+cannot be corrected.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API event</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>         <i>bool</i>      </span><a
+name=OnCorrectDependenciesStart><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:aqua'>OnCorrectDependenciesStart</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>       (<i>TGrid</i>
+<b>grid</b>, <i>object[<b>id</b>]</i> <b>A</b>)                       <span
+style='color:red'>new <b>7.1</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Called before the
+dependencies are corrected.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Return true to cancel the
+correcting.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>A</b> is array with
+all errors to correct, see <a href="#OnCorrectDependencies">OnCorrectDependencies</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API event</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>         <i>bool</i>      </span><a
+name=OnCorrectDependenciesFinish><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:aqua'>OnCorrectDependenciesFinish</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>    (<i>TGrid</i>
+<b>grid</b>, <i>object[<b>id</b>]</i> <b>A</b>, <i>bool</i> <b>deperr</b>, <i>bool</i>
+<b>consterr</b>)          <span style='color:red'>new <b>7.1</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Called after the dependencies
+are corrected.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Return true to show any
+message when set <b>deperr</b> or <b>consterr</b>.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>deperr</span></b><span
+style='font-size:10.0pt'> is set if there are some dependency errors that
+cannot be corrected, <b>consterr</b> is set when there are constraint errors
+that cannot be corrected.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>A</b> is array with
+all errors to correct, see <a href="#OnCorrectDependencies">OnCorrectDependencies</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>formula</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>            <i>int        </i></span><a
+name=ganttdependencyerrors><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>ganttdependencyerrors</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>          (<i>string</i>
+<b>ganttcol</b>, <i>bool</i> text = 0)                           <span
+style='color:red'>new <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returns count of all
+incorrect dependencies in chart.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For text = 1 returns the
+whole text like “3 incorrect dependencies”</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsCorrectAllDependencies><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>CorrectAllDependencies</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";color:#339966;
+background:lime'>          </span><span style='font-size:10.0pt;font-family:
+"Arial","sans-serif";background:lime'>Not attached to any event<span
+style='color:#339966'>                                </span><span
+style='color:red'>new <b>6.0</b></span>       <span style='color:#339966'>.</span></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Corrects all incorrect
+dependencies by moving the task to future or to past.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The dependency is incorrect
+if the source date plus lag is after the destination date or before the
+destination date plus float.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The result of the call should
+be Gantt chart without any incorrect dependencies (all in blue).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>This method does not solve
+circular dependencies, in this case some dependencies can be left incorrect.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsCorrectDependencies><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>CorrectDependencies</span></u></b></a><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'> </span></b><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'>...F</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";color:#339966;
+background:lime'>       </span><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+background:lime'>Not attached to any event<span style='color:#339966'>                                </span><span
+style='color:red'>new <b>6.3</b></span>       <span style='color:#339966'>.</span></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Corrects dependencies related
+to the actual or focused row. It can move all the tasks except the actual or
+focused one.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Algorithm><b><span style='font-size:20.0pt'>Algorithm for
+correcting dependencies</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The correcting routine moves
+tasks to satisfy their dependencies and constraints. The tasks are never
+resized. The dependencies and constraints are never modified. The tasks are
+always moved as little as possible.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The correcting dependencies
+can be run automatically after user change in the Gantt chart or manually by
+clicking to Correct dependencies icon on toolbar (first icon) or by API. If the
+automatic correcting is run is controlled by <a
+href="#CGanttCorrectDependencies">GanttCorrectDependencies</a> attribute.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Both the ways (automatic
+&amp; manual) should lead to the same results except with settings <a
+href="#CGanttCorrectDependenciesFixed">GanttCorrectDependenciesFixed</a>=’<b>1</b>’,
+see the point <b>5</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The automatic correcting is
+run only for the group of tasks where the change happened, see point <b>1</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>1)</span></b><span
+style='font-size:10.0pt'> The tasks are split to groups according to their
+dependencies. All tasks in group are dependent only on tasks in this group. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The correcting is run
+independently for the individual groups.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If some group cannot be
+corrected because of circular dependencies, the whole group is remain
+unchanged, but the other groups are corrected normally.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>2)</span></b><span
+style='font-size:10.0pt'> All the tasks are moved to satisfy their date
+constraints (<a href="#CGanttMinStart">GanttMinStart</a>, <a
+href="#CGanttMaxStart">GanttMaxStart</a>, <a href="#CGanttMinEnd">GanttMinEnd</a>,
+<a href="#CGanttMaxEnd">GanttMaxEnd</a>) and base line (<a href="#CGanttBase">GanttBase</a>).
+The GanttBase is used only if GanttMinStart is not set.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set <a href="#CGanttStrict">GanttStrict</a>,
+the first tasks (without incoming dependencies) are forced to start on
+GanttMinStart or GanttBase except it violates the other constraints.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the task cannot satisfy
+all the constraints. the constraints are used in this order: MinStart, MaxEnd,
+MaxStart, MinEnd.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Setting <a
+href="#CGanttMinStart">GanttMinStart</a> and <a href="#CGanttMaxStart">GanttMaxStart</a>
+to the same date will create <b>mandatory</b> start and it forces the task to
+always start at this date. The same for mandatory end (with lower priority than
+mandatory start).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>3)</span></b><span
+style='font-size:10.0pt'> All tasks are moved to the <b>left</b> to satisfy
+their dependencies. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The task constraints are
+tested and never violated, except the <b>GanttStrict</b> constraint (see point <b>2</b>).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The dependencies that cannot
+be satisfied due constraint are left unchanged.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set <a href="#CGanttStrict">GanttStrict</a>,
+all dependencies are used like they have <a href="#CGanttDescendants">float</a>
+= <b>0</b> (means to <u>not</u> have any space between dependency start+lag and
+end), except the task move would violate another incoming dependency.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>4)</span></b><span
+style='font-size:10.0pt'> All tasks are moved to the <b>right</b> to satisfy
+the remaining dependencies.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The task constraints are
+still tested and never violated, except the <b>GanttStrict</b> constraint (see
+point <b>2</b>).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The dependency <a
+href="#CGanttDescendants">float</a> is always used as is.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If there is left any
+incorrect dependency after, all changes are rolled back and the group is marked
+as wrong.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>5)</span></b><span
+style='font-size:10.0pt'> If set <a href="#CGanttCorrectDependenciesFixed">GanttCorrectDependenciesFixed</a>
+and the changed task (the task changed by a user when applying automatic
+correcting) was moved due dependency error, it tries to move all other tasks to
+the other direction and cancel the move of the changed task.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It still preserves all
+constraints of all tasks, so this option has sense especially <u>without</u>
+set <a href="#CGanttStrict">GanttStrict</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>If there is neither set <a
+href="#CGanttStrict">GanttStrict</a> nor <a href="#CGanttBase">GanttBase</a>,
+the tasks are moved firstly to the <b>right</b> and secondly to the <b>left</b>,
+see points <b>3</b> and <b>4</b>.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=ProjectConstraints><b><span style='font-size:20.0pt'>Project
+date constraints</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Here are described project
+constraints <b>baseline</b> and <b>finish date</b> that can be changed by a
+user and are used in dependency and slack calculations.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For maximal and minimal
+bounds in the whole chart see <a href="GanttDisplay.htm#Zoom">Zoom options</a>
+– GanttChartMinStart, GanttChartMaxEnd, ...</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>string    </i></span><a
+name=CGanttBase><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttBase</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                Can
+be uploaded to server                                           <span
+style='color:red'>new <b>6.3</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Base start date of the whole
+Gantt chart. The tasks should not start before this date.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Can be set to date string in
+English notation or to count of milliseconds. For API is always converted to
+count of milliseconds since 1/1/1970.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If defined, all dependency
+corrections move tasks to left, but not before this date.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If <u>not</u> defined, all
+dependency corrections move tasks always to right.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>string    </i></span><a
+name=CGanttFinish><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFinish</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                             Can
+be uploaded to server                                           <span
+style='color:red'>new <b>6.6</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Finish date of the whole
+project.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When not set (by default) the
+finish date is the finish date of the most right task.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It is used to calculate tasks
+slack.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The end date can be last date
+or last unit, depending on <a href="GanttCompute.htm#CGanttEndLast">GanttEndLast</a>
+setting, <b>0</b> or <b>2</b> <i>(new in 8.1)</i>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>bool      </i></span><a
+name=CGanttBaseProof><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttBaseProof</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                  Saved
+to cookies, to avoid it set &lt;<b>Cfg</b> <b>GanttLap</b>=’1’/&gt;  <span
+style='color:red'>new <b>6.4</b>       </span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>1</b>, the tasks
+or constraints cannot be moved or created before <a href="#CGanttBase">GanttBase</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>bool      </i></span><a
+name=CGanttFinishProof><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFinishProof</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>               Saved
+to cookies, to avoid it set &lt;<b>Cfg</b> <b>GanttLap</b>=’1’/&gt;  <span
+style='color:red'>new 7<b>.0</b>       </span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>1</b>, the tasks
+or constraints cannot be moved or created after <a href="#CGanttFinish">GanttFinish</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>bool      </i></span><a
+name=CGanttBasePreferred><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttBasePreferred</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        Saved
+to cookies, to avoid it set &lt;<b>Cfg</b> <b>GanttLap</b>=’1’/&gt;  <span
+style='color:red'>new <b>6.4</b>       </span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Used when <a
+href="#CGanttBase">GanttBase</a> conflicts with task constraints. For <b>0</b>
+it has less priority, for <b>1</b> it has higher priority than all task
+constraints.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>bool      </i></span><a
+name=CGanttFinishPreferred><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttFinishPreferred</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>     Saved
+to cookies, to avoid it set &lt;<b>Cfg</b> <b>GanttLap</b>=’1’/&gt;  <span
+style='color:red'>new 7<b>.0</b>       </span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Used when <a
+href="#CGanttFinish">GanttFinish</a> conflicts with task constraints. For <b>0</b>
+it has less priority, for <b>1</b> it has higher priority than all task
+constraints.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>bool      </i></span><a
+name=CGanttBaseCanEdit><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttBaseCanEdit</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>            [1]                                                                               <span
+style='color:red'>new <b>6.6</b>       </span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the project start date can
+be changed by a user.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>bool      </i></span><a
+name=CGanttFinishCanEdit><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFinishCanEdit</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>         [1]                                                                               <span
+style='color:red'>new <b>6.6</b>       </span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the project finish date
+can be changed by a user.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>bool      </i></span><a
+name=CGanttShowBounds><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttShowBounds</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>           [1]                                                                               <span
+style='color:red'>new <b>6.6</b>       </span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the project start date and
+end date will be shown in the chart as vertical line.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It shows <a href="#CGanttBase">GanttBase</a>
+and <a href="#CGanttFinish">GanttFinish</a> and if they are not set, it shows
+automatically calculated bounds in gray.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>int        </i></span><b><u><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:yellow'>GanttUseConstraints</span></u></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>      [2]                                                                               <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If and when the constraints
+and bounds will be used.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'> – Completely ignored, use to temporary disable the
+constraints, but let them to be still displayed </span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>1</span></b><span
+style='font-size:10.0pt'> – Used only when moving objects while correcting
+dependencies</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>2</span></b><span
+style='font-size:10.0pt'> – Used also when moving, adding and resizing <a
+href="GanttObjects.htm#CGanttObject">GanttObject</a> objects</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>3</span></b><span
+style='font-size:10.0pt'> – Used also when moving, adding and resizing any
+object (main bar, milestone, flow, run, flag, point). The MaxStart and MinEnd
+are ignored for other objects than main bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>int        </i></span><a
+name=GetGanttBase><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>GetGanttBase</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>           (
+)                                                                                            <span
+style='color:red'>new <b>6.6</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returns <a href="#CGanttBase">GanttBase</a>
+if set, otherwise returns automatically calculated start date as the start of
+the most left task.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>bool      </i></span><a
+name=CSetGanttBase><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>SetGanttBase</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>           (<i>type</i>
+<b>date</b>, <i>int</i> <b>action</b> = 2, <i>string</i> <b>col</b> = null)                    <span
+style='color:red'>new <b>6.3</b></span><span style='color:#0070C0'>;chg <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Changes the <a
+href="#CGanttBase">GanttBase</a> date. The <b>date</b> can be date string in
+English notation, Date object or count of milliseconds.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>col</b> is Gantt
+column, if missing, it used the first Gantt column in grid.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 7.0</span></i><span
+style='font-size:10.0pt'> it does <u>not</u> change the baseline if it is outside
+chart constraints and returns false for the error.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>action</span></b><span
+style='font-size:10.0pt'> is action done after change: </span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><b><span style='font-size:10.0pt'>1</span></b><span
+style='font-size:10.0pt'> – only visually changes the base line</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><b><span style='font-size:10.0pt'>2</span></b><span
+style='font-size:10.0pt'> – corrects positions of all tasks to be consistent
+with the new baseline (it corrects also all other dependency errors)</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><b><span style='font-size:10.0pt'>3</span></b><span
+style='font-size:10.0pt'> – moves all tasks for the exact difference between
+old and new date, does <u>not</u> preserve any constraints or dependencies</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>int        </i></span><a
+name=GetGanttFinish><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>GetGanttFinish</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>        (
+)                                                                                            <span
+style='color:red'>new <b>6.6</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returns <a
+href="#CGanttFinish">GanttFinish</a> if set, otherwise returns automatically
+calculated finish date as the end of the most right task.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>bool      </i></span><a
+name=SetGanttFinish><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>SetGanttFinish</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>         (<i>type</i>
+<b>date</b>, <i>string</i> <b>col</b> = null)                                          <span
+style='color:red'>new <b>6.6</b></span><span style='color:#0070C0'>;chg <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Changes the <a
+href="#CGanttFinish">GanttFinish</a> date. The <b>date</b> can be date string
+in English notation, Date object or count of milliseconds.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>col</b> is Gantt
+column, if missing, it used the first Gantt column in grid.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Recalculates slacks and
+critical path</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 7.0</span></i><span
+style='font-size:10.0pt'> it does <u>not</u> change the finish if it is outside
+chart constraints and returns false for the error.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsMoveGanttBase><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>MoveGanttBase</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>       Attached to <b>OnDragGantt</b>,
+cannot be attached anywhere else    <span style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Moves project baseline by
+mouse dragging.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Fails, if mouse is not above
+baseline or baseline cannot be moved.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsMoveGanttFinish><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>MoveGanttFinish</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>    Attached
+to <b>OnDragGantt</b>, cannot be attached anywhere else    <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Moves project finish line by
+mouse dragging.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Fails, if mouse is not above
+finish line or finish line cannot be moved.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttBase><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttBase</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                 Attached
+to <b>OnCtrlClickGantt</b> event                             <span
+style='color:red'>new <b>6.6</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes or undeletes/sets <a
+href="GanttCompute.htm#CGanttBase">GanttBase</a> when clicked above the line.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Undelete means setting it to
+automatically calculated value.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttFinish><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttFinish</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>              Attached
+to <b>OnCtrlClickGantt</b> event                             <span
+style='color:red'>new <b>6.6</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes or undeletes/sets <a
+href="GanttCompute.htm#CGanttFinish">GanttFinish</a> when clicked above the
+line.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Undelete means setting it to
+automatically calculated value.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=TaskConstraints><b><span style='font-size:20.0pt'>Task
+date constraints</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>&nbsp;</span></i></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Note: The MS Project task
+constraints <b>ASAP</b> (as soon as possible) and <b>ALAP</b> (as last as
+possible) are implemented for whole project when set GanttStrict=’1’ and
+GanttIncorrectDependencies=’1’ (ASAP) or ‘2’ (ALAP). Or the settings can be set
+per task dependency by its <b>Float</b> value, see <a href="#Dependencies">dependencies</a>.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttMinStart><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttMinStart</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>            Gantt
+source – column name or exact value                              <span
+style='color:red'>new <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Early start.</span></b><span
+style='font-size:10.0pt'> The first possible start date of the task, affects
+main bar, milestone, and flow.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The task must not be started
+before this date.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the task has no incoming
+dependency and is set <a href="#CGanttStrict">GanttStrict</a>=’1’, it should
+start on this date.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Defining both early and late
+start on the same date will cause <b>mandatory start</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttMaxStart><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttMaxStart</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>          Gantt
+source – column name or exact value                              <span
+style='color:red'>new <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Late start.</span></b><span
+style='font-size:10.0pt'> The last possible start date of the task, affects
+main bar and milestone.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The task must not be started after
+this date.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttMinEnd><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttMinEnd</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>              Gantt
+source – column name or exact value                              <span
+style='color:red'>new <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Early finish. </span></b><span
+style='font-size:10.0pt'>The first possible end date of the task, affects main
+bar and milestone.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The task must not be finished
+before this date.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Defining both early and late
+end on the same date will cause <b>mandatory end</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The end date can be last date
+or last unit, depending on <a href="GanttCompute.htm#CGanttEndLast">GanttEndLast</a>
+setting, <b>0</b> or <b>2</b> <i>(new in 8.1)</i>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttMaxEnd><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttMaxEnd</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>            Gantt
+source – column name or exact value                              <span
+style='color:red'>new <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Late finish. </span></b><span
+style='font-size:10.0pt'>The last possible end date of the task, affects main
+bar, milestone and flow.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The task must not be finished
+after this date.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The end date can be last date
+or last unit, depending on <a href="GanttCompute.htm#CGanttEndLast">GanttEndLast</a>
+setting, <b>0</b> or <b>2</b> <i>(new in 8.1)</i>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttConstraintsTip><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttConstraintsTip</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                          <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Tip shown on mouse hover the
+constraint. It can contain HTML code.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can also show values from
+other cells in row, set by <b>*col*</b> where col is the column name.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can show also the special:
+<b>*Text*</b> - show the original constraints tip.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>int        </i></span><a
+name=CGanttShowConstraints><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttShowConstraints</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> [1]                                                                                <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the constraints will be
+displayed in chart as icons.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For <b>0</b> the constraints
+will be hidden and cannot be changed by a user, but can be controlled by API.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For <b>1</b> the constraints
+will be shown and interactive, but the chart will not resize to show them</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For <b>2</b> the constraints
+will be shown and interactive and the chart will resize to show them if
+required, like for the other Gantt objects</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>int        </i></span><a
+name=CGanttUseConstraints><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttUseConstraints</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>     [2]                                                                               <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If and when the constraints
+and bounds will be used.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'> – Completely ignored, use to temporary disable the
+constraints, but let them to be still displayed </span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>1</span></b><span
+style='font-size:10.0pt'> – Used only when moving objects while correcting
+dependencies</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>2</span></b><span
+style='font-size:10.0pt'> – Used also when moving, adding and resizing <a
+href="GanttObjects.htm#CGanttObject">GanttObject</a> objects</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>3</span></b><span
+style='font-size:10.0pt'> – Used also when moving, adding and resizing any
+object (main bar, milestone, flow, run, flag, point). The MaxStart and MinEnd
+are ignored for other objects than main bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:silver'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:silver'>                 <i>bool      </i></span><a
+name=CGanttConstraintsAll><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:silver'>GanttConstraintsAll</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:silver'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:silver'>         [0]                                                                        
+<span style='color:red'>deleted <b>7.0</b></span>            .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Replaced by <a
+href="CGanttUseConstraints">GanttUseConstraints</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>0</b>, only <a
+href="GanttObjects.htm#CGanttObject">GanttObject</a> objects cannot be moved
+outside their constraints.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>1</b>, all
+objects except run (main bar, milestone, flow, flag, point) cannot be moved
+outside their constraints.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API event</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>         <i>int</i>        </span><a
+name=OnTestConstraints><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>OnTestConstraints</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>          (<i>TGrid</i>
+<b>grid</b>, <i>TRow</i> <b>row</b>, <i>string</i> <b>col</b>, <i>string</i> <b>type</b>,
+<i>int</i> <b>change</b>, <i>int</i> <b>d1</b>, <i>int</i> <b>d2</b>)         <span
+style='color:red'>new <b>7.1</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Called to test constraints
+while moving or resizing some Gantt object except Run. It is <u>not</u> called
+while correcting dependencies.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>type</b> is the object
+type, lowercase: main, flow, flags, points, constraints, base, finish,</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>change</b> is required
+change (in milliseconds) due actual constraints (GanttBase, GanttFinish,
+GanttMinStart, GanttMaxStart, GanttMinEnd, GanttMaxEnd)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>d1</b> and <b>d2</b>
+are start and end date of the object (in milliseconds), they can be null for
+some objects.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Return new change to do due
+the constraints or the <b>change</b> or 0 to ignore all constraints.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>object[] </i></span><a
+name=GetIncorrectConstraints><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:aqua'>GetIncorrectConstraints</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>         (<i>string</i>
+<b>col</b>)                                                       <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Returns array of all tasks
+violate their constraints. <b>col</b> is Gantt column.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The array items are also
+arrays with these items [row, shift_strict, shift]. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>shift_strict </b>is
+expected shift in ms in GanttStrict mode, the <b>shift</b> is expected shift
+without strict mode. The <b>shift</b> can be 0.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsMoveGanttConstraint><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>MoveGanttConstraint</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>     Attached
+to <b>OnDragGantt</b>, cannot be attached anywhere else            <span
+style='color:red'>new <b>7.0</b></span> .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Moves constraint by mouse
+dragging.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Fails, if mouse is not above
+constraint or the constraint cannot be moved.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsNewGanttConstraint><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>NewGanttConstraint</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>         Not
+attached to any event                                             <span
+style='color:red'>new <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds new constraint on mouse
+position.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It adds the first possible
+constraint to the place. Tests them in order MaxEnd, MinStart, MinEnd, MaxStart.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttConstraint><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>DeleteGanttConstraint</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>   Attached
+to <b>OnCtrlClickGantt</b> event                              <span
+style='color:red'>new <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes the constraint under
+mouse cursor</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no
+constraint under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttConstraints><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>DeleteGanttConstraints</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>            Not
+attached to any event                                 <span style='color:red'>new
+<b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes all constraint in the
+actual row</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no
+constraint in the row.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=critical><b><span style='font-size:20.0pt;color:blue'>Critical
+path</span></b></a><b><span style='font-size:20.0pt'> – Slack (Float)</span></b></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>TreeGrid can fill for every
+tasks its <b>slack</b> value – how much can be task moved to future (delayed)
+to <u>not</u> affect project finish date.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The tasks that cannot be
+moved at all are <b>critical</b> and lay on <b>critical path</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The critical tasks are
+colored in different color and it is also possible to filter by them to show
+only the critical path.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The finish date is end date
+of the most right task or can be defined by <a href="#CGanttFinish">GanttFinish</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>string    </i></span><a
+name=CGanttSlack><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttSlack</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                                                 <span
+style='color:red'>new <b>6.6</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Attribute or column name
+where the task slack will be stored. If set to column name, the column should
+be <u>not</u> editable.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When not set, the slack is
+not computed. Set it only if you need to identify critical task and path,
+because its calculation slows down the grid.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can be any string that
+does not collide with other row attribute names – it is row attribute, <u>not</u>
+cell attribute.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When the row’s slack value is
+less or equal to <a href="#CGanttMinSlack">GanttMinSlack</a>, the not completed
+main bar is colored in different color as critical task.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The rows can be also filtered
+by this value or the value can be used as source for formulas.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>int        </i></span><a
+name=CGanttMinSlack><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttMinSlack</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>          [0]        Saved
+to cookies, to avoid it set &lt;<b>Cfg</b> <b>GanttLap</b>=’1’/&gt;  <span
+style='color:red'>new <b>6.6</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When the row’s slack value is
+less or <u>equal</u> to GanttMinSlack, the not completed main bar is colored in
+different color as critical task.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>int        </i></span><a
+name=CGanttErrSlack><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttErrSlack</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>           [0]        Saved
+to cookies, to avoid it set &lt;<b>Cfg</b> <b>GanttLap</b>=’1’/&gt;  <span
+style='color:red'>new <b>6.6</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When the row’s slack value is
+less than GanttErrSlack, the not completed main bar is colored in different
+color as error task.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>bool      </i></span><a
+name=CGanttSeparateSlack><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttSeparateSlack</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        [0]        Saved
+to cookies, to avoid it set &lt;<b>Cfg</b> <b>GanttLap</b>=’1’/&gt;            <span
+style='color:red'>new <b>6.6</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to 1, calculates
+finish date and slacks separately for every independent group of related tasks.
+In this case the <a href="#CGanttFinish">GanttFinish</a> is ignored.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>void      </i></span><a
+name=RefreshGanttSlack><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>RefreshGanttSlack</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>           (<i>bool</i>
+<b>show</b> = 1, <i>int</i> <b>min</b> = null, <i>int</i> <b>err</b> = null)                  <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Recalculates Slack for all
+cells and recolors critical path.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>min</span></b><span
+style='font-size:10.0pt'> is optionally new value for <a href="#CGanttMinSlack">GanttMinSlack</a>.
+<b>err</b> is optionally new value for <a href="#CGanttErrSlack">GanttErrSlack</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Summary><b><span style='font-size:20.0pt;color:blue'>Summary
+tasks</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Summary tasks are group of
+tasks and their start, end and duration is summary of its children.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Define the summary task as
+default row <a href="RowDefaults.htm">&lt;D&gt;</a> tag with attributes set for
+the summary task and assign this default by Def attribute, base summary definition
+can be:</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&lt;D <b>Name</b>=”Summary” <b>Calculated</b>=”1”
+<b>CalcOrder</b>=”<i>Start</i>,<i>End</i>,<i>Duration,Complete</i>” </span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><b><i><span style='font-size:
+10.0pt'>Start</span></i></b><b><span style='font-size:10.0pt'>Formula</span></b><span
+style='font-size:10.0pt'>=”ganttstart()” <b><i>End</i>Formula</b>=”ganttend()” <b><i>Duration</i>Formula</b>=”ganttduration()”
+<b><i>Complete</i>Formula</b>=”ganttpercent()” </span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>/&gt;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>where <i>Start</i>, <i>End,</i>
+<i>Duration</i> and <i>Complete</i> are names of the four Gantt source columns,
+Summary is custom name if this default row.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Remember, the CalcOrder
+must be set, to calculate the duration after the start and end. If you will
+have more formulas in the default, you must add these columns to the CalcOrder
+too.</span></i></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>&nbsp;</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>To calculate Real Flow bars
+as Real Flow instead of Main bars use <b>sumrange</b> function for the GanttFlow
+column:</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&lt;D <b>Name</b>=”Summary” <b>Calculated</b>=”1”
+<b>CalcOrder</b>=”<i>Flow,Complete</i>” </span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><b><i><span style='font-size:
+10.0pt'>Flow</span></i></b><b><span style='font-size:10.0pt'>Formula</span></b><span
+style='font-size:10.0pt'>=”sumrange()” <b><i>Complete</i>Formula</b>=”ganttpercent()”</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>/&gt;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>To calculate Real Flow bars
+as summary Main bar retype in summary row the attributes for Flow to Main and
+use standard Summary formulas like:</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&lt;D <b>Name</b>=&quot;Summary&quot;
+<b>Calculated</b>=&quot;1&quot; <b>CalcOrder</b>=&quot;<i>xxx</i>GanttStart,<i>xxx</i>GanttEnd,<i>Complete</i>&quot;
+</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><b><i><span style='font-size:
+10.0pt'>xxx</span></i></b><b><span style='font-size:10.0pt'>GanttFlow</span></b><span
+style='font-size:10.0pt'>=&quot;&quot; <b><i>xxx</i>GanttFlowComplete</b>=&quot;&quot;
+<b><i>xxx</i>GanttComplete</b>=&quot;<i>Complete</i>&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><b><i><span style='font-size:
+10.0pt'>xxx</span></i></b><b><span style='font-size:10.0pt'>GanttStartFormula</span></b><span
+style='font-size:10.0pt'>=&quot;ganttstart()&quot; <b><i>xxx</i>GanttEndFormula</b>=&quot;ganttend()&quot;
+<b><i>Complete</i>Formula</b>=&quot;ganttpercent()&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>/&gt;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>where <b>xxx</b> is the Gantt
+column name, the Complete is column where is the GanttFlowComplete set.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>You can set different class
+for the summary bars by <b>GanttClass</b> attribute, for example &lt;D ... <b><i>xxx</i>GanttClass</b>=”GanttG”
+<b><i>xxx</i>GanttIcons</b>=”1”/&gt;, the <b>GanttG</b> is CSS class designed
+for the summary tasks, <b>xxx</b> is actual Gantt column name in the grid. The <b>GanttIcons</b>
+show the side icons designed for summary tasks.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The summary tasks are usually
+expected to be not editable and not movable, for this behavior set &lt;D ... <b><i>xxx</i>GanttEdit</b>=””
+<b>CanEdit</b>=”0”/&gt;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><b><i><span
+style='font-size:16.0pt'>Editable summary tasks</span></i></b></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It is possible to have also
+editable summary tasks, including date constraints and dependencies.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>All the dependencies and
+constraints attached to summary tasks are automatically assigned to all child
+tasks.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>To set the summary task
+editable define &lt;D <b><i>xxx</i>GanttEdit</b>=’all’ <b><i>Start</i>CanEdit</b>=’1’
+/&gt; where the <i>Start</i> is name of the Gantt source columns, the <i>xxx</i>
+is name of the Gantt column itself.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The Flow Summary bars should
+not be editable (movable), only their dependencies and constraints should be
+editable &lt;D <b><i>xxx</i>GanttEdit</b>=’dependency,dependencytypes,dependencylags,constraints’
+/&gt;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>To correctly calculate
+dependencies and date constraints set &lt;D <b><i><a href="#CellGanttSummary">xxx<span
+style='font-style:normal'>GanttSummary</span></a></i></b>=’1’/&gt;, see its
+description below.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;cell&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'>              <i>int        </i></span><a
+name=CellGanttSummary><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttSummary</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                                       <span
+style='color:red'>new <b>6.7</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Set to <b>1</b> for <b>editable
+summary tasks</b>. It will cause:</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>- all dependencies attached
+to the summary task will be assigned also to all its children (as hidden
+dependencies)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>- dependencies between the
+summary and its children will be marked or restricted as circular</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>- the MinStart and MaxEnd
+date constraints assigned to summary tasks will be used also for all its
+children if they are be more restrictive than the child task constraints, if
+any.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>- if the tasks is moved by mouse
+dragging or editing its start date, it moves also all its children. The task
+cannot be moved, if it would lead to violate of child’s constraints. <i>Only
+for <b>Main</b> bar.</i></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>- the task cannot be created,
+resized or deleted and its GanttComplete value cannot be changed by a user.<i>
+Except the GanttSummary is set to <b>2</b>.</i></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>The method implemented
+causes not good behavior for dependencies incoming to the finish of the summary
+task and dependencies outgoing from start of the summary task.</span></i></p>
+
+</div>
+
+</body>
+
+</html>
