@@ -1,0 +1,67 @@
+<html>
+<head>
+   <script src="../../Grid/GridE.js"> </script>
+</head>
+<body>
+   <style>
+      b { color:Red; }
+      li { padding-bottom:8px; }
+      ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font: 13px Arial; }
+      h2 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#FAA; color:black; margin:0px; font-style:normal; }
+      h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:yellow; color:black;  margin:0px; font-style:normal; }
+      h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#FAA; color:black;  margin:0px; font-style:normal; }
+   </style>
+   <center style='font:bold 20px Arial;color:Blue;'>TreeGrid <b>Gantt Chart</b> Tutorial</center>
+   <center style='font:bold 30px Arial'>3. Dependencies between tasks</center>
+   <center style='font:bold italic;'>Links between tasks - Ancestors and Descendants</center>
+   <br />
+   <div style='margin-bottom:6px;'><a href='03 - Dependencies.xml'>03 - <h2>Dependencies</h2>.xml</a></div>
+   <div style='width:900px; height:250px;'>
+      <bdo Debug='check' Data_Url='03 - Dependencies.xml'></bdo>
+   </div>
+   <ul>
+     <li> 
+         Dependencies are defined in column set by <h3>GanttAncestors</h3> or <h3>GanttDescendants</h3>.<br />
+         If defined both columns, the dependency can be entered only in one and is mirrored to the other column.<br />
+         The GanttAncestors (in some other programs called predecessors) are the previous tasks and the GanttDescendants (successors) are the next tasks.<br />
+     </li>
+     <li>
+      Every task can have more dependencies defined in ancestors or descendants, separated by RangeSeparator, by defaults by semicolon ';'.
+     </li>
+     <li>
+      The one dependency definition has this format "<b>idtype</b>+/-<b>lag</b>!<b>float</b>", for example 3ss+3!1. Only the id is mandatory.
+      <ul>
+         <li>
+            The <b>id</b> is row id the dependency points to (for GanttDescendants) or the row id the dependency coming from (for GanttAncestors).
+         </li>
+         <li>
+            The <b>type</b> can be <b>fs</b> (finish->start),<b>ff</b> (finish->finish),<b>ss</b> (start->start) and <b>sf</b> (start->finish).
+            The default is <b>fs</b> that is used if the type is omited.<br />
+            The type controls which edge of the tasks will be referenced.
+         </li>
+         <li>
+            The <b>lag</b> is reserved time between dependency start and its end, the lag is used to check if the dependency is correct or not and when correcting dependencies.
+            The lag can be positive or negative, it must always written with the sign + or -. The lag value is in GanttDataUnits.<br />
+         </li>
+         <li>
+            The <b>float</b> value is maximal permitted time between dependency start+lag and its end, the float is used to check if the dependency is correct or not and when correcting dependencies.<br />
+            The float is value in GanttDataUnits.
+         </li>
+      </ul>
+     </li>
+     <li>
+      For which bar type will be dependencies connect is set by <h3>GanttObject</h3>.<br />
+      It is <b>Main</b> by default for the main bar and can be also <b>Flow</b> and <b>Run</b> to connect dependencies for these bar types.
+     </li>
+     <li>
+      The correct dependencies are shown blue, the incorrect dependencies in red.<br />
+      The incorrect dependency has its end before its start. It is possible also to mark as incorrect dependency the one that has not exactly its start equal to its end.
+      Or mark all dependencies always correct.
+      It is controlled by <b>GanttIncorrectDependencies</b> attribute.
+     </li>
+     <li>
+      The two vertical red lines are automatically calculated base and finish dates for the whole chart. See next example Gantt Constraints.
+     </li>
+   </ul>
+</body>
+</html>

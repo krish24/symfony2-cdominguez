@@ -1,0 +1,4 @@
+EJSTreeGridBundle_controller:
+    resource: "@BaseEJSTreeGridBundle/Controller/"
+    type:     annotation 
+    prefix:   /

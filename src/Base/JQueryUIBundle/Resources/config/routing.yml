@@ -1,0 +1,4 @@
+JQueryUIBundle_controller:
+    resource: "@BaseJQueryUIBundle/Controller/"
+    type:     annotation
+    prefix:   /   
