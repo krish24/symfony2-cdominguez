@@ -1,0 +1,24 @@
+MySiteOldSiteBundle:
+    resource: "@MySiteOldSiteBundle/Resources/config/routing.yml"
+    prefix:   /OldSite
+
+MySitePortfolioBundle:
+    resource: "@MySitePortfolioBundle/Resources/config/routing.yml"
+    prefix:   /Portfolio
+
+BaseUnderConstructionBundle:
+    resource: "@BaseUnderConstructionBundle/Resources/config/routing.yml"
+    prefix:   /UnderConstruction
+
+BaseJQueryUIBundle:
+    resource: "@BaseJQueryUIBundle/Resources/config/routing.yml"
+    prefix:   /JQueryUI
+
+BaseEJSTreeGridBundle:
+    resource: "@BaseEJSTreeGridBundle/Resources/config/routing.yml"
+    prefix:   /EJSTreeGrid
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal
