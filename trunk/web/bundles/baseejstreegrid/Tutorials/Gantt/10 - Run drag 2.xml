@@ -1,0 +1,32 @@
+<Grid>
+   <Cfg id="RunDrag2" NoVScroll="1" IdChars="0123456789" NumberId="1" Undo="1"/>
+   <Cfg DefaultDate="1/1/2010"/>
+   <Cfg FastGantt="1"/>
+   <LeftCols>
+      <C Name="id" Type="Int" CanEdit="0" CanSort="0"/>
+      <C Name="RUN" Type="Text" Width="60"/>
+   </LeftCols>
+   <Cols>
+      <C Name="GANTT" Type="Gantt" 
+         GanttDataUnits="d" GanttUnits="d" GanttWidth="18"
+         GanttEndLast="0" GanttLeft="1" GanttRight="1"
+         GanttHeader1="d#%d"
+         GanttRun="RUN"
+         GanttResizeDelete="1"
+         />
+   </Cols>
+   <Body>
+      <B>
+         <I id="0"/>
+         <I id="1"
+            RUN="12/28/2009,1,box;12/30/2009,2,box;01/02/2010,3,box;01/06/2010,3,solid;01/10/2010,3,fixed;01/14/2010,3,left;01/18/2010,3,right;01/22/2010,2;4;01/29/2010,2;3,right;02/04/2010,1,solid;1"
+            GANTTGanttRunMove="Copy,All"
+            />
+         <I id="2"
+            GANTTGanttRunNewStart="2,End,Start;;1,Box,First new box;;2,End,End" GANTTGanttRunNew="1,Box,Next new box"
+            RUNEmptyValue="Create new" GANTTGanttRunMove="Copy"
+            />
+      </B>
+   </Body>
+   <Header id="id"/>
+</Grid>

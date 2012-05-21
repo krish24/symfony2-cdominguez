@@ -1,0 +1,104 @@
+<html>
+<head>
+   <script src="../../Grid/GridE.js"> </script>
+</head>
+<body>
+   <style>
+      b { color:Red; }
+      li { padding-bottom:8px; }
+      ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font: 13px Arial; }
+      h2 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#FAA; color:black; margin:0px; font-style:normal; }
+      h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:yellow; color:black; margin:0px; font-style:normal; }
+      h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#FAA; color:black; margin:0px; font-style:normal; }
+   </style>
+   <center style='font:bold 20px Arial;color:Blue;'>TreeGrid <b>Gantt Chart</b> Tutorial</center>
+   <center style='font:bold 30px Arial'>2. Date constraints</center>
+   <center style='font:bold italic;'>Task and project date constraints</center>
+   <br />
+   <div style='margin-bottom:6px;'><a href='02 - Constraints.xml'>02 - <h2>Constraints</h2>.xml</a></div>
+   <div style='width:960px; height:250px;'>
+      <bdo Debug='check' Data_Url='02 - Constraints.xml'></bdo>
+   </div>
+   <ul>
+      <li> 
+         <h4>Chart constraints</h4> are defined for the whole chart and cannot be changed by a user.<br />
+         By default the chart is exactly wide to display all objects (Main, Milestone, Flow, Run, Flags, Points and Resources) in all rows and also the GanttBase and GanttFinish.
+         The task Constraints objects affect the chart width only if set GanttShowConstraints='2'.
+         <br />
+         The chart is resized whenever the most left or the most right object moves inside or some object moves otuside the chart.<br />
+         <ul>
+            <li>
+               The <h3>MaxWidth</h3> and <h3>MinWidth</h3> specify maximal and minimal width of the column, in pixels.<br />
+               The maximal MaxWidth is limited by various browser limits, for Opera it is 23,000, for IE it is 178,957.
+            </li>
+            <li>
+               The <h3>GanttChartMinStart</h3> and <h3>GanttChartMaxEnd</h3> define bounds for the whole chart, 
+               the chart will never show outside dates (except applying column <b>MinWidth</b> attribute).<br />
+               No Gantt object can be moved or created outside these bounds.
+            </li>
+            <li>
+               The <h3>GanttChartMaxStart</h3> and <h3>GanttChartMinEnd</h3> define minimal date range for the whole chart,
+               the chart will always show the dates inside the range (except applying column <b>MaxWidth</b> attribute).<br />
+               These bounds has no effect for the Gantt objects.<br />
+               If MaxStart == MinStart and MinEnd == MaxEnd the chart size is fixed and it always shows the same dates (except applying MaxWidth/MinWidth).
+            </li>
+            <li>
+               The <b>GanttChartRound</b> rounds the first and last date shown in the chart to given units (like "y" for year, "d" for days).<br />
+               The <b>GanttLeft</b> and <b>GanttRight</b> adds given count of empty GanttUnits on the chart sides.<br />
+            </li>
+         </ul>
+      </li>
+      <li>
+         <h4>Project constraints</h4> are defined for the whole chart and can be optionally changed by a user.<br />
+         The project constraints can be hidden, but still used when set <b>GanttShowBounds</b>='0'.<br />
+         <ul>
+            <li>
+               <h3>GanttBase</h3> defines the project baseline.<br /> 
+               On the baseline should start all tasks without incoming dependencies, if set <b>GanttStrict</b>='1' and the dependencies are corrected, auto or manually.<br />
+               If the baseline is not set or it is deleted, the (thin) baseline is displayed on start date of the most left task in the chart, but does not affect anything.<br />
+               No gantt object can be moved or create before baseline if set <b>GanttBaseProof</b>='1'.<br />
+               The baseline can be changed by mouse dragging if set <b>GanttBaseCanEdit</b>='1'.<br />
+               The baseline can be read and changed also by API by methods <b>GetGanttBase</b> and <b>SetGanttBase</b>, usually for let users to edit it in some cell.<br />
+               The baseline is uploaded to server in &lt;Gantt> XML tag when set Upload_Type='Gantt'.<br />
+            </li>
+            <li>
+               <h3>GanttFinish</h3> defines the project finish date.<br /> 
+               The project finish is mostly used to calculate critical path, by calculating <b>GanttSlack</b> value for every task. 
+                  The critical tasks have zero (or small) value of the slack.<br />
+               If the project finish is not set or it is deleted, the project finish is set to end date of the most right task in the chart,
+                  it is displayed as thin line and is still used for critical path calculation.<br />
+               No gantt object can be moved or create after project finish if set <b>GanttFinishProof</b>='1'.<br />
+               The project finish can be changed by mouse dragging if set <b>GanttFinishCanEdit</b>='1'.<br />
+               The project finish can be read and changed also by API by methods <b>GetGanttFinish</b> and <b>SetGanttFinish</b>, usually for let users to edit it in some cell.<br />
+               The project finish is uploaded to server in &lt;Gantt> XML tag when set Upload_Type='Gantt'.<br />
+            </li>
+         </ul>
+      </li>
+      <li>
+         <h4>Task constraints</h4> are defined individually for every task.<br />
+         The task constraints are shown in chart as icons, or can be hidden if set <b>GanttShowConstraints</b>='0'.<br />
+         The constraints can affect moving tasks while correcting dependencies, creating, moving or resizing task by a user 
+            and creating, moving or resizing other Gantt object, the functions are specified by <b>GanttUseConstraints</b>.<br />
+         The constraints can be created, moved and deleted by a user if <b>GanttEdit</b> contains "Constraints" keyword.<br />
+         <ul>
+            <li>
+               <h3>GanttMinStart</h3> is <b>early start</b> constraint, the task cannot start before this date.<br />
+               With GanttMaxStart on the same date it creates <b>mandatory start</b> constraint, the task must start on this date.
+            </li>
+            <li>
+               <h3>GanttMaxStart</h3> is <b>late start</b> constraint, the task cannot start after this date.<br />
+               It is used only for main bar, not for other Gantt objects like flow or milestone.
+            </li>
+            <li>
+               <h3>GanttMinEnd</h3> is <b>early end</b> constraint, the task cannot finish before this date.<br />
+               It is used only for main bar, not for other Gantt objects like flow or milestone.
+            </li>
+            <li>
+               <h3>GanttMaxEnd</h3> is <b>late start</b> constraint, the task cannot finish after this date.<br />
+               With GanttMinEnd on the same date it creates <b>mandatory end</b> constraint, the task must finish on this date.
+            </li>
+         </ul>
+      </li>
+   </ul>
+</body>
+</html>

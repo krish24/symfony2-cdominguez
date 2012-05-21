@@ -1,0 +1,7 @@
+parameters:
+#    ejs_tree_grid.example.class: Base\EJSTreeGridBundle\Example
+
+services:
+#    ejs_tree_grid.example:
+#        class: %ejs_tree_grid.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

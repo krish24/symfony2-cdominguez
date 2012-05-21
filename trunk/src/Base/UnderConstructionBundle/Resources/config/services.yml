@@ -1,0 +1,7 @@
+parameters:
+#    base_under_construction.example.class: Base\UnderConstructionBundle\Example
+
+services:
+#    base_under_construction.example:
+#        class: %base_under_construction.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

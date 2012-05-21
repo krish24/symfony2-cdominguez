@@ -1,0 +1,77 @@
+<Grid>
+   <Cfg id="Flow" NoVScroll="1" IdChars="0123456789" NumberId="1"/>
+   <Cfg DefaultDate="1/1/2010"/>
+   <LeftCols>
+      <C Name="id" Type="Int" CanEdit="0" CanSort="0"/>
+      <C Name="START" Type="Date" Format="dddddd" EditFormat="%d"/>
+      <C Name="END" Type="Date" Format="dddddd" EditFormat="%d"/>
+      <C Name="FLOW" Type="Date" Range="1" Width="220" Format="dddddd" EditFormat="%d"/>
+      <C Name="DES" Type="Text" Visible="0"/>
+      <C Name="TIP" Type="Text" Width="170"/>
+   </LeftCols>
+   <Cols>
+      <C Name="GANTT" Type="Gantt" 
+         GanttDataUnits="d" GanttUnits="d" GanttWidth="16"
+         GanttFlow="FLOW" GanttFlowText="TIP" GanttStart="START" GanttEnd="END" GanttDescendants="DES"
+         GanttEndLast="1" GanttLeft="1" GanttRight="1"
+         GanttHeader1="d#%d"
+         GanttFlowTip="*id*. *TIP* (*COMP*%)&lt;br>*Start* - *End* (*Duration*)"
+         GanttObject="Main,Flow"
+         />
+   </Cols>
+   <Body>
+      <B>
+         <I id="0"/>
+         <I id="1" 
+            START="1/1/2010" END="1/8/2010"
+            FLOW="1/1/2010~1/8/2010" 
+            TIP="Flow the same as main bar"
+            />
+         <I id="2" 
+            START="1/1/2010" END="1/8/2010" DES="5"
+            FLOW="1/3/2010~1/5/2010;1/7/2010~1/9/2010" 
+            TIP="Discrete flow"
+            />
+         <I id="3"
+            START="1/1/2010" END="1/8/2010" 
+            GANTTGanttEdit="Flow" STARTCanEdit="0" ENDCanEdit="0"
+            FLOW="1/3/2010~1/5/2010;1/7/2010~1/9/2010"
+            TIP="Flow with not editable main bar"
+            />
+         <I id="4"
+            FLOW="1/3/2010~1/5/2010;1/7/2010~1/9/2010;1/11/2010"
+            TIP="Flow without main bar"
+            />
+         <I id="5" 
+            FLOW="1/8/2010~1/9/2010;1/11/2010~1/14/2010"
+            TIP="Flow with dependency"
+            />
+         <I id="6"
+            FLOW="1/1/2010~1/3/2010;1/5/2010;~1/7/2010;1/9/2010~1/12/2010;1/14/2010~"
+            TIP="Flow with milestones"
+            />
+         <I id="7"
+            FLOW="1/5/2010;~1/7/2010;1/9/2010~1/12/2010;1/14/2010~"
+            GANTTGanttFlowComplete="70" GANTTGanttStart="" STARTCanEdit="0" ENDCanEdit="0"
+            TIP="Flow replacing main bar"
+            />
+         <I id="8"
+            FLOWButton="" FLOW="1/1/2010~1/3/2010;1/4/2010;1/7/2010~1/9/2010;~1/9/2010;1/12/2010~1/13/2010;1/15/2010~;1/17/2010~1/18/2010;1/19/2010~1/20/2010"
+            GANTTGanttFlowJoin="0" TIP="Adjacent bars without joining"
+            />
+         <I id="9"
+            FLOWButton="" FLOW="1/1/2010~1/3/2010;1/4/2010;1/7/2010~1/9/2010;~1/9/2010;1/12/2010~1/13/2010;1/15/2010~;1/17/2010~1/18/2010;1/19/2010~1/20/2010"
+            GANTTGanttFlowComplete="70" GANTTGanttFlowJoin="0" TIP="Adjacent bars replacing main bar" GANTTGanttStart="" STARTCanEdit="0" ENDCanEdit="0"
+            />
+         <I id="10"
+            FLOWButton="" FLOW="1/1/2010~1/5/2010;1/4/2010;1/7/2010~1/12/2010;~1/9/2010;1/12/2010~1/13/2010;1/15/2010~;1/17/2010~1/18/2010;1/18/2010~1/20/2010"
+            GANTTGanttFlowJoin="-1" TIP="Overflowed bars"
+            />
+         <I id="11"
+            FLOWButton="" FLOW="1/1/2010~1/5/2010;1/4/2010;1/7/2010~1/12/2010;~1/9/2010;1/12/2010~1/13/2010;1/15/2010~;1/17/2010~1/18/2010;1/18/2010~1/20/2010"
+            GANTTGanttFlowComplete="70" GANTTGanttFlowJoin="-1" TIP="Overflowed bars replacing main bar" GANTTGanttStart="" STARTCanEdit="0" ENDCanEdit="0"
+            />
+      </B>
+   </Body>
+   <Header id="id"/>
+</Grid>

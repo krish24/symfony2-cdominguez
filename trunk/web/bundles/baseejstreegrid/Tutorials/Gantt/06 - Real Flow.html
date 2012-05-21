@@ -1,0 +1,56 @@
+<html>
+<head>
+   <script src="../../Grid/GridE.js"> </script>
+</head>
+<body>
+   <style>
+      b { color:Red; }
+      li { padding-bottom:8px; }
+      ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font: 13px Arial; }
+      h2 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#FAA; color:black; margin:0px; font-style:normal; }
+      h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:yellow; color:black; margin:0px; font-style:normal;  }
+      h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#FAA; color:black; margin:0px; font-style:normal;  }
+   </style>
+   <center style='font:bold 20px Arial;color:Blue;'>TreeGrid <b>Gantt Chart</b> Tutorial</center>
+   <center style='font:bold 30px Arial'>6. Real Flow</center>
+   <center style='font:bold italic;'>Supplement bars to show actual or result process of the planned task</center>
+   <br />
+   <div style='margin-bottom:6px;'><a href='06 - Real Flow.xml'>06 - <h2>Real Flow</h2>.xml</a></div>
+   <div style='width:960px; height:250px;'>
+      <bdo Debug='check' Data_Url='06 - Real Flow.xml'></bdo>
+   </div>
+   <ul>
+      <li> 
+         Real flow is defined by <h3>Flow</h3> attribute.<br />
+         The real flow column must have set <b>Type='Date' Range='1'</b>.
+      </li>
+      <li>
+         The flow bars are defined as date ranges like start1~end1;start2~end2;start3~end3;...<br />
+         If set only one date like ...;dateX;... it shows bar long as one GanttDataUnit.<br />
+         It is possible to show milestone as ...;<b>~</b>dateX;... for end milestone and ...;dateX<b>~</b>;... for start milestone.
+      </li>
+      <li>
+         Real flow is expected to use as supplement to main bar and show the actual process of the planned task.<br />
+         It is possible to make only the flow editable by <b>GanttEdit='Flow'</b>, to let users change the result process, but not the plan.
+      </li>
+      <li>
+         Real flow bars can be discrete with more parts. Adjacent or overflowed parts are automatically merged to one.
+      </li>  
+      <li>
+         If set <h3>GanttFlowJoin</h3><b>='0'</b>, the flow bars cannot overflow and adjacent bars are not merged.
+      </li>
+      <li>
+         Real flow can replace main bar to support discrete main bar. It can be done by attribute <h3>GanttFlowComplete</h3>. 
+         In this case is the flow shown as the main bar boxes. The main bars should be not used here to not confuse users.
+      </li>
+      <li>
+         Real flow is expected to not have dependencies to other tasks, because it is usually just supplement to main bar, except it replaces main bar by GanttFlowComplete.<br />
+         But if required, real flow supports dependencies, if set <b>GanttObject='Flow'</b>. 
+         In this case it can be also automatically moved when correcting dependencies.
+      </li>
+      <li>
+         Tooltip can be set for the whole task by <b>GanttFlowText</b> and the tooltip format or other text is set by <b>GanttFlowTip</b>. 
+      </li>
+   </ul>
+</body>
+</html>
