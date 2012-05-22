@@ -1,0 +1,79 @@
+####################
+HOW TO USE THE TABLE
+####################
+
+1. The controller
+    Add the necesary namespaces
+    use Gnd\EJSTreeGridBundle\Framework\GridOptionsGenerator,
+        Gnd\EJSTreeGridBundle\Framework\GridLayoutGenerator,
+        Gnd\EJSTreeGridBundle\Framework\GridDataFormatter;
+
+    a. Table definition, Index Action
+        // Get the router
+        $router = $this->get('router');
+
+        // Create a Grid Options Generator, the container id is not optional,
+        // ALL tables must be inside a defined container
+        $gridOptionsGenerator = new GridOptionsGenerator(
+            'grid_container'
+            // Optionally define the table id
+            // Optionally define the table options
+        );
+        // Table's Id and Options can be defined after creation using setters
+        $gridOptionsGenerator
+            ->setGridId('grid_id')
+            ->setOptions(array(
+                'Layout_Url'        => $router->generate('sc_grid_layout_url'),
+                'Data_Url'          => $router->generate('sc_grid_data_url'),
+                'Export_Url'        => $router->generate('sc_export_grid'),
+            ));
+
+        // Pass the option generator to the template
+        return array(
+            'gridOptionsGenerator' => $gridOptionsGenerator
+        );
+
+    b. Layout Action
+        Define the template to use
+            Do not forget default format definition in the @Route defaults={"_format" = "json"}
+            @Template("GndEJSTreeGridBundle::gridLayout.json.twig")
+        Create the layout generator
+            $layoutGenerator = new GridLayoutGenerator();
+        Set/Add layout custom configuration
+        Pass the layout generator to the template
+            return array('gridLayoutGenerator' => $layoutGenerator);
+
+    c. Data Action
+        Define the template to use
+            Do not forget default format definition in the @Route defaults={"_format" = "json"}
+            @Template("GndEJSTreeGridBundle::gridData.json.twig")
+        Create the data formatter
+            $dataFormatter = new GridDataFormatter();
+        Set/Add data information
+        Pass the data formatter to the template
+            return array('gridDataFormatter' => $dataFormatter);
+
+2. The view
+    a. Table definition, Index Action
+        Define the table container
+            <div id="{{ gridOptionsGenerator.containerId }}"></div>
+        Add JavaScript for table creation (Inside javascripts block)
+            {% block javascripts%}
+                {{parent()}}
+
+                {# TreeGrid Javascript definition #}
+                {% include 'GndEJSTreeGridBundle::createGrid.js.twig' with {
+                    'gridContainerId' : gridOptionsGenerator.containerId,
+                    'gridOptions'     : gridOptionsGenerator.options,
+                    'gridId'          : gridOptionsGenerator.gridId
+                }
+                %}
+
+                // Other JavaScript code ...
+
+                {% endjavascripts %}
+            {% endblock %}
+
+    b. Layout Action
+    c. Data Action
+        Not Applicable because of template definition at controller actions
