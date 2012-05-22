@@ -1,0 +1,9 @@
+<script>
+$(function(){
+    TreeGrid(
+        {{ gridOptions|json_encode|raw }}, 
+        {{ gridContainerId|json_encode|raw }}, 
+        {{ gridId|json_encode|raw }}
+    );
+});
+</script>
