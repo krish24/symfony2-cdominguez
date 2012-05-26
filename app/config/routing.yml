@@ -1,3 +1,7 @@
+BaseFullCalendarBundle:
+    resource: "@BaseFullCalendarBundle/Resources/config/routing.yml"
+    prefix:   /
+
 MySiteOldSiteBundle:
     resource: "@MySiteOldSiteBundle/Resources/config/routing.yml"
     prefix:   /OldSite
