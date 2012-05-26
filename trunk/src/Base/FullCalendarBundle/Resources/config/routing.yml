@@ -1,0 +1,3 @@
+BaseFullCalendarBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: BaseFullCalendarBundle:Default:index }
