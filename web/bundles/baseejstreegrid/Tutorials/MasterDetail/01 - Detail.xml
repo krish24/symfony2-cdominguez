@@ -1,9 +1,0 @@
-<Grid>
-   <Cfg id='DetailNested' Dragging='0' Sync='All' SyncId='Detail' CfgId='DetailNested'/>
-   <Cols>
-      <C Name='ADDRESS' Type='Lines' Width='220'/>
-      <C Name='NOTE' Type='Lines' Width='100'/>
-   </Cols>
-   <MenuCfg ShowPanel='0'/>
-   <Toolbar Styles='2'/>
-</Grid>
