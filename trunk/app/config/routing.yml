@@ -1,6 +1,6 @@
-BaseFullCalendarBundle:
-    resource: "@BaseFullCalendarBundle/Resources/config/routing.yml"
-    prefix:   /
+MySiteCDominguezBundle:
+    resource: "@MySiteCDominguezBundle/Resources/config/routing.yml"
+    prefix:   /CDominguez
 
 MySiteOldSiteBundle:
     resource: "@MySiteOldSiteBundle/Resources/config/routing.yml"
@@ -9,6 +9,10 @@ MySiteOldSiteBundle:
 MySitePortfolioBundle:
     resource: "@MySitePortfolioBundle/Resources/config/routing.yml"
     prefix:   /Portfolio
+
+BaseFullCalendarBundle:
+    resource: "@BaseFullCalendarBundle/Resources/config/routing.yml"
+    prefix:   /FullCalendar
 
 BaseUnderConstructionBundle:
     resource: "@BaseUnderConstructionBundle/Resources/config/routing.yml"
