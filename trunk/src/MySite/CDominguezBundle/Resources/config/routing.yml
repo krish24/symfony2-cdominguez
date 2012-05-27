@@ -1,0 +1,8 @@
+MySiteCDominguezBundle_test:
+    pattern:  /hello/{name}
+    defaults: { _controller: MySiteCDominguezBundle:Default:index }
+
+MySiteCDominguezBundle_controller:
+    resource: "@MySiteCDominguezBundle/Controller/"
+    type:     annotation 
+    prefix:   /
