@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block stylesheets %}
-    {% stylesheets filter='cssrewrite' 
+    {#{% stylesheets filter='cssrewrite' 
         'css/dandelion.css'
         'css/dandelion.theme.css'
         'css/demo.css'
@@ -13,7 +13,16 @@
         'bundles/basejqueryui/jui/css/jquery.ui.all.css'
     %}
         <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
+    {% endstylesheets %}#}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/reset.css') }}" media="screen" />
+    <!--  Fluid Grid System -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/fluid.css') }}" media="screen" />
+    <!-- Theme Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/dandelion.theme.css') }}" media="screen" />
+    <!--  Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/dandelion.css') }}" media="screen" />
+    <!-- Demo Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/demo.css') }}" media="screen" />
 {% endblock %}
 
 {% block cdCustomizer %}
@@ -396,27 +405,31 @@
 {% endblock %}
         
 {% block javascripts %}
-    {% javascripts 
+    {#{% javascripts 
         'bundles/basejqueryui/jquery-1.7.2.js'
         'bundles/basejqueryui/jui/js/jquery-ui-1.8.20.min.js'
         'bundles/basejqueryui/jui/js/jquery.ui.timepicker.min.js'
         'bundles/basejqueryui/jui/js/jquery.ui.touch-punch.min.js'
-        'bundles/basejqueryui/plugins/validate/jquery.validate.min.js'
-        'bundles/basefullcalendar/fullcalendar/fullcalendar.min.js'
-        'js/core/plugins/dandelion.circularstat.min.js'
-        'js/core/plugins/dandelion.circularstat.min.js'
         'js/core/dandelion.core.js'
         'js/core/dandelion.customizer.js'
         'js/core/plugins/dandelion.wizard.min.js'
-        'js/demo/demo.dashboard.js'
     %}
         <script src="{{ asset_url }}" ></script>
-        
-        <!-- Load Google Chart Plugin -->
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript">
-            // Load the Visualization API and the piechart package.
-            google.load('visualization', '1.0', {'packages':['corechart']});
-        </script>
-    {% endjavascripts %}
+    {% endjavascripts %}#}
+    <!-- jQuery JavaScript File -->
+    <script src="{{ asset('js/jquery-1.7.2.min.js') }}" ></script>
+    <script src="{{ asset('bundles/basejqueryui/jui/js/jquery-ui-1.8.20.min.js') }}" ></script>
+    <script src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.timepicker.min.js') }}" ></script>
+    <script src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.touch-punch.min.js') }}" ></script>
+    <script src="{{ asset('js/jquery.fileinput.js') }}" ></script>
+    <script src="{{ asset('js/jquery.placeholder.js') }}" ></script>
+    <script src="{{ asset('js/jquery.mousewheel.min.js') }}" ></script>
+    <script src="{{ asset('js/jquery.tinyscrollbar.min.js') }}" ></script>
+    <script src="{{ asset('js/jquery.debouncedresize.js') }}" ></script>
+    <script src="{{ asset('js/jquery.metadata.js') }}" ></script>
+    <script src="{{ asset('js/core/plugins/dandelion.circularstat.min.js') }}" ></script>
+    <script src="{{ asset('js/core/plugins/dandelion.wizard.min.js') }}" ></script>
+    <script src="{{ asset('js/jquery.debouncedresize.js') }}" ></script>
+    <script src="{{ asset('js/core/dandelion.core.js') }}" ></script>
+    <script src="{{ asset('js/core/dandelion.customizer.js') }}" ></script>
 {% endblock %}
