@@ -1,0 +1,422 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    CDominguez Web Site
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets filter='cssrewrite' 
+        'css/dandelion.css'
+        'css/dandelion.theme.css'
+        'css/demo.css'
+        'css/fluid.css'
+        'bundles/basejqueryui/jui/css/jquery.ui.all.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block cdCustomizer %}
+    <div id="da-customizer-content">
+        <ul>
+            <li>
+                <span class="da-customizer-title">Background Pattern</span>
+                <span id="da-customizer-body-bg"></span>
+            </li>
+            <li>
+                <span>Header Pattern</span>
+                <span id="da-customizer-header-bg"></span>
+            </li>
+            <li>
+                <span>
+                    Layout
+                    <span title="This functionality can only provide you the CSS for background and header patterns. Instructions to switch between fixed or fluid layout can be found in the documentation." class="da-tooltip-w da-customizer-tooltip">
+                        [?]
+                    </span>
+                </span>
+                <ul id="da-customizer-layouts" class="clearfix">
+                    <li>
+                        <input type="radio" id="da-customizer-fluid" name="da-layout" checked="checked" />
+                        <label for="da-customizer-fluid">Fluid</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="da-customizer-fixed" name="da-layout" />
+                        <label for="da-customizer-fixed">Fixed</label>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div id="da-customizer-button">
+                <button class="da-button red">Get CSS</button>
+            </div>
+    </div>
+    <span id="da-customizer-pulldown"></span>
+{% endblock %}
+
+{% block cdHeader %}
+    <div id="da-header-top">
+    <!-- Container -->
+    <div class="da-container clearfix">
+        <!-- Logo Container. All images put here will be vertically centere -->
+        <div id="da-logo-wrap">
+            <div id="da-logo">
+                <div id="da-logo-img">
+                    <a href="#">
+                        <img src="{{ asset('images/logo.png') }}" alt="Dandelion Admin" />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Header Toolbar Menu -->
+        <div id="da-header-toolbar" class="clearfix">
+            <div id="da-user-profile">
+                <div id="da-user-avatar">
+                    <img src="{{ asset('images/pp.jpg') }}" alt="" />
+                </div>
+                <div id="da-user-info">
+                    John Doe
+                    <span class="da-user-title">Creative Director</span>
+                </div>
+                <ul class="da-header-dropdown">
+                    <li class="da-dropdown-caret">
+                        <span class="caret-outer"></span>
+                        <span class="caret-inner"></span>
+                    </li>
+                    <li class="da-dropdown-divider"></li>
+                    <li><a href="#">Dashboard</a></li>
+                    <li class="da-dropdown-divider"></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="#">Change Password</a></li>
+                </ul>
+            </div>
+            <div id="da-header-button-container">
+                <ul>
+                    <li class="da-header-button notif">
+                        <span class="da-button-count">32</span>
+                        <a href="#">Notifications</a>
+                        <ul class="da-header-dropdown">
+                            <li class="da-dropdown-caret">
+                                <span class="caret-outer"></span>
+                                <span class="caret-inner"></span>
+                            </li>
+                            <li>
+                                <span class="da-dropdown-sub-title">Notifications</span>
+                                <ul class="da-dropdown-sub">
+                                    <li class="unread">
+                                        <a href="#">
+                                            <span class="message">
+                                                Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+                                            </span>
+                                            <span class="time">
+                                                January 21, 2012
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="unread">
+                                        <a href="#">
+                                            <span class="message">
+                                                Lorem ipsum dolor sit amet
+                                            </span>
+                                            <span class="time">
+                                                January 21, 2012
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="read">
+                                        <a href="#">
+                                            <span class="message">
+                                                Lorem ipsum dolor sit amet
+                                            </span>
+                                            <span class="time">
+                                                January 21, 2012
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="read">
+                                        <a href="#">
+                                            <span class="message">
+                                                Lorem ipsum dolor sit amet
+                                            </span>
+                                            <span class="time">
+                                                January 21, 2012
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <a class="da-dropdown-sub-footer">
+                                    View all notifications
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="da-header-button message">
+                        <span class="da-button-count">5</span>
+                        <a href="#">Messages</a>
+                        <ul class="da-header-dropdown">
+                            <li class="da-dropdown-caret">
+                                <span class="caret-outer"></span>
+                                <span class="caret-inner"></span>
+                            </li>
+                            <li>
+                                <span class="da-dropdown-sub-title">Messages</span>
+                                <ul class="da-dropdown-sub">
+                                    <li class="unread">
+                                        <a href="#">
+                                            <span class="message">
+                                                Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+                                            </span>
+                                            <span class="time">
+                                                January 21, 2012
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="unread">
+                                        <a href="#">
+                                            <span class="message">
+                                                Lorem ipsum dolor sit amet
+                                            </span>
+                                            <span class="time">
+                                                January 21, 2012
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="read">
+                                        <a href="#">
+                                            <span class="message">
+                                                Lorem ipsum dolor sit amet
+                                            </span>
+                                            <span class="time">
+                                                January 21, 2012
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="read">
+                                        <a href="#">
+                                            <span class="message">
+                                                Lorem ipsum dolor sit amet
+                                            </span>
+                                            <span class="time">
+                                                January 21, 2012
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <a class="da-dropdown-sub-footer">
+                                    View all messages
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="da-header-button logout">
+                        <a href="#">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="da-header-bottom">
+        <!-- Container -->
+        <div class="da-container clearfix">
+            <div id="da-search">
+                <form>
+                    <input type="text" placeholder="Search..." />
+                </form>
+            </div>
+            <!-- Breadcrumbs -->
+            <div id="da-breadcrumb">
+                <ul>
+                    <li class="active"><span><img src="{{ asset('images/icons/black/16/home.png') }}" alt="Home" />Dashboard</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block cdContent %}
+    <!-- Container -->
+    <div class="da-container clearfix">
+
+        <!-- Sidebar Separator do not remove -->
+        <div id="da-sidebar-separator"></div>
+
+        <!-- Sidebar -->
+        <div id="da-sidebar">
+
+            <!-- Main Navigation -->
+            <div id="da-main-nav" class="da-button-container">
+                <ul>
+                    <li class="active">
+                        <a href="#">
+                            <!-- Icon Container -->
+                            <span class="da-nav-icon">
+                                <img src="{{ asset('images/icons/black/32/home.png') }}" alt="Dashboard" />
+                            </span>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <!-- Nav Notification -->
+                            <span class="da-nav-count">32</span>
+                            <!-- Icon Container -->
+                            <span class="da-nav-icon">
+                                <img src="{{ asset('images/icons/black/32/graph.png') }}" alt="Charts" />
+                            </span>
+                            Statistics and Charts
+                        </a>
+                        <ul class="closed">
+                            <li><a href="#">Statistic Widgets</a></li>
+                            <li><a href="#">Chart Gallery</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <!-- Icon Container -->
+                            <span class="da-nav-icon">
+                                <img src="{{ asset('images/icons/black/32/day_calendar.png') }}" alt="Calendar" />
+                            </span>
+                            Calendar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <!-- Icon Container -->
+                            <span class="da-nav-icon">
+                                <img src="{{ asset('images/icons/black/32/file_cabinet.png') }}" alt="File Handling" />
+                            </span>
+                            File Handling
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <!-- Icon Container -->
+                            <span class="da-nav-icon">
+                                <img src="{{ asset('images/icons/black/32/table_1.png') }}" alt="Table" />
+                            </span>
+                            Table
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <!-- Icon Container -->
+                            <span class="da-nav-icon">
+                                <img src="{{ asset('images/icons/black/32/create_write.png') }}" alt="Form" />
+                            </span>
+                            Form
+                        </a>
+                        <ul>
+                            <li><a href="#">Layouts</a></li>
+                            <li><a href="#">Elements</a></li>
+                            <li><a href="#">Validation</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <!-- Icon Container -->
+                            <span class="da-nav-icon">
+                                <img src="{{ asset('images/icons/black/32/settings.png') }}" alt="" />
+                            </span>
+                            UI Elements
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <!-- Icon Container -->
+                            <span class="da-nav-icon">
+                                <img src="{{ asset('images/icons/black/32/cog_4.png') }}" alt="Widgets" />
+                            </span>
+                            Widgets
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <!-- Icon Container -->
+                            <span class="da-nav-icon">
+                                <img src="{{ asset('images/icons/black/32/word_documents_1.png') }}" alt="Layout and Typography" />
+                            </span>
+                            Layout and Typography
+                        </a>
+                        <ul class="closed">
+                            <li><a href="#">Grids and Panels</a></li>
+                            <li><a href="#">Typography</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <!-- Icon Container -->
+                            <span class="da-nav-icon">
+                                <img src="{{ asset('images/icons/black/32/images_2.png') }}" alt="Gallery" />
+                            </span>
+                            Gallery
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <!-- Icon Container -->
+                            <span class="da-nav-icon">
+                                <img src="{{ asset('images/icons/black/32/alert.png') }}" alt="Error Pages" />
+                            </span>
+                            Error Page (404)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <!-- Icon Container -->
+                            <span class="da-nav-icon">
+                                <img src="{{ asset('images/icons/black/32/pacman.png') }}" alt="Icons" />
+                            </span>
+                            Icons
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Main Content Wrapper -->
+        <div id="da-content-wrap" class="clearfix">
+
+            <!-- Content Area -->
+            <div id="da-content-area">
+                {% block cdContentArea %}
+                {% endblock %}
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block cdFooter %}
+    <div class="da-container clearfix">
+        <p>Copyright 2012. Carlos Domínguez Lara. All Rights Reserved.</p>
+    </div>
+{% endblock %}
+        
+{% block javascripts %}
+    {% javascripts 
+        'bundles/basejqueryui/jquery-1.7.2.js'
+        'bundles/basejqueryui/jui/js/jquery-ui-1.8.20.min.js'
+        'bundles/basejqueryui/jui/js/jquery.ui.timepicker.min.js'
+        'bundles/basejqueryui/jui/js/jquery.ui.touch-punch.min.js'
+        'bundles/basejqueryui/plugins/validate/jquery.validate.min.js'
+        'bundles/basefullcalendar/fullcalendar/fullcalendar.min.js'
+        'js/core/plugins/dandelion.circularstat.min.js'
+        'js/core/plugins/dandelion.circularstat.min.js'
+        'js/core/dandelion.core.js'
+        'js/core/dandelion.customizer.js'
+        'js/core/plugins/dandelion.wizard.min.js'
+        'js/demo/demo.dashboard.js'
+    %}
+        <script src="{{ asset_url }}" ></script>
+        
+        <!-- Load Google Chart Plugin -->
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            // Load the Visualization API and the piechart package.
+            google.load('visualization', '1.0', {'packages':['corechart']});
+        </script>
+    {% endjavascripts %}
+{% endblock %}
