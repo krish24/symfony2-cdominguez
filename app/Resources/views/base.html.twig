@@ -1,13 +1,53 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+    	<meta http-equiv="X-UA-Compatible" content="IE=9">
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <!-- Viewport metatags -->
+        <meta name="HandheldFriendly" content="true" />
+        <meta name="MobileOptimized" content="320" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+        <!-- iOS webapp metatags -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+                
+        <!-- iOS webapp icons -->
+        <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-retina.png" />
+
+        <title>
+            {% block title %}
+            {% endblock %}
+        </title>
+        
+        {% block stylesheets %}
+        {% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div id="da-customizer">
+            {% block cdCustomizer %}
+            {% endblock %}
+        </div>
+        <div id="da-wrapper" class="fluid">
+            <div id="da-header">
+                {% block cdHeader %}
+                {% endblock %}
+            </div>
+            <div id="da-content">
+                {% block cdContent %}
+                {% endblock %}
+            </div>
+            <div id="da-footer">
+                {% block cdFooter %}
+                {% endblock %}
+            </div>
+        </div>
+        {% block javascripts %}
+        {% endblock %}
     </body>
 </html>
