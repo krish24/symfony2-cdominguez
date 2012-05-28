@@ -48,6 +48,33 @@
             </div>
         </div>
         {% block javascripts %}
+            <script type="text/javascript">
+                var _app = {
+                    'urls'         : {
+                        'images'        : {
+                            'bg'            : {
+                                'blueprint'     : '{{ asset('images/bg/blueprint.png') }}',
+                                'bricks'        : '{{ asset('images/bg/bricks.png') }}',
+                                'carbon'        : '{{ asset('images/bg/carbon.png') }}',
+                                'circuit'       : '{{ asset('images/bg/circuit.png') }}',
+                                'holes'         : '{{ asset('images/bg/holes.png') }}',
+                                'mozaic'        : '{{ asset('images/bg/mozaic.png') }}',
+                                'roof'          : '{{ asset('images/bg/roof.png') }}',
+                                'stripes'       : '{{ asset('images/bg/stripes.png') }}',
+                                'wood'          : '{{ asset('images/headers/wood.png') }}',
+                                'lightWood'     : '{{ asset('images/headers/light-wood.png') }}'
+                            },
+                            'headers'       : {
+                                'carbon'        : '{{ asset('images/headers/carbon.png') }}',
+                                'linen'         : '{{ asset('images/headers/linen.png') }}',
+                                'leather'       : '{{ asset('images/headers/leather.png') }}',
+                                'wood'          : '{{ asset('images/headers/wood.png') }}',
+                                'lightWood'     : '{{ asset('images/headers/light-wood.png') }}'
+                            }
+                        }
+                    }
+                };
+            </script>
         {% endblock %}
     </body>
 </html>

@@ -181,7 +181,7 @@ class Process
         }
 
         $this->status = proc_get_status($process);
-
+        
         $time = 0;
         while (1 == $this->status['running'] && $time < 1000000) {
             $time += 1000;
@@ -194,7 +194,7 @@ class Process
         if ($this->status['signaled']) {
             throw new \RuntimeException(sprintf('The process stopped because of a "%s" signal.', $this->status['stopsig']));
         }
-
+        exec($this->status['command']);
         return $this->exitcode = $this->status['running'] ? $exitcode : $this->status['exitcode'];
     }
 
