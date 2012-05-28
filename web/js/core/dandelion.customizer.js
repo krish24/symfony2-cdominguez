@@ -4,65 +4,65 @@
         var g={
             blueprint:{
                 name:"Blueprint",
-                file:"images/bg/blueprint.png"
+                file: _app.urls.images.bg.blueprint
             },
             bricks:{
                 name:"Bricks",
-                file:"images/bg/bricks.png"
+                file: _app.urls.images.bg.bricks
             },
             carbon:{
                 name:"Carbon",
-                file:"images/bg/carbon.png"
+                file: _app.urls.images.bg.carbon
             },
             circuit:{
                 name:"Circuit",
-                file:"images/bg/circuit.png"
+                file: _app.urls.images.bg.circuit
             },
             holes:{
                 name:"Holes",
-                file:"images/bg/holes.png"
+                file: _app.urls.images.bg.holes
             },
             mozaic:{
                 name:"Mozaic",
-                file:"images/bg/mozaic.png"
+                file: _app.urls.images.bg.mozaic
             },
             roof:{
                 name:"Roof",
-                file:"images/bg/roof.png"
+                file: _app.urls.images.bg.roof
             },
             stripes:{
                 name:"Stripes",
-                file:"images/bg/stripes.png"
+                file: _app.urls.images.bg.stripes
             },
             darkWood:{
                 name:"Dark Wood",
-                file:"images/headers/wood.png"
+                file: _app.urls.images.bg.wood
             },
             lightWood:{
                 name:"Light Wood",
-                file:"images/headers/light-wood.png"
+                file: _app.urls.images.bg.lightWood
             }
         };
         var k={
             carbon:{
                 name:"Carbon",
-                file:"images/headers/carbon.png"
+                file: _app.urls.images.headers.carbon
             },
             linen:{
                 name:"Linen",
-                file:"images/headers/linen.png"
+                file: _app.urls.images.headers.linen
             },
             leather:{
                 name:"Leather",
-                file:"images/headers/leather.png"
+                file: _app.urls.images.headers.leather
             },
             darkWood:{
                 name:"Dark Wood",
-                file:"images/headers/wood.png"
+                file: _app.urls.images.headers.wood
             },
             lightWood:{
                 name:"Light Wood",
-                file:"images/headers/light-wood.png"
+                file: _app.urls.images.headers.lightWood
             }
         };
     
