@@ -406,8 +406,22 @@
         
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts  '@BaseJQueryUIBundle/Resources/public/jquery-1.7.2.js'
-        filter='yui_js'
+    {% javascripts  
+        '@BaseJQueryUIBundle/Resources/public/jquery-1.7.2.js'
+        'bundles/basejqueryui/jui/js/jquery-ui-1.8.20.min.js'
+        'bundles/basejqueryui/jui/js/jquery.ui.timepicker.min.js'
+        'bundles/basejqueryui/jui/js/jquery.ui.touch-punch.min.js'
+        'js/jquery.fileinput.js'
+        'js/jquery.placeholder.js'
+        'js/jquery.mousewheel.min.js'
+        'js/jquery.tinyscrollbar.min.js'
+        'js/jquery.debouncedresize.js'
+        'js/jquery.metadata.js'
+        'js/core/plugins/dandelion.wizard.min.js'
+        'js/core/plugins/dandelion.circularstat.min.js'
+        'js/jquery.debouncedresize.js'
+        'js/core/dandelion.core.js'
+        'js/core/dandelion.customizer.js'
     %}
         <script src="{{ asset_url }}" ></script>
     {% endjavascripts %}
