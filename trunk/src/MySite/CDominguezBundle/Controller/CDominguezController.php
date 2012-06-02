@@ -16,7 +16,7 @@ use Base\EJSTreeGridBundle\Framework\GridOptionsGenerator,
 class CDominguezController extends Controller
 {
     /**
-     * @Route("/i", name="cd_index")
+     * @Route("/", name="cd_index")
      * @Template("MySiteCDominguezBundle::CDominguez/index.html.twig")
      */
     public function indexAction()
