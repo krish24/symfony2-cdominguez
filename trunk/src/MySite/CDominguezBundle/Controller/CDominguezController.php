@@ -16,11 +16,24 @@ use Base\EJSTreeGridBundle\Framework\GridOptionsGenerator,
 class CDominguezController extends Controller
 {
     /**
-     * @Route("/", name="cd_index")
+     * @Route("/i", name="cd_index")
      * @Template("MySiteCDominguezBundle::CDominguez/index.html.twig")
      */
     public function indexAction()
     {
         return array();
+    }
+    
+    /**
+     * @Route("/addGasto", name="cd_add_gasto")
+     */
+    public function addGasto(){
+        $request      = $this->getRequest();
+        $categoria    = $request->request->get('_categoria');
+        $addCategoria = $request->request->get('add_categoria');
+        $gasto        = $request->request->get('_gasto');
+        $addGasto     = $request->request->get('add_gasto');
+        $cantidad     = $request->request->get('_cantidad');
+        return new Response('done');
     }
 }
