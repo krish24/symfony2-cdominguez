@@ -1,10 +1,26 @@
 {% extends '::cdominguezbase.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Chosen Plugin -->
+    <link rel="stylesheet" href="{{ asset('bundles/basejqueryui/plugins/chosen/chosen.css') }}" media="screen" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <!-- Spinner Plugin -->
+    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.spinner.min.js') }}"></script>
+    <!-- Chosen Plugin -->
+    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/plugins/chosen/chosen.jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mysitecdominguez/js/index.js') }}" ></script>
+{% endblock %}
+    
 {% block cdContentArea %}
     <div class="grid_4">
         <div class="da-panel">
             <div class="da-panel-header">
                 <span class="da-panel-title">
-                    <img src="{{ asset('images/icons/color/add.png') }}" >
+                    <img src="{{ asset('images/icons/color/coins.png') }}" >
                     Agregar gasto
                 </span>
             </div>
@@ -12,17 +28,38 @@
                 <form class="da-form">
                     <div class="da-form-row">
                         <label>Categoria</label>
-                        
+                        <div class="da-form-item large">
+                            <select id="chosen-categoria" style="display: none; ">
+                                <option value="1" >Selecciona algo</option>
+                                <option value="2" >Pases en bus</option>
+                                <option value="3" >Comida</option>
+                                <option value="4" >Compras</option>
+                                <option value="5" >Recarga celular</option>
+                            </select>
+                            <input type="text" id="txtCategoria" placeholder="Agregar nueva categoria." >
+                        </div>
                     </div>
                     <div class="da-form-row">
                         <label>Gaste en</label>
-                        
+                        <div class="da-form-item large">
+                            <select id="chosen-gasto" style="display: none; ">
+                                <option>Selecciona algo</option>
+                                <option>Pases en bus</option>
+                                <option>Comida</option>
+                                <option>Compras</option>
+                                <option>Recarga celular</option>
+                            </select>
+                            <input type="text" id="txtGasto" placeholder="Agregar nuevo gasto." >
+                        </div>
                     </div>
                     <div class="da-form-row">
                         <label>¿C&uacute;anto?</label>
-                        <div class="da-form-item">
-                            <input type="text" id="spinner-gasto" value="10" maxlength="1000">
+                        <div class="da-form-item large">
+                            <input type="text" id="spinner-gasto" value="0" >
                         </div>
+                    </div>
+                    <div class="da-form-row">
+                        <input type="submit" value="Ok" class="da-button blue" style="float: right;" >
                     </div>
                 </form>
             </div>
@@ -35,10 +72,4 @@
         </ul>
     </div>
 {% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <!-- Spinner Plugin -->
-    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.spinner.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/mysitecdominguez/js/index.js') }}" ></script>
-{% endblock %}
+    
