@@ -43,7 +43,7 @@
 .ui-widget-header
 {
 	border:1px solid #bfbfbf;
-	background:url(../../images/default-header.png) repeat-x left top #eeeeee;
+	background:url(../images/default-header.png) repeat-x left top #eeeeee;
 	color:#444444;
 	font-weight:bold;
 }
@@ -61,7 +61,7 @@
 .ui-widget-header .ui-state-default
 {
 	border:1px solid #bfbfbf;
-	background:url(../../images/default-header.png) repeat-x left bottom;
+	background:url(../images/default-header.png) repeat-x left bottom;
 	font-weight:normal;
 	color:#444444;
 }
