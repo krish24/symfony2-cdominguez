@@ -3,17 +3,8 @@
 {% block title %}
     CDominguez Web Site
 {% endblock %}
-
+    
 {% block stylesheets %}
-    {#{% stylesheets filter='cssrewrite' 
-        'css/reset.css'
-        'css/fluid.css'
-        'css/dandelion.theme.css'
-        'css/dandelion.css'
-        'bundles/basejqueryui/jui/css/jquery.ui.all.css'
-    %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}#} 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/reset.css') }}" media="screen" />
     <!--  Fluid Grid System -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/fluid.css') }}" media="screen" />
@@ -23,6 +14,17 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/dandelion.css') }}" media="screen" />
     <!--  JQuery Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/basejqueryui/jui/css/jquery.ui.all.css') }}" media="screen" />
+{% endblock %}
+    
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/basejqueryui/jquery-1.7.2.js') }}" ></script>
+    <script src="{{ asset('bundles/basejqueryui/ui/jquery-ui-1.8.20.custom.js') }}" ></script>
+    <script src="{{ asset('js/jquery.metadata.js') }}" ></script>
+    <script src="{{ asset('js/core/plugins/dandelion.circularstat.min.js') }}" ></script>
+    <script src="{{ asset('js/jquery.debouncedresize.js') }}" ></script>
+    <script src="{{ asset('js/core/dandelion.core.js') }}" ></script>
+    <script src="{{ asset('js/core/dandelion.customizer.js') }}" ></script>#}
 {% endblock %}
 
 {% block cdCustomizer %}
@@ -402,26 +404,4 @@
     <div class="da-container clearfix">
         <p>Copyright 2012. Carlos Domínguez Lara. All Rights Reserved.</p>
     </div>
-{% endblock %}
-        
-{% block javascripts %}
-    {{ parent() }}
-    {#{% javascripts  
-        '@BaseJQueryUIBundle/Resources/public/jquery-1.7.2.js'
-        'bundles/basejqueryui/jui/js/jquery-ui-1.8.20.min.js'
-        'js/jquery.metadata.js'
-        'js/core/plugins/dandelion.circularstat.min.js'
-        'js/core/dandelion.core.js'
-        'js/core/dandelion.customizer.js'
-    %}
-        <script src="{{ asset_url }}" ></script>
-    {% endjavascripts %}#} 
-    <!-- jQuery JavaScript File -->
-    <script src="{{ asset('bundles/basejqueryui/jquery-1.7.2.js') }}" ></script>
-    <script src="{{ asset('bundles/basejqueryui/ui/jquery-ui-1.8.20.custom.js') }}" ></script>
-    <script src="{{ asset('js/jquery.metadata.js') }}" ></script>
-    <script src="{{ asset('js/core/plugins/dandelion.circularstat.min.js') }}" ></script>
-    <script src="{{ asset('js/jquery.debouncedresize.js') }}" ></script>
-    <script src="{{ asset('js/core/dandelion.core.js') }}" ></script>
-    <script src="{{ asset('js/core/dandelion.customizer.js') }}" ></script>#}
 {% endblock %}
