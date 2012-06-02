@@ -13,7 +13,19 @@
         });
         
         //Crea el chosen
-        a("#chosen-categoria").chosen();
-        a("#chosen-gasto").chosen();
+        a("select").chosen();
+        
+        a("select").change(function(){
+            var e = a(this).find(':selected');
+            var idE = "#add-" + a(this).attr('id');
+            console.log(idE);
+            if(a(e).val() == 1){
+                a(idE).fadeIn('slow');
+            }else{
+                if(a(idE).css('display') != 'none'){
+                    a(idE).effect( 'explode', {}, 1000 );
+                }
+            }
+        });
     })
 })(jQuery);
