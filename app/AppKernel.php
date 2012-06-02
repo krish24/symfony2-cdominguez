@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new MySite\OldSiteBundle\MySiteOldSiteBundle(),
             new Base\FullCalendarBundle\BaseFullCalendarBundle(),
             new MySite\CDominguezBundle\MySiteCDominguezBundle(),
+            new MySite\DataBaseBundle\MySiteDataBaseBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
