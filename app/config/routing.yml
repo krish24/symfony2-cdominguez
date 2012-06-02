@@ -1,3 +1,7 @@
+MySiteDataBaseBundle:
+    resource: "@MySiteDataBaseBundle/Resources/config/routing.yml"
+    prefix:   /
+
 MySiteCDominguezBundle:
     resource: "@MySiteCDominguezBundle/Resources/config/routing.yml"
     prefix:   /
