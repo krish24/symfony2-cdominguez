@@ -8,11 +8,22 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript">
+        var _cdominguez = {
+            'urls'         : {
+                'add'        : '{{ path('cd_add_gasto') }}'
+            }
+        };
+    </script> 
+    
     <!-- Spinner Plugin -->
     <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.spinner.min.js') }}"></script>
+    
     <!-- Chosen Plugin -->
     <script type="text/javascript" src="{{ asset('bundles/basejqueryui/plugins/chosen/chosen.jquery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/mysitecdominguez/js/index.js') }}" ></script>
+    
+
 {% endblock %}
     
 {% block cdContentArea %}
@@ -25,45 +36,49 @@
                 </span>
             </div>
             <div class="da-panel-content" >
-                <form class="da-form">
+                <div id="msg"></div>
+                <form class="da-form" id="form-add-gasto" method="GET" novalidate="novalidate">
                     <div class="da-form-row">
-                        <label>Categoria</label>
+                        <label><span class="required">* </span>Categoria</label>
                         <div class="da-form-item large">
-                            <select id="chosen-categoria" style="display: none; ">
-                                <option value="1" >Selecciona algo</option>
+                            <select name="_categoria" id="_categoria" style="display: none; ">
+                                <option value="-1" >Seleccionar una opci&oacute;n</option>
                                 <option value="2" >Pases en bus</option>
                                 <option value="3" >Comida</option>
                                 <option value="4" >Compras</option>
                                 <option value="5" >Recarga celular</option>
                             </select>
                             <div id="add-chosen-categoria">
-                                <input type="text" id="txtCategoria" placeholder="Agregar nueva categoria." >
+                                <input type="text" name="add_categoria" id="add_categoria" placeholder="Agregar nueva categoria." >
                             </div>
+                            <label id="label_categoria" for="add_categoria" class="error" style="display: none">Seleccione o ingrese una nueva categoria.</label>
                         </div>
                     </div>
                     <div class="da-form-row">
-                        <label>Gaste en</label>
+                        <label><span class="required">* </span>Gaste en</label>
                         <div class="da-form-item large">
-                            <select id="chosen-gasto" style="display: none; ">
-                                <option value="1" >Selecciona algo</option>
+                            <select name="_gasto" id="_gasto" style="display: none; ">
+                                <option value="-1" >Seleccionar una opci&oacute;n</option>
                                 <option value="2" >Pases en bus</option>
                                 <option value="3" >Comida</option>
                                 <option value="4" >Compras</option>
                                 <option value="5" >Recarga celular</option>
                             </select>
                             <div id="add-chosen-gasto">
-                                <input type="text" id="txtGasto" placeholder="Agregar nuevo gasto." >
+                                <input name="add_gasto" type="text" id="add_gasto" placeholder="Agregar nuevo gasto." >
                             </div>
+                            <label id="label_gasto" for="add_gasto" class="error" style="display: none">Seleccione o ingrese un nuevo gasto.</label>
                         </div>
                     </div>
                     <div class="da-form-row">
-                        <label>¿C&uacute;anto?</label>
+                        <label><span class="required">* </span>¿C&uacute;anto?</label>
                         <div class="da-form-item large">
-                            <input type="text" id="spinner-gasto" value="0" >
+                            <input name="_cantidad" type="text" id="_cantidad" value="0" >
+                            <label id="label_cantidad" for="_cantidad" class="error" style="display: none">Ingrese la cantidad.</label>
                         </div>
                     </div>
                     <div class="da-form-row">
-                        <input type="submit" value="Ok" class="da-button blue" style="float: right;" >
+                        <input type="button" value="Ok" class="da-button blue" onclick="validateForm(true)" style="float: right;" >
                     </div>
                 </form>
             </div>
