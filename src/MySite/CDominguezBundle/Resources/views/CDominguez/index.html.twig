@@ -1,19 +1,44 @@
 {% extends '::cdominguezbase.html.twig' %}
 {% block cdContentArea %}
     <div class="grid_4">
-        <div class="da-panel-widget">
-            <h1>Hello {{ name }}!</h1>
-            <div id="da-ex-gchart-line" style="height:225px;"></div>
+        <div class="da-panel">
+            <div class="da-panel-header">
+                <span class="da-panel-title">
+                    <img src="{{ asset('images/icons/color/add.png') }}" >
+                    Agregar gasto
+                </span>
+            </div>
+            <div class="da-panel-content" >
+                <form class="da-form">
+                    <div class="da-form-row">
+                        <label>Categoria</label>
+                        
+                    </div>
+                    <div class="da-form-row">
+                        <label>Gaste en</label>
+                        
+                    </div>
+                    <div class="da-form-row">
+                        <label>¿C&uacute;anto?</label>
+                        <div class="da-form-item">
+                            <input type="text" id="spinner-gasto" value="10" maxlength="1000">
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
+        <ul class="da-circular-stat-wrap">
+            <li class="da-circular-stat {fillColor: '#a6d037', value: 55, maxValue: 98, label: 'Seeds Collected'}"></li>
+            <li class="da-circular-stat {fillColor: '#ea799b', percent: true, value: 200, maxValue: 241, label: 'iPads Cloned'}"></li>
+            <li class="da-circular-stat {fillColor: '#fab241', value: 124, maxValue: 523, label: 'Androids Bought'}"></li>
+            <li class="da-circular-stat {fillColor: '#61a5e4', percent: true, value: 42, maxValue: 100, label: 'Funds Collected'}"></li>
+        </ul>
     </div>
-{% endblock %} 
+{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'GndEJSTreeGridBundle::createGrid.js.twig' with {
-        'gridContainerId' : gridOptionsGenerator.containerId, 
-        'gridOptions'     : gridOptionsGenerator.options,
-        'gridId'          : gridOptionsGenerator.gridId 
-       }
-    %}
+    <!-- Spinner Plugin -->
+    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.spinner.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mysitecdominguez/js/index.js') }}" ></script>
 {% endblock %}

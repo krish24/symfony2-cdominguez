@@ -1,6 +1,6 @@
 MySiteCDominguezBundle:
     resource: "@MySiteCDominguezBundle/Resources/config/routing.yml"
-    prefix:   /CDominguez
+    prefix:   /
 
 MySiteOldSiteBundle:
     resource: "@MySiteOldSiteBundle/Resources/config/routing.yml"
