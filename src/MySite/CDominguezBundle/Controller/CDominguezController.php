@@ -74,4 +74,17 @@ class CDominguezController extends Controller
         
         return $response;
     }
+
+    /**
+     * @Route("/getGDetallesByCat", name="cd_get_opt_gdetalles_by_cat")
+     * @Template("MySiteCDominguezBundle::CDominguez/optionsChosenDetalleGastos.html.twig")
+     */
+    public function getOptGDetallesByCat(){
+        $request      = $this->getRequest();
+        $idCategoria  = array($request->query->get('pidCategoria'));
+        $em           = $this->getDoctrine()->getEntityManager();
+        $objCategoria = $em->getRepository('MySiteDataBaseBundle:Categoria')->findOneBy(array('id' => $idCategoria)); 
+        $detalles     = $objCategoria->getGastoDetalles();
+        return array( 'detalles'   => $detalles );
+    }
 }
