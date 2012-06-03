@@ -41,6 +41,11 @@ class Gasto
      */
     private $detalle;
 
+    public function __construct()
+    {
+        $this->fecha = new \DateTime();
+    }
+    
     /**
      * Get id
      *
