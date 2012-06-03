@@ -25,9 +25,8 @@ class CDominguezController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $categorias = $em->getRepository('Categoria')->findAll();
+        $categorias = $em->getRepository('MySiteDataBaseBundle:Categoria')->findAll();
         $detalles = array();
-        
         return array(
             'categorias' => $categorias,
             'detalles'   => $detalles
@@ -48,13 +47,14 @@ class CDominguezController extends Controller
         $em             = $this->getDoctrine()->getEntityManager();
         
         $objGasto = new Gasto();
+        $cantidad = str_replace("¢ ", "", $cantidad);
         
         if($addCategoria != ''){
             $objCategoria = new Categoria();
             $objCategoria->setDescripcion($addCategoria);
             $em->persist($objCategoria);
         }else{
-            $objCategoria = $em->getRepository('Categoria')->findOneBy(array('id' => $idCategoria)); 
+            $objCategoria = $em->getRepository('MySiteDataBaseBundle:Categoria')->findOneBy(array('id' => $idCategoria)); 
         }
         
         if($addGasto != ''){
@@ -62,7 +62,7 @@ class CDominguezController extends Controller
             $objDetalle->setDescripcion($addGasto);
             $em->persist($objDetalle);
         }else{
-            $objDetalle = $em->getRepository('GastoDetalle')->findOneBy(array('id' => $idGastoDetalle)); 
+            $objDetalle = $em->getRepository('MySiteDataBaseBundle:GastoDetalle')->findOneBy(array('id' => $idGastoDetalle)); 
         }
         
         $objDetalle->setCategoria($objCategoria);
