@@ -96,6 +96,8 @@ function saveData(){
         success: function(r){
             if(r == 'done'){
                 showMessage('success', 'Los datos se guardaron correctamente');
+            }else{
+                showMessage('info', r);
             }
         },
         beforeSend: function(){},
