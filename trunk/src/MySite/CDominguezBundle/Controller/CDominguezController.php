@@ -19,17 +19,20 @@ use Base\EJSTreeGridBundle\Framework\GridOptionsGenerator,
 class CDominguezController extends Controller
 {
     /** 
-     * @Route("/i", name="cd_index")
+     * @Route("/", name="cd_index")
      * @Template("MySiteCDominguezBundle::CDominguez/index.html.twig")
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $request    = $this->getRequest();
+        $s          = $request->query->get('s');
+        $em         = $this->getDoctrine()->getEntityManager();
         $categorias = $em->getRepository('MySiteDataBaseBundle:Categoria')->findAll();
-        $detalles = array();
+        $detalles   = array();
         return array(
             'categorias' => $categorias,
-            'detalles'   => $detalles
+            'detalles'   => $detalles,
+            'saveData'   => $s
         );
     }
     
@@ -37,19 +40,18 @@ class CDominguezController extends Controller
      * @Route("/addGasto", name="cd_add_gasto")
      */
     public function addGasto(){
-        $response       = new Response("error");
         $request        = $this->getRequest();
-        $idCategoria    = $request->request->get('_categoria');
-        $addCategoria   = $request->request->get('add_categoria');
-        $idGastoDetalle = $request->request->get('_gasto');
-        $addGasto       = $request->request->get('add_gasto');
-        $cantidad       = $request->request->get('_cantidad');
+        $idCategoria    = $request->query->get('_categoria');
+        $addCategoria   = $request->query->get('add_categoria');
+        $idGastoDetalle = $request->query->get('_gasto');
+        $addGasto       = $request->query->get('add_gasto');
+        $cantidad       = $request->query->get('_cantidad');
         $em             = $this->getDoctrine()->getEntityManager();
         
         $objGasto = new Gasto();
         $cantidad = str_replace("¢ ", "", $cantidad);
         
-        if($addCategoria != ''){
+        if($idCategoria == -1){
             $objCategoria = new Categoria();
             $objCategoria->setDescripcion($addCategoria);
             $em->persist($objCategoria);
@@ -57,7 +59,7 @@ class CDominguezController extends Controller
             $objCategoria = $em->getRepository('MySiteDataBaseBundle:Categoria')->findOneBy(array('id' => $idCategoria)); 
         }
         
-        if($addGasto != ''){
+        if($idGastoDetalle == -1){
             $objDetalle = new GastoDetalle();
             $objDetalle->setDescripcion($addGasto);
             $em->persist($objDetalle);
@@ -70,9 +72,7 @@ class CDominguezController extends Controller
         $objGasto->setCantidad($cantidad);
         $em->persist($objGasto);
         $em->flush();
-        $response->setContent('done');
-        
-        return $response;
+        return $this->redirect($this->generateUrl('cd_index', array('s' => 1)));
     }
 
     /**
