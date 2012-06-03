@@ -163,9 +163,9 @@ body {
 }
 div#da-wrapper {
     height:auto;
-    min-height:100%;
+    min-height:100%;  
     position:relative;
-    min-width:320px
+    min-width:220px
 }
 div#da-wrapper, div#da-wrapper.fluid {
     width:100%
