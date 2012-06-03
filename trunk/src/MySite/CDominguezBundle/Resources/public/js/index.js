@@ -23,8 +23,8 @@
 
 var flagValidate = 0;
     
-function validateForm(sendForm){
-    var enviarForm = sendForm;
+function validateForm(psendForm){
+    var enviarForm = psendForm;
     
     var chosens = $("#form-add-gasto select");
     //Validar los Chosen
@@ -75,18 +75,41 @@ function validateForm(sendForm){
     }
 } 
 
-function addInputChosen(element){
-    var id = $(element).attr('id');
+function addInputChosen(pelement){
+    var id = $(pelement).attr('id');
     var e = $('#' + id + ' :selected');
     var idE = "#add" + id;
     if($(e).val() == -1){
         $(idE).fadeIn('slow');
+        if(id == '_categoria'){
+            $('#_gasto').html('<option value="-1" >Seleccionar una opci&oacute;n</option>');
+            $("#_gasto").trigger("liszt:updated");
+        }
     }else{
         if($(idE).css('display') != 'none'){
             $(idE).effect( 'explode', {}, 1000 );
             $('#label' + id).css('display', 'none');
         }
+        if(id == '_categoria'){
+            loadGastosByCategoria($(e).val());
+        }
     }
+}
+
+function loadGastosByCategoria(pidCategoria){
+    $.get(
+        _cdominguez.urls.getOptGDetallesByCat, {
+            pidCategoria: pidCategoria
+        },
+        function(htmlOptions) {
+            $('#_gasto').html(htmlOptions);
+            $("#_gasto").trigger("liszt:updated");
+        }
+    ).error(
+        function() {
+            showMessage('error', 'No se pudo cargar los gastos');
+        }
+    );
 }
 
 function saveData(){
