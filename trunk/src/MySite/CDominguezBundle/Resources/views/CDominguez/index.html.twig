@@ -37,8 +37,12 @@
                 </span>
             </div>
             <div class="da-panel-content" >
-                <div id="msg"></div>
-                <form class="da-form" id="form-add-gasto" method="GET" novalidate="novalidate">
+                <div id="msg">
+                    {% if saveData == 1 %}
+                        <div class="da-message success">Los datos se guardaron correctamente</div>
+                    {% endif %}
+                </div>
+                <form class="da-form" action="{{path('cd_add_gasto')}}" id="form-add-gasto" method="GET" novalidate="novalidate">
                     <div class="da-form-row">
                         <label><span class="required">* </span>Categoria</label>
                         <div class="da-form-item large">

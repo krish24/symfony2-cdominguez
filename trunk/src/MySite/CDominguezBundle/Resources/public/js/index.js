@@ -71,7 +71,8 @@ function validateForm(psendForm){
     }
     
     if(enviarForm){
-        saveData();
+        $('#form-add-gasto').submit();
+        //saveData();
     }
 } 
 
