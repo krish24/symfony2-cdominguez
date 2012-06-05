@@ -1,0 +1,320 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1250">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>TreeGrid - Debug window</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+@page WordSection1
+	{size:841.9pt 595.3pt;
+	margin:42.55pt 70.9pt 42.55pt 70.9pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+<div class=WordSection1>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:16.0pt'>TreeGrid v<span style='color:blue'>6.0</span></span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:36.0pt'>Debug window</span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-size:10.0pt'><a href="Index.html">TreeGrid documentation index</a></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>TreeGrid 6.0 contains new
+feature for debugging: a debug window.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The window shows various
+information from TreeGrid runtime. Errors, warning, timer, status and so on.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>This window is displayed on
+bottom of page by default, the position can be changed in Grid.css, CSS
+attribute GridDebugTag.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The window is shown
+automatically if some message is printed or on click to Debug icon on toolbar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>What will be printed to the
+debug window is controlled by &lt;treegrid&gt; / &lt;bdo&gt; attribute <a
+href="#Debug">Debug</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;treegrid,bdo&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> <i>string</i>[]  </span><a
+name=Debug><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>Debug</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>      [“Problem,IOError”]                                                                                          <span
+style='color:red'>new <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Global debugging settings.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>A list of comma separated keywords
+specified what information will be printed to the <b>Debug</b> window. The
+keywords are case insensitive.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Default setting of Debug
+is to print all errors and warning, it strongly recommended to use at least
+this settings during development!</span></i></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>In final release you
+should set Debug=”” to disable debugging.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Error</span></b><span
+style='font-size:10.0pt'>                    Prints <b>errors</b> (<b><span
+style='color:red'>red</span></b> , if something failed in grid – data
+communication, action, formula) and <b>fatal errors</b> (<b><span
+style='color:red'>big red</span></b>, TreeGrid cannot render)</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Problem</span></b><span
+style='font-size:10.0pt'>               Prints <b>warnings</b> (<b><span
+style='color:#993300'>brown</span></b>, something is wrong in TreeGrid, but it
+may or may not have influence on running), <b>errors</b> and <b>fatal errors</b></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Info</span></b><span
+style='font-size:10.0pt'>                       Prints <b>status</b> (<b>black</b>,
+something started, something finished, something called), <b>timers</b> (<b>black</b>,
+profiling information), <b>warnings</b>, <b>errors</b> and <b>fatal errors</b></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Check</span></b><span
+style='font-size:10.0pt'>                    Checks all input XML attributes
+and prints all unknown attributes that are not used by TreeGrid</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               It
+is useful when upgrading to see unsupported attributes and also to find typing
+errors.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                               Remember,
+it can do false alarms if you use custom grid, row, col, cell attributes, you
+can define them in <a href="#DebugCheckIgnore">DebugCheckIgnore</a>.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>                               This
+option can remarkably slow down data loading in large grids!</span></i></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>IOError</span></b><span
+style='font-size:10.0pt'>               Lists input / output <b>data</b> from <b>erroneous</b>
+communication</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>IO</span></b><span
+style='font-size:10.0pt'>                          Lists <b>all</b> input /
+output <b>data</b>. Sets *_Debug=”In,Out” for every data source that has not
+set its Debug attribute, except Defaults and Text.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Cookie</span></b><span
+style='font-size:10.0pt'>                  Prints all information about grid
+configuration loaded from cookies.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Page</span></b><span
+style='font-size:10.0pt'>                      Prints status information for
+downloading pages, cells (DefaultsServer), AutoUpdate</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Event</span></b><span
+style='font-size:10.0pt'>                    All mouse over events to see what
+part in grid is marked by what action event name. Useful for attaching events. <i>Very
+talkative.</i></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;treegrid,bdo&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> <i>string</i>[]  </span><a
+name="xxx_Debug"><b><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>xxx_Debug</span></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                                                <span
+style='color:red'>new <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Debugging settings for
+appropriate data source (e.g. Upload_Debug=”Out”)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>A list of comma separated
+keywords specified what information will be printed to the <b>Debug</b> window.
+The keywords are case insensitive.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>In</span></b><span
+style='font-size:10.0pt'>                           Lists all input XML
+downloaded from server</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Out</span></b><span
+style='font-size:10.0pt'>                        Lists all output XML uploaded
+to server</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Raw</span></b><span
+style='font-size:10.0pt'>                       Lists all output XML directly
+as it is uploaded to server</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;treegrid,bdo&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> <i>string</i>[]  </span><a
+name=DebugCheckIgnore><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>DebugCheckIgnore</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                            <span
+style='color:red'>new <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Comma separated list of all
+attributes that Debug[“Check”] will ignore.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>These attributes will be
+ignored for every tag except &lt;treegrid&gt; / &lt;bdo&gt;. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>These attributes are also
+ignored for every cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;treegrid,bdo&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> <i>string</i>    </span><a
+name=DebugTag><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>DebugTag</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                                                  <span
+style='color:red'>new <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>An <b>id</b> of existing tag
+on HTML page to print the debug information to.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If not set, default TreeGrid
+debug tag is created and used.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;treegrid,bdo&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> <i>string</i>    </span><a
+name=DebugWindow><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>DebugWindow</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                                        <span
+style='color:red'>new <b>6.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Name of new window to print
+debug list to another window instead of DebugTag.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;treegrid,bdo&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> <i>bool</i>      </span><a
+name=AlertError><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>AlertError</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                                                    <span
+style='color:red'>new <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>1</b> it alerts
+a message to user when communication with server failed.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:aqua'>API method</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'>     <i>void      </i></span><a
+name=SetScrollLeft><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:aqua'>Debug</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:aqua'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:aqua'>      (<i>int</i>
+<b>type</b>, <i>string</i> <b>arg1</b>, <i>string</i> <b>arg2</b>, <i>string</i>
+<b>arg3</b>, ...)                                               <span
+style='color:red'>new <b>6.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Prints information to the
+TreeGrid Debug window</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>type</span></b><span
+style='font-size:10.0pt'> is <b>0</b> – fatal error, <b>1</b> – error, <b>2</b>
+– warning (shown when Debug contains Problem), <b>3</b> – list (shown always), <b>4</b>
+– info (shown when Debug contains Info). </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The <b>arg</b> are strings to
+display, are shown without any separator, every even string is displayed bold.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDebugUndo><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>DebugUndo</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>      Attached to <b>OnCtrlAltD</b>
+event                                                              <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Prints to new window all
+actions done from last clearing undo. Prints only actions that can be undone. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It prints the actions as
+calling API methods, so the developer can easily redo the actions by simply
+adding the list to the script.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Works only when set &lt;Cfg <a
+href="Undo.htm#CfgUndo">Undo</a>=’1’/&gt; and <a href="#Debug">Debug</a> contains
+“Error”.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can be used when reporting
+bugs, to get the action list that led to incorrect behavior:</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>When you face some
+incorrect behavior during testing, press Ctrl+Alt+D to show the window. </span></i></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Click to <b>Test</b>
+button to reload grid and to do automatically all the actions again.</span></i></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>If the problem rises
+again, it means it can be simulated by this action list. </span></i></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Press again Ctrl+Alt+D and
+select and copy all the message text to clipboard and send it to developer with
+all the example data to simulate the bug.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+</div>
+
+</body>
+
+</html>

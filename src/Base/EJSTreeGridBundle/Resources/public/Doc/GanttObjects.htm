@@ -1,0 +1,2044 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1250">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>TreeGrid - Gantt chart</title>
+
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+span.apple-style-span
+	{mso-style-name:apple-style-span;}
+span.apple-converted-space
+	{mso-style-name:apple-converted-space;}
+@page WordSection1
+	{size:841.9pt 595.3pt;
+	margin:42.55pt 70.9pt 42.55pt 70.9pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+<div class=WordSection1>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:16.0pt'>TreeGrid v<span style='color:blue'>6.3</span></span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:36.0pt'>Gantt objects</span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-size:10.0pt'><a href="Index.html">TreeGrid documentation index</a></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The Gantt chart can show
+various objects, possibly all together in one cell:</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:14.0pt'>Gantt bars</span></b></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Resizable, movable,
+support percentage completion, dependencies and resources.</span></i></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Used as sources for Gantt
+chart calculations (e.g. correcting dependencies or calculate critical path)</span></i></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a href="#Main">Main</a></span></b><span
+style='font-size:10.0pt'> bar or <b><a href="#Milestone">Milestone</a></b>      One
+</span><span lang=CS style='font-size:10.0pt'>solid </span><span
+style='font-size:10.0pt'>bar. Milestone is zero length main bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               Used
+usually for (continuous) planned task</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Real <b><a href="#Flow">Flow</a></b>
+                           One or more bars, as one non continuous flow, all in
+one color, adjacent bars can be merged. Supports also milestones.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               Can
+be used as non continuous planned task to replace main bar, with percentage
+completion.</span></p>
+
+<p class=MsoNormal style='margin-left:70.8pt;text-indent:35.4pt'><span
+style='font-size:10.0pt'>Or can be used as actual running of the planned task,
+without percentage completion.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a href="GanttRun.htm">Run</a></span></b><span
+style='font-size:10.0pt'>                                       The most
+complex bar type. One or more independent bars with different color, class, caption,
+tooltip and unique id. Supports also milestones.</span></p>
+
+<p class=MsoNormal style='margin-left:70.8pt;text-indent:35.4pt'><span
+style='font-size:10.0pt'>It supports also many options for moving and resizing
+the boxes.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               Can
+be used as complex planned task.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               Or
+it can be used for any other interactive bar chart, not only for the Gantt.</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:14.0pt'>Gantt icons</span></b></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Not resizable, but movable
+objects</span></i></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a href="#Flag">Flag</a></span></b><span
+style='font-size:10.0pt'>                                      One or more
+icons in the cell, on specified dates, with defined tooltip text. Supports
+custom icons and their changing.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               Usually
+used to attach some information and icon to selected date(s).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               <i>Does
+<u>not</u> affect any Gantt calculations, except width of the Gantt column.</i></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a href="#Point">Point</a></span></b><span
+style='font-size:10.0pt'>                                     One or more
+different movable bullets. With different icons, tooltip and edit permissions.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               Used
+usually in math charts to display various points on specified positions.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               <i>Does
+<u>not</u> affect any Gantt calculations, except width of the Gantt column.</i></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a
+href="GanttCompute.htm#TaskConstraints">Constraints</a></span></b><span
+style='font-size:10.0pt'>                         Task constraints, specify
+limits where the Gantt bars (and optionally Gantt icons) can be moved or
+resized, used also for Gantt calculations.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               Four
+different constraints: early start, late start, early end and late end.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:14.0pt'>Static objects</span></b></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Not movable, not
+resizable, completely inactive</span></i></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a href="#Mark">Mark</a></span></b><span
+style='font-size:10.0pt'>                                    One or more dates
+or date ranges to highlight them</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a href="#CGanttFormat">Format</a></span></b><span
+style='font-size:10.0pt'>                                 Text displayed right
+to Gantt bar (to the first object in <a href="#CGanttObject">GanttObject</a>)</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a
+href="file:///S:\Doc\GanttCalendars.htm#Local">Local calendar</a></span></b><span
+style='font-size:10.0pt'>                  Gantt calendar - excluded dates
+(holidays). Marks these dates by different color.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               It
+is used in all Gantt calculations and is also possible to restrict start / end
+Gantt objects in these ranges.</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:14.0pt'>Global objects</span></b></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Objects defined for the
+whole chart or between cells</span></i></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a
+href="GanttCompute.htm#Dependencies">Dependencies</a></span></b><span
+style='font-size:10.0pt'>                      Lines between two tasks, the
+task can be defined by Gantt bar (to the first object in <a href="#CGanttObject">GanttObject</a>).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               The
+dependencies set relation between the tasks and are used in Gantt chart
+calculation (e.g. correcting dependencies or calculate critical path)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               The
+dependencies support edge <b>type</b> (ss,sf,fs,ff), <b>lag</b> and <b>float</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               The
+dependencies can be added, deleted and changed dynamically by mouse or
+keyboard.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a
+href="GanttCompute.htm#ProjectConstraints">Baseline</a></span></b><span
+style='font-size:10.0pt'>                               Vertical line through
+all cells that specifies start of the whole project. It can be set, deleted or
+moved.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               It
+is used in Gantt calculations, when correcting dependencies. It can work also
+as constraint.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a
+href="GanttCompute.htm#ProjectConstraints">Finish<span style='font-weight:normal'>
+</span>line</a></span></b><span style='font-size:10.0pt'>                           Vertical
+line through all cells that specifies end of the whole project. It can be set,
+deleted or moved.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               It
+is used in Gantt calculations, when calculating critical path. It can work also
+as constraint.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a
+href="GanttDisplay.htm#Header">Header</a></span></b><span style='font-size:
+10.0pt'>                                 One or more Gantt header, can be
+placed above or below (or both) the Gantt chart in fixed rows.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               Shows
+the individual dates in given format or numbers in math chart.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a
+href="GanttDisplay.htm#Background">Background</a></span></b><span
+style='font-size:10.0pt'>                        Background lines or rectangles
+vertically through all cells to mark and highlight some dates or date ranges in
+the chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a
+href="GanttCalendars.htm#Global">Global calendar</a></span></b><span
+style='font-size:10.0pt'> Gantt calendar - excluded dates (holidays). Marks
+these dates by different color. The dates can be also hidden from the chart.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                                               It
+is used in all Gantt calculations and is also possible to restrict start / end
+Gantt objects in these ranges.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:14.0pt'>Features</span></b></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>They are <u>not</u> visible
+objects, they are listed here just for completion</span></i></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a
+href="GanttResources.htm">Resources</a></span></b><span style='font-size:10.0pt'>                            Used
+for calculating task prices and other Gantt calculations. </span></p>
+
+<p class=MsoNormal style='margin-left:70.8pt;text-indent:35.4pt'><span
+style='font-size:10.0pt'>It is possible also to display resources chart.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a
+href="GanttCompute.htm#critical">Critical path</a></span></b><span
+style='font-size:10.0pt'>                       Gantt chart can calculate slack
+value for all tasks and mark tasks on or beyond critical path</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a
+href="GanttDisplay.htm#Summary">Summary tasks</a>                  </span></b><span
+style='font-size:10.0pt'>Gantt chart can show various summary tasks, even
+movable, resizable and with dependencies</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a
+href="GanttDisplay.htm#Zoom">Zoom</a></span></b><span style='font-size:10.0pt'>                                    Zoom
+levels, possible from milliseconds to years. Smooth zoom available. Zooming by
+mouse dragging or clicking to date.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a href="GanttMenu.htm">Menu</a></span></b><span
+style='font-size:10.0pt'>                                    Popup menu for the
+Gantt cell with items available for the clicked Gantt object.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'><a href="GanttAPI.htm">API</a></span></b><span
+style='font-size:10.0pt'>                                        Gantt supports
+also various API methods and events to control end extend the Gantt chart from
+JavaScript.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The Gantt chart sources for
+objects are usually other columns where are stored the source data in cells.
+These cells can be also edited by user and Gantt chart is automatically
+updated.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>string    </i></span><a
+name=CGanttSmoothZoom><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttOrder</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>      [“Chart,Constraints,Run,Main,Flow,Mark,Dependency,Format,Flags,Points”]            <span
+style='color:red'>new <b>6.3</b></span>;<span style='color:#3366FF'>upd.<b>6.4</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Comma separated list of all Gantt
+objects to render, case insensitive.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The order of rendering the
+Gantt objects. The objects rendered later will overlay the previous objects in
+the same place.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>The <u>not</u> listed
+Gantt objects are never rendered.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It affects also accessibility
+(interactivity) of the objects, they are accessible in <u>reversed</u> order.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                 <i>string    </i></span><a
+name=CGanttObject><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttObject</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>    [“Main”]                                                                                               <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The main Gantt object.
+Permitted objects are <b>Main</b>, <b>Flow</b>, <b>Run</b>. Case insensitive.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It is used for attaching and
+calculating dependencies, for assigning and calculating resources and the
+GanttFormat is displayed next to it.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can contain more comma
+separated objects to use the first one existing in the cell, in this order.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>It replaces deleted <b>GanttDependencyObjects</b>
+attribute.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttFormat><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFormat</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>   [<i>Resources</i>]                                                                                         <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Text displayed right to <a
+href="#CGanttFormatObject">GanttFormatObject</a> object.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>By default it displays GanttResources
+value.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can display any HTML text.
+It can also show values from other cells in row, set by <b>*col*</b> where col
+is the column name.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For example: </span><span
+style='font-size:10.0pt;font-family:"Courier New"'>GanttFormat=&quot;$&amp;lt;span
+style='color:#77F'&gt;*P*&amp;lt;/span&gt; *R*&quot;</span><span
+style='font-size:10.0pt'> =&gt; shows value from P column (as price) and from R
+column (as resources).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttFormatWidth><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFormatWidth</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                              <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Expected width in pixels of
+the text displayed by <a href="#CGanttFormat">GanttFormat</a>. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Set this value to speed up
+Gantt chart creating (especially for Paging), to use this value instead of
+measuring width of the GanttFormat.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>This width is reserved when
+calculating the whole chart width to completely show the GanttFormat text.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>string    </i></span><a
+name=CGanttFormatObject><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFormatObject</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>          [“Last”]                                                                        <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Object next to the <a
+href="#CGanttFormat">GanttFormat</a> text will be displayed.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Last</span></b><span
+style='font-size:10.0pt'> – the object from Main, Flow and Run positioned
+rightmost.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Object</span></b><span
+style='font-size:10.0pt'> – <a href="#CGanttObject">GanttObject</a> object</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Main</span></b><span
+style='font-size:10.0pt'>, <b>Flow</b>, <b>Run</b> – only for this object</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the selected object is not
+present in the cell, the text is not shown.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttClass><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttClass</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                                                                                                                 <span
+style='color:blue'>upd <b>6.0</b>       </span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The custom prefix for all CSS
+classes used in the Gantt chart. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The CSS classes with the
+custom prefix are added to the base class and are intended to change color or
+shape of the Gantt chart parts for particular rows.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>There is one predefined black
+and white class <b>GanttG</b> for various purposes, e.g. grouped rows.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>There are 17 predefined
+classes for bars in all 17 base colors: <b>GanttAqua</b>, <b>GanttBlack</b>, <b>GanttBlue</b>,
+<b>GanttFuchsia</b>, <b>GanttGray,</b> <b>GanttGreen</b>, <b>GanttLime</b>, <b>GanttMaroon</b>,
+<b>GanttNavy</b>, <b>GanttOlive</b>, <b>GanttOrange</b>, <b>GanttPurple</b>, <b>GanttRed</b>,
+<b>GanttSilver</b>, <b>GanttTeal</b>, <b>GanttWhite</b>, <b>GanttYellow</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>You can easily add or update
+the Gantt classes in the Grid.css file.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Remember, before the class
+is always added “Gx” as style prefix.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Edit><b><span style='font-size:20.0pt'>Edit settings</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string[]</i>
+ </span><a name=CGanttEdit><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttEdit</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>            [“all”]                                                                           
+   <span style='color:red'>renamed <b>6.0</b></span> <span style='color:blue'>upd
+<b>6.4       </b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Which parts can be edited /
+moved / changed / deleted / added by user. Comma separated list of flag names,
+case insensitive.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>All</span></b><span
+style='font-size:10.0pt'>                          All Gantt items are editable
+/ movable</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Main</span></b><span
+style='font-size:10.0pt'>                     Main bars and milestones can be
+created, deleted and modified directly in Gantt chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Flow</span></b><span
+style='font-size:10.0pt'>                      Flow bars can be created,
+deleted and modified directly in Gantt chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Run</span></b><span
+style='font-size:10.0pt'>                        Run bars can be created,
+deleted and modified directly in Gantt chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Flags</span></b><span
+style='font-size:10.0pt'>                     Flags can be created, deleted,
+moved and modified directly in Gantt chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Points</span></b><span
+style='font-size:10.0pt'>                    <i>(new 6.4)</i> Points can be
+created, deleted, moved and modified directly in Gantt chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Constraints</span></b><span
+style='font-size:10.0pt'>          <i>(new 6.3)</i> Constraints can be created,
+deleted and moved directly in Gantt chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Dependency</span></b><span
+style='font-size:10.0pt'>         Dependency lines can be created and deleted
+directly in Gantt chart</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>DependencyTypes</span></b><span
+style='font-size:10.0pt'>             <i>(new 6.3)</i> Dependency type can be
+set by dragging to different bar edge (ss,sf,fs,ff)</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>DependencyLags</span></b><span
+style='font-size:10.0pt'>               <i>(new 6.3)</i> Dependency lag can be
+changed</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>Resources</span></b><span
+style='font-size:10.0pt'>            Resources can be assigned or entered
+directly in Gantt chart</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><i><span style='font-size:10.0pt'>To permit / restrict
+individual actions</span></i></b><span style='font-size:10.0pt'> (e.g. only
+move, no resize or delete), attach appropriate actions to the cell(s). The
+default actions are attached in Defaults.xml:</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>OnDragGantt=&quot;ResizeGanttMain
+OR MoveGanttMain OR ResizeGanttFlow OR MoveGanttFlow OR ResizeGanttRun OR
+MoveGanttRun OR MoveGanttFlag OR MoveGanttPoint </span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>OR
+MoveGanttConstraint OR MoveGanttBase OR MoveGanttFinish OR CreateGanttMain OR
+CreateGanttFlow OR CreateGanttRun OR DragGanttDependency&quot;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>To attach special set of
+actions to inividual Gantt cell, define &lt;I ... xxxOnDragGantt=”....<b>,1</b>”
+... /&gt;, where the xxx is name of your Gantt column. See “,1”, it ensures to
+not run the default actions from Defaults.xml.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For example &lt;I ...
+GANTTOnDrag=&quot;MoveGanttMain OR MoveGanttFlow OR MoveGanttConstraint OR
+MoveGanttBase OR MoveGanttFinish OR DragGanttDependency&quot;/&gt;, </span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>permits
+only moving specified objects, but restricts resizing, deleting and creating
+new objects.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Remember, you can use <a
+href="RowDefaults.htm">Default rows</a> &lt;D&gt; to assign the same actions to
+more cells at once.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Use also <a
+href="GanttAPI.htm#OnCheckGantt">OnCheckGantt</a> event to control changes done
+by direct editing in source cells. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Use also <a
+href="GanttMenu.htm#CGanttMenu">GanttMenu</a> to specify popup Gantt menu items
+for given cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>int</i>
+       </span><a name=CGanttResizeDelete><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttResizeDelete</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'> [1]                                                                                  
+        <span style='color:red'>new</span> <b><span style='color:red'>6.1</span></b>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the Main, Flow and Run
+bars can be deleted by resizing them to zero width.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'> – no, <b>1</b> – yes, <b>2</b> – show confirm message</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>int</i>
+       </span><a name=CGanttCheck><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttCheck</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>      [4]                                                                                           <span
+style='color:red'>new <b>6.3</b>;</span><span style='color:#0070C0'>upd <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Check if Gantt source cell
+change by a user edit is correct.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'> – do nothing</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>1</span></b><span
+style='font-size:10.0pt'> – restrict incorrect changes </span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>2</span></b><span
+style='font-size:10.0pt'> – alert warning and restrict incorrect changes</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>3</span></b><span
+style='font-size:10.0pt'> – <i>(new 7.0) </i>automatically correct incorrect
+values</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>4</span></b><span
+style='font-size:10.0pt'> – <i>(new 7.0) </i>alert warning and correct incorrect
+values</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It checks all dates to be
+within constraints, circular dependencies, percentage complete, negative
+duration, End&gt;Start</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>int</i>
+       </span><a name=CGanttCheckTime><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttCheckTime</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>     [1000]                                                                                      <span
+style='color:red'>new <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Time in milliseconds, how
+long will be displayed alert message for <a href="#CGanttCheck">GanttCheck</a>
+= ‘2’ and ‘4’.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>0</b>, the
+message will be shown forever with OK button.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>1</b>, standard
+browser alert will be shown.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to negative number,
+the message will be shown for the (positive) time, but with OK button.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>int</i>
+       </span><a name=CGanttHover><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttHover</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>       [1]                                                                                             
+<span style='color:red'>renamed <b>6.0</b></span>            .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the Gantt items under
+mouse cursor will be highlighted.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'> – never, <b>1</b> – only when it is editable /
+movable, <b>2</b> – always</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttAll><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttAll</span></u></b></a><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'> </span></b><b><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'>...F</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>              Not
+attached to any event                                                        .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes all Gantt items from
+the actual or focused Gantt cell, including all dependencies.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Main><b><span style='font-size:20.0pt;color:blue'>Main</span></b></a><span
+style='font-size:20.0pt'> <b>bar</b></span></p>
+
+</div>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:10.0pt'>Planned task - </span></b><i><span style='font-size:
+10.0pt'>one continuous bar, only one per row</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>To have discrete main bar use
+<a href="#Flow">Flow</a> with <a href="#CFlowComplete">FlowComplete</a>
+attribute instead.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Defined by <a
+href="#CGanttStart">GanttStart</a> (start date) and <a href="#CGanttEnd">GanttEnd</a><b>
+</b>(due date) or by <a href="#CGanttStart">GanttStart</a> (start date) and <a
+href="#CGanttDuration">GanttDuration</a> (length). </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The main bar can show % of
+completion set by <a href="#CGanttComplete">GanttComplete</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttStart><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttStart</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                     Gantt
+source – column name or exact value                                          .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Start date of the main bar,
+usually column name, but can be also date string (M/d/yyyy hh:mm:ss) or count
+of milliseconds.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the start date is edited,
+the bar is <u>moved</u>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttEnd><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttEnd</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                       Gantt
+source – column name or exact value                              <span
+style='color:blue'>upd <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Due date of the main bar,
+usually column name, but can be also date string (M/d/yyyy hh:mm:ss) or count
+of milliseconds</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The end date can be last date
+or last unit, depending on <a href="GanttCompute.htm#CGanttEndLast">GanttEndLast</a>
+setting <i>(new in 6.3)</i>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When the GanttEnd date is
+empty (or the column value it points to), the milestone is displayed instead of
+main bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the end date is edited,
+the bar is <u>resized</u>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttDuration><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttDuration</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>           Gantt
+source – column name or exact value                              <span
+style='color:blue'>upd <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Duration between start date
+and end date in <a href="GanttCompute.htm#CGanttDataUnits">GanttDataUnits</a>. Can
+be column name or float or string.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The length can contain also
+unit modifier set by <a href="GanttCompute.htm#CGanttDataModifiers">GanttDataModifiers</a>,
+for example one day is usually 1d or 8h or 0.2w <i>(new in 6.3)</i>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When the GanttDuration date
+is empty or 0 (or the column value it points to), the milestone is displayed
+instead of main bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttComplete><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttComplete</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        Gantt
+source – column name or exact value                                          .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>% of completion (0 – 100) of
+the task, can be column name or float.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttText><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttText</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                      Gantt
+source – column name or exact value                              <span
+style='color:red'>new <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Text displayed as tooltip
+when mouse hovers the main bar or milestone.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttMainTip><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttMainTip</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                                           <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Tip shown on mouse hover the
+main bar, but <u>not</u> milestone. It can contain HTML code.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>By default it shows the value
+of <a href="#CGanttText">GanttText</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can also show values from
+other cells in row, set by <b>*col*</b> where col is the column name.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can show also the specials:
+<b>*Text*</b> - show the <a href="#CGanttText">GanttText</a>, <b>*Start*</b> -
+start date of the main bar, <b>*End*</b> - end date of the main bar, <b>*Duration*</b>
+- length of the main bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Example: “*Start* -
+*End*&amp;lt;br&gt;*Text*”</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>bool</i>
+     </span><a name=CGanttIcons><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:yellow'>GanttIcons</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        [0]                                                                                            
+ <span style='color:red'>renamed <b>6.0</b></span>            .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>1</b>, on the
+ends of the main bar there are displayed icons to highlight the start and end
+dates. Usually used for group tasks.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It is just visual effect.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'>                  <i>bool</i>
+     </span><a name=CGanttEditStartMove><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:yellow'>GanttEditStartMove</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>          [1]                                                                      
+        <span style='color:red'>new <b>6.5</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>0</b>, editing
+start resizes the task (preserves end and changes duration)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set to <b>1</b>, editing
+start moves the task (changes end and preserves duration)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>formula</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>            <i>float      </i></span><a
+name=ganttpercent><b><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>ganttpercent</span></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>  (<i>string</i>
+<b>ganttcol</b>, <i>string</i> <b>weightcol</b>, <i>int</i> <b>round</b>)                             <span
+style='color:red'>chg <b>6.3</b>; </span><span style='color:#002060'>upd <b>7.0</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Calculates summary percent of
+all child rows for its date ranges</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>ganttcol</span></b><span
+style='font-size:10.0pt'> – gantt column, if it is null, uses the first Gantt
+column in grid</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>weightcol</span></b><span
+style='font-size:10.0pt'> – column with exact weight factors for the tasks, if
+not set, the weight is computed from the task duration.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>round</span></b><span
+style='font-size:10.0pt'> – to how many decimal places will be the result
+rounded, by default it is <u>not</u> rounded at all <i>(new 6.3)</i></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Example: &lt;I Calculated=’1’
+CalcOrder=”Complete” CompleteFormula=”ganttpercent()”/&gt;</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 7.0</span></i><span
+style='font-size:10.0pt'> it can be used also to calculate percentage of
+summary of <b>Flow</b> tasks with <a href="#CGanttFlowComplete">GanttFlowComplete</a>
+set.<i> It calculates <b>Flow</b> only if child row does not define GanttStart.</i></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>formula</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>            <i>int        </i></span><a
+name=ganttstart><b><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>ganttstart</span></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>          (<i>string</i>
+<b>ganttcol</b>)                                                                                   <span
+style='color:red'>new <b>7.0       </b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Calculates summary (minimal)
+start of all child rows. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It calculates <b><i>Main</i></b>
+bars, <b><i>Milestones</i></b> and <b><i>Flow</i></b>. For Run use <i>ganttrunminstart()</i>.
+<i>It calculates <b>Flow</b> only if child row does not define GanttStart.</i></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>ganttcol</span></b><span
+style='font-size:10.0pt'> – gantt column, if it is null, uses the first Gantt
+column in grid</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>formula</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>            <i>int        </i></span><a
+name=ganttend><b><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>ganttend</span></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>            (<i>string</i>
+<b>ganttcol</b>)                                                                                   <span
+style='color:red'>new <b>7.0       </b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Calculates summary (maximal)
+end of all child rows. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It calculates <b><i>Main</i></b>
+bars, <b><i>Milestones</i></b> and <b><i>Flow</i></b>. For Run use <i>ganttrunmaxend()</i>.
+<i>It calculates <b>Flow</b> only if child row does not define GanttStart.</i></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>ganttcol</span></b><span
+style='font-size:10.0pt'> – gantt column, if it is null, uses the first Gantt
+column in grid</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>formula</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>            <i>float      </i></span><a
+name=ganttduration><b><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>ganttduration</span></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>            (<i>string</i>
+<b>ganttcol</b>)                                                                       <span
+style='color:red'>chg <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Calculated summary duration
+for child rows. Use when the gantt is set by start and duration instead of
+start and end date.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It returns duration from the
+actual row start date to the maximal end date in its child rows. Returns value
+in <a href="file:///S:\Doc\GanttCompute.htm#CGanttDataUnits">GanttDataUnits</a>.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>ganttcol</span></b><span
+style='font-size:10.0pt'> – gantt column, if it is null, uses the first Gantt
+column in grid</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Example: &lt;I Calculated=’1’
+CalcOrder=”Duration” DurationFormula=”ganttduration()”/&gt;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:silver'>formula</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:silver'>            <i>int        </i></span><a
+name=ganttpercentduration><b><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:silver'>ganttpercentduration</span></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:silver'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:silver'>     (<i>string</i>
+<b>durationcol</b>, <i>string</i> <b>percentcol</b>=’’,<i> int</i> <b>round</b>=0)            <span
+style='color:red'>deleted<b> 6.3</b></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Replaced by ganttpercent.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsMoveGanttMain><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>MoveGanttMain</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>        Attached to <b>OnDragGantt</b>,
+cannot be attached anywhere else    <span style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Moves main bar by mouse
+dragging.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Fails, if mouse is not above
+main bar or main bar cannot be moved</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsResizeGanttMain><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>ResizeGanttMain</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>     Attached
+to <b>OnDragGantt</b>, cannot be attached anywhere else    <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Moves main bar by mouse
+dragging</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Fails, if mouse is not above
+main bar edge or main bar cannot be resized</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsCreateGanttMain><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>CreateGanttMain</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>     Attached
+to <b>OnDragGantt</b>, cannot be attached anywhere else    <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Creates new main bar by mouse
+dragging.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Fails, if there is already
+one main bar in the cell or main bar cannot be created here</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttMain><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttMain</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                  Attached
+to <b>OnCtrlClickGantt</b> event                                         .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes Main bar or Milestone
+if it is under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is neither
+Main bar nor Milestone under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The main bar can be deleted
+also by resizing to zero width, if permitted by <b>GanttResizeDelete</b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsSetGanttPercent><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>SetGanttPercent</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                 Attached
+to <b>OnCtrlRightClickGantt</b> event                                 .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Changes % of completed to
+position under mouse cursor. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if mouse is not
+above Main bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsEditGanttPercent><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>EditGanttPercent</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                Attached
+to <b>OnShiftRightClickGantt</b> event                   <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit
+percentage completion of main bar or milestone under mouse cursor</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsEditGanttText><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>EditGanttText</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>             Attached to <b>OnDblClickGantt</b>
+event                             <span style='color:red'>new <b>6.0</b></span> .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit tooltip
+text of main bar or milestone under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Milestone><b><span style='font-size:20.0pt;color:blue'>Milestone</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:10.0pt'>Deadline</span></b><i><span style='font-size:10.0pt'>
+- one icon, only one per row, instead of <b>main bar</b></span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Defined by <a
+href="#CGanttStart">GanttStart</a> (exact date) with no <a href="#CGanttEnd">GanttEnd</a><b>
+</b>/ <a href="#CGanttDuration">GanttDuration</a> set.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>(new 7.0)</span></i><span
+style='font-size:10.0pt'> Or end milestone defined by <a href="#CGanttEnd">GanttEnd</a>
+with no <a href="#CGanttStart">GanttStart</a> / <a href="#CGanttDuration">GanttDuration</a>
+set.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Difference between start and
+end milestone is in its display on and next to holidays, the end milestone is
+displayed before the holiday and start milestone after.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>In fact it is the main bar
+with void length.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><b><u><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:yellow'>GanttStart</span></u></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                      Gantt
+source – column name or exact value                                          .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The date of the milestone,
+usually column name, but can be also date string (M/d/yyyy hh:mm:ss) or count
+of milliseconds.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set, <b>GanttEnd</b> and <b>GanttDuration</b>
+must be empty or 0.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><b><u><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:yellow'>GanttEnd</span></u></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                        Gantt
+source – column name or exact value                              <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The date of the <b>end</b>
+milestone, usually column name, but can be also date string (M/d/yyyy hh:mm:ss)
+or count of milliseconds.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If set, <b>GanttStart</b> and
+<b>GanttDuration</b> must be empty or 0.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><b><u><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:yellow'>GanttDuration</span></u></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>            Gantt
+source – column name or exact value                              <span
+style='color:blue'>upd <b>6.3</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Milestone must have set 0 or
+empty duration.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><b><u><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:yellow'>GanttComplete</span></u></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>         Gantt
+source – column name or exact value                              <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>% of completion (0 – 100) of
+the task, can be column name or float.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Milestone distinguishes only
+three states of complete: 100 (green), &lt;100 (blue) and empty (black).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><b><u><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:yellow'>GanttText</span></u></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                       Gantt
+source – column name or exact value                              <span
+style='color:red'>new <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Text displayed as tooltip
+when mouse hovers the milestone.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttMilestoneTip><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttMilestoneTip</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                                <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Tip shown on mouse hover the
+milestone, similar to <a href="#CGanttMainTip">GanttMainTip</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsNewGanttMilestone><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>NewGanttMilestone</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>           Attached
+to <b>OnDblClickGantt</b> event                                         .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds new milestone defined by
+GanttStart on mouse position, only when the cell has neither main bar nor
+milestone</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is already
+milestone or main bar in the cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsNewGanttEndMilestone><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>NewGanttEndMilestone</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>             Not
+attached to any event                                <span style='color:red'>new
+<b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds new milestone defined by
+GanttEnd on mouse position, only when the cell has neither main bar nor
+milestone</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is already
+milestone or main bar in the cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><b><u><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'>DeleteGanttMain</span></u></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                  Attached
+to <b>OnCtrlClickGantt</b> event                                         .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes Main bar or Milestone
+if it is under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is neither
+Main bar nor Milestone under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><b><u><span
+style='font-size:16.0pt;font-family:"Arial","sans-serif";background:lime'>EditGanttText</span></u></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>             Attached
+to <b>OnDblClickGantt</b> event                                          <span
+style='color:red'>new <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit tooltip
+text of main bar or milestone under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Flow><b><span style='font-size:20.0pt'>Real <span
+style='color:blue'>Flow</span></span></b></a></p>
+
+</div>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:10.0pt'>Real process of planned task - </span></b><i><span
+style='font-size:10.0pt'>one or more discrete bars with the same meaning</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Defined by <a
+href="#CGanttFlow">GanttFlow</a> (date ranges).</span></p>
+
+<p class=MsoNormal><span class=apple-style-span><span style='font-size:10.0pt;
+color:black'>It is one task divided to one or more discrete parts. Adjacent
+parts are merged to one part except set <a href="#CGanttFlowJoin">GanttFlowJoin</a>=’0’.</span></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><span style='font-size:10.0pt;
+color:black'>It can be discrete, can contain more date ranges. The first and
+last date in range are separated by tilde (</span></span><span
+class=apple-style-span><b><span style='font-size:10.0pt;color:red'>~</span></b></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>), ranges
+itself by semicolon (</span></span><span class=apple-style-span><b><span
+style='font-size:10.0pt;color:red'>;</span></b></span><span
+class=apple-style-span><span style='font-size:10.0pt;color:black'>).</span></span></p>
+
+<p class=MsoNormal><span class=apple-style-span><span style='font-size:10.0pt;
+color:black'>&nbsp;</span></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttFlow><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFlow</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                     Gantt
+source – column name or exact value                                          .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Real flow times, can be
+column name or date range string “d1~d2;d3~d4;d5;...” (date string (M/d/yyyy
+hh:mm:ss) or count of milliseconds).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>These dates extend the
+displayed date range in chart when needed</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The end date of range can be
+last date or last unit, depending on <a href="GanttCompute.htm#CGanttEndLast">GanttEndLast</a>
+setting.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttFlowComplete><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFlowComplete</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>         Gantt
+source – column name or exact value                  <span style='color:red'>new
+<b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>% of completion (0 – 100) of
+the task, can be column name or float.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt;color:red'>When set, the
+flow replaces the main task!</span></i><i><span style='font-size:10.0pt'> It
+should <u>not</u> be used with main task! </span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>This attribute is intended to
+use when the main task should be able to contain more parts, to replace it by
+Flow.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Remember, to attach
+dependencies to Flow instead of main task you need to set <a
+href="#CGanttObject">GanttObject</a>=’Flow’.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It is possible also to define
+milestone as range with only one part and with the range separator, </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>                for example &quot;1/1/2000~&quot;
+is start milestone, &quot;~1/1/2000&quot; is end milestone and
+&quot;1/1/2000&quot; is standard bar part one unit wide.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 7.0</span></i><span
+style='font-size:10.0pt'> for calculating summary of the GanttFlow can be used <a
+href="#ganttpercent">ganttpercent</a> Formula function.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>int        </i></span><a
+name=CGanttFlowJoin><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFlowJoin</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>          [1]                                                                                           <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>By default, when set to <b>1</b>,
+the overflowed and adjacent parts are automatically merged to one part.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When set to <b>0</b>, the
+Flow can contain adjacent part and parts cannot be moved or resized through
+another part.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>When set to <b>-1</b>, the
+Flow can contain adjacent and also overflowed parts, the parts can be moved or
+resized through another part.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>If set GanttFlowJoin to 0
+or -1, the Flow should <u>not</u> be editable by calendar, because it does not
+support adjacent or overflowed parts.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttFlowText><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFlowText</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>          Gantt
+source – column name or exact value                              <span
+style='color:red'>new <b>6.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Text displayed as tooltip
+when mouse hovers real flow bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttFlowTip><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFlowTip</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                               <span
+style='color:red'>new <b>6.4</b></span> .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Tip shown on mouse hover the
+flow bar. It can contain HTML code.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>By default it shows the value
+of <a href="#CGanttFlowText">GanttFlowText</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can also show values from
+other cells in row, set by <b>*col*</b> where col is the column name.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can show also the
+specials: <b>*Text*</b> - show the <a href="#CGanttFlowText">GanttFlowText</a>,
+<b>*Start*</b> - start date of the bar, <b>*End*</b> - end date of the bar, <b>*Duration*</b>
+- length of the bar, <b>*Index*</b> - the bar index (from 1)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Example: “*Index*. *Start* -
+*End*&amp;lt;br&gt;*Text*”</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>formula</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>            <i>string    </i></span><a
+name=sumflow><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>sumflow</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>  (<i>string</i>
+<b>col</b> = null, <i>string</i> <b>condition</b> = null, <i>int</i> <b>type</b>
+= 0, <i>string</i> <b>server</b> = null)          <span style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Sums all dates in column with
+Range=1 Type=”Date”. It just creates new range from all intervals and updates
+it to not contain duplicate value cross intervals.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The difference to sumrange is
+that sumflow considers GanttEndLast=’1’</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For its attributes see <a
+href="CellFormula.htm#sum">sum</a> function.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsMoveGanttFlow><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>MoveGanttFlow</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>        Attached to <b>OnDragGantt</b>,
+cannot be attached anywhere else    <span style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Moves one flow bar by mouse
+dragging.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Fails, if mouse is not above
+flow bar or the flow bar cannot be moved</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsResizeGanttFlow><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>ResizeGanttFlow</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>     Attached
+to <b>OnDragGantt</b>, cannot be attached anywhere else    <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Moves one flow bar by mouse
+dragging</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Fails, if mouse is not above
+flow bar edge or the flow bar cannot be resized</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsCreateGanttFlow><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>CreateGanttFlow</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>     Attached
+to <b>OnDragGantt</b>, cannot be attached anywhere else    <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Creates new flow bar by mouse
+dragging.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Fails, if flow bar cannot be
+created here</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttFlow><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttFlow</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                  Attached
+to <b>OnCtrlClickGantt</b> event                                         .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes one Flow bar under
+mouse cursor</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no Flow
+under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsNewGanttFlowMilestone><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>NewGanttFlowMilestone</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>           Attached
+to <b>OnDblClickGantt</b> event                  <span style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds new Flow milestone
+defined by start on mouse position. There can be more milestones defined by
+Flow in one cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsNewGanttFlowEndMilestone><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>NewGanttFlowEndMilestone</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>             Not
+attached to any event                     <span style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds new Flow milestone
+defined by end on mouse position. There can be more milestones defined by Flow
+in one cell.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsSetGanttFlowPercent><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>SetGanttFlowPercent</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                  Attached
+to <b>OnCtrlRightClickGantt</b> event         <span style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Changes % of completed to
+position under mouse cursor. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if mouse is not
+above Flow bar.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsEditGanttFlowPercent><b><u><span style='font-size:16.0pt;
+font-family:"Arial","sans-serif";background:lime'>EditGanttFlowPercent</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                Attached
+to <b>OnShiftRightClickGantt</b> event       <span style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit
+percentage completion of main bar or milestone under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsEditGanttFlowText><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>EditGanttFlowText</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>             Attached
+to <b>OnDblClickGantt</b> event                                          <span
+style='color:red'>new <b>6.0</b></span> .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit tooltip
+text of real flow bar under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Flag><b><span style='font-size:20.0pt;color:blue'>Flag</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:10.0pt'>Information for date(s) - </span></b><i><span
+style='font-size:10.0pt'>one or more different icons with tooltip per row</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Defined by <a
+href="#CGanttFlags">GanttFlags</a> (date ranges) and <a href="#CGanttFlagTexts">GanttFlagTexts</a>
+(texts for individual flags, displayed as tooltip).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Shows icons on defined dates
+and displays tooltip when mouse hover the icon</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttFlags><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFlags</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                   Gantt
+source – column name or exact value                                          .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>A list of dates (separated by
+semicolon) where to display a flag with information specified by <a
+href="#CGanttFlagTexts">GanttFlagTexts</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can be column name, a list
+of date string (M/d/yyyy hh:mm:ss) or a list of counts of milliseconds</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttFlagTexts><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFlagTexts</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        Gantt
+source – column name or exact value                                          .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>A list of information for the
+individual flags. Separated by semicolon. This information is shown as hint
+(TITLE) for the flag. It can be column name or a list of strings</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttFlagIcons><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFlagIcons</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        Gantt
+source – column name or exact value                              <span
+style='color:red'>new <b>6.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>A list of icons for the
+individual flags. Separated by semicolon. The icon is the exact url of the
+icon.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string[*] </i></span><a
+name=CGanttFlagIconList><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFlagIconList</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                                <span
+style='color:red'>new <b>6.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>A list of predefined icons. The
+icon is the exact url of the icon. First character separated array.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>This list is shown in popup
+menu to choose the flag icon.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string[*] </i></span><a
+name=CGanttFlagIconNames><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFlagIconNames</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                        <span
+style='color:red'>new <b>6.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It contains menu item names
+for the GanttFlagIconList. First character separated array.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The item name can contain <b>%d</b>
+to be replaced by the icon from IconList.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If not defined, the exact
+icon is shown as the item.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttFlagsTip><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttFlagsTip</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                                         <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Tip shown on mouse hover the
+flag. It can contain HTML code.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>By default it shows the value
+for the flag from <a href="#CGanttFlagTexts">GanttFlagTexts</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can also show values from
+other cells in row, set by <b>*col*</b> where col is the column name.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can show also the
+specials: <b>*Text*</b> - show the <a href="#CGanttFlagTexts">GanttFlagTexts</a>,
+<b>*Start*</b> - date of the flag, <b>*Index*</b> - the flag index (from 1)</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Example: “*Index*.
+*Start*&amp;lt;br&gt;*Text*”</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsMoveGanttFlag><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>MoveGanttFlag</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>         Attached to <b>OnDragGantt</b>,
+cannot be attached anywhere else    <span style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Moves flag by mouse dragging.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Fails, if mouse is not above
+flag or the flag cannot be moved.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsNewGanttFlag><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>NewGanttFlag</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>             Attached to <b>OnDblClickGantt</b>
+event                                                     .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds new flag on mouse
+position and lets a user edit its text.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttFlag><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttFlag</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>                   Attached
+to <b>OnCtrlClickGantt</b> event                                         .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes one flag under mouse
+cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no flag
+under mouse cursor</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsEditGanttFlag><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>EditGanttFlag</span></u></b></a><b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'> </span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>            Attached
+to <b>OnDblClickGantt</b> event                                                     .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to edit text of
+flag under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is not flag
+under mouse cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsChooseGanttFlagIcon><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>ChooseGanttFlagIcon</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>    Not
+attached to any event                                             <span
+style='color:red'>new <b>6.1</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Lets a user to choose icon of
+the flag under mouse cursor. The possible icons are defined by <a
+href="GanttObjects.htm#CGanttFlagIconList">GanttFlagIconList</a> and <a
+href="GanttObjects.htm#CGanttFlagIconNames">GanttFlagIconNames</a>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Point><b><span style='font-size:20.0pt;color:blue'>Point</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:10.0pt'>Point at date(s) - </span></b><i><span
+style='font-size:10.0pt'>one or more different movable bullets</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttPoints><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttPoints</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                Gantt
+source – column name or exact value                              <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>The GanttPoints can be
+defined by four ways:</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>- Comma separated list of
+column names where are the individual values stored, for example <b>GGanttPoints</b>=’A,B,C’
+<b>A</b>=’1/1/2000’ <b>B</b>=’2/1/2000’ <b>C</b>=’4/2/2000’</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>- Column name where are the
+column names stored, for example <b>GGanttPoints</b>=’X’ <b>X</b>=’A,B,C’ <b>A</b>=’1/1/2000’
+<b>B</b>=’2/1/2000’ <b>C</b>=’4/2/2000’</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>- Direct list of values,
+comma or semicolon separated, <i>it is <u>not</u> changeable</i>, for example <b>GGanttPoints</b>=’1/1/2000;2/1/2000;4/2/2000’</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>- Column name where are the
+direct values stored, for example <b>GGanttPoints</b>=’X’ <b>X</b>=’1/1/2000;2/1/2000;4/2/2000’</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Only the last definition
+supports checking exclude and constraints when editing the source cell.</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttPointsIcons><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttPointsIcons</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>   Gantt
+source – column name or exact value                              <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>A list of icons for the
+individual points, in the same order. Separated by comma or semicolon. The icon
+is the exact url of the icon.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can be also one of
+predefined classes 1 – 8, defined in Grid.css as GxGanttPoint1 – GxGanttPoint8:</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><b><span style='font-size:10.0pt'>1</span></b><span
+style='font-size:10.0pt'> – black, <b>2</b> – red, <b>3</b> – blue, <b>4</b> –
+green, <b>5</b> – pink, <b>6</b> – yellow, <b>7</b> – light blue, <b>8</b> -
+gray</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>For example GanttPointsIcons=”1;4;Red.gif;Green.gif;6;Blue.gif”</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string[]  </i></span><a
+name=CGanttPointsEdit><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttPointsEdit</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                         <span
+style='color:red'>new <b>6.4</b></span><b><span style='color:#0070C0'>; upd 7.0</span></b>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If the individual points can
+be changed by a user. Comma separated list of 0/1/2 values.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt'>0</span></b><span
+style='font-size:10.0pt'> – not editable, <b>1</b> fully editable, <b>2</b> <i>(since
+7.0)</i> can move, but cannot delete</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttPointsTip><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttPointsTip</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                                                                                                       <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Tip shown on mouse hover the
+point. It can contain HTML code.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can also show values from
+other cells in row, set by <b>*col*</b> where col is the column name.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can show also the
+specials: <b>*Start*</b> - date of the point, <b>*Index*</b> - the point index
+(from 1), <b>*Col*</b> - name of the column where the point value is stored</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Example: “*Col* = *Start*”</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;      </span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'>            <i>int        </i></span><a
+name=CGanttPointsShift><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttPointsShift</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>     [3]                                                                                          <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Minimal distance between
+adjacent points. </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>If points are on the same
+place, the next will be shifted right for this value</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsMoveGanttPoint><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>MoveGanttPoint</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>       Attached
+to <b>OnDragGantt</b>, cannot be attached anywhere else    <span
+style='color:red'>new <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Moves point by mouse
+dragging.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Fails, if mouse is not above
+point or the point cannot be moved.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsNewGanttPoint><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:lime'>NewGanttPoint</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:lime'>          Attached to <b>OnDblClickGantt</b>
+event                                         <span style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Adds new point on mouse
+position.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:lime'>&lt;Actions&gt;</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:lime'>                    </span><a
+name=ActionsDeleteGanttPoint><b><u><span style='font-size:16.0pt;font-family:
+"Arial","sans-serif";background:lime'>DeleteGanttPoint</span></u></b></a><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:lime'>     Attached
+to <b>OnCtrlClickGantt</b> event                                          <span
+style='color:red'>new <b>6.4</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Deletes the point under mouse
+cursor.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It fails if there is no point
+under mouse cursor</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid windowtext 3.0pt;padding:1.0pt 0cm 0cm 0cm'>
+
+<p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><a name=Mark><b><span style='font-size:20.0pt;color:blue'>Mark</span></b></a></p>
+
+</div>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:10.0pt'>Mark line, e.g. actual date - </span></b><i><span
+style='font-size:10.0pt'>one or more vertical lines per row, not editable</span></i></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Defined by <a
+href="#CGanttMark">GanttMark</a> (date ranges).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It is a mark line showing
+some important date or deadline. It is often the same for whole column, but it
+need not be.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It is displayed above the
+other Gantt items, so the line should not be too thick.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It cannot be dynamically
+changed by a user, only by API.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttMark><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttMark</span></u></b></a><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>                    Gantt
+source – column name or exact value                              <span
+style='color:#002060'>upd <b>7.0</b></span>       .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Other times to mark in chart,
+useful for displaying actual date or vertically divide chart to bigger units or
+mark weekends and so on.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>It can be column name or date
+range string “d1~d2;d3~d4;d5;...” (date string (M/d/yyyy hh:mm:ss) or count of
+milliseconds).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>These dates do <u>not</u>
+extend the displayed date range in chart. When the date is outside the actual
+displayed range in chart, it is not shown.</span></p>
+
+<p class=MsoNormal><i><span style='font-size:10.0pt'>Since 7.0</span></i><span
+style='font-size:10.0pt'> the dates can have postfix #cls to display in css
+class GxGanttMarkX with the cls index. It cannot be used for Mark set as
+column! For example GanttMark=’1/1/2000#2;1/7/2000#5’.</span></p>
+
+<p class=MsoNormal style='text-indent:35.4pt'><span style='font-size:10.0pt'>There
+are predefined color classes <b>1</b> - <b>5</b> with full height, <b>6</b> - <b>8</b>
+bottom bars, <b>9</b> - <b>11</b> top bars, <b>12</b> - <b>14</b> middle lines</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:red;background:yellow'>&lt;C&gt;&lt;cell&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>        <i>string    </i></span><a
+name=CGanttMarkRound><b><u><span style='font-size:16.0pt;font-family:"Arial","sans-serif";
+background:yellow'>GanttMarkRound</span></u></b></a><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";background:yellow'> </span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";background:yellow'>   [‘m’]                                                                                 
+<span style='color:red'>      </span>            .</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>Mark rounding, to these units
+will be all dates in <span style='color:blue'><a href="#CGanttMark">GanttMark</a></span>
+rounded, possible values are the same as <span style='color:blue'><a
+href="GanttDisplay.htm#CGanttUnits">GanttUnits</a></span>.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>To display just thin vertical
+lines, set it to ‘m’, for thicker lines higher the value according to actual <span
+style='color:blue'><a href="GanttDisplay.htm#CGanttUnits">GanttUnits</a></span>
+used.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+
+</div>
+
+</body>
+
+</html>

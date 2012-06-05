@@ -36,7 +36,6 @@ class GridLayoutGenerator {
     function __construct() {
         // Set default options
         $this->configuration = array(
-            'Code'                => "STAEIPAPMKXSIB",
             'Style'               => "Modern",
             'SaveValues'          => 0,
             'ShowDeleted'         => 0,
