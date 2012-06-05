@@ -1,0 +1,124 @@
+<html>
+<head>
+   <script src="../../Grid/GridE.js"> </script>
+</head>
+<body>
+   <style>
+      .GMGanttRunCustom1In { background:#FDA; color:Blue; font:bold 11px Verdana; }
+      .GMGanttRunCustom1Out { border:1px dotted blue; }
+      .GMGanttRunCustom2In { background:url(../../Grid/Modern/Backgrounds.gif); color:white; font:italic 10px Verdana; }
+      .GMGanttRunCustom2Out { margin:0px; border:2px solid lime;  }
+
+      .GMFGanttRunCustom1 { background:#FDA; color:Blue; font:bold 11px Verdana; border:1px dotted blue; }
+      .GMFGanttRunCustom2 { background:url(../../Grid/Modern/Backgrounds.gif); color:white; font:italic 10px Verdana; border-color:lime;}
+   </style>
+   <style>
+      b { color:Red; }
+      li { padding-bottom:8px; }
+      ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font: 13px Arial; }
+      h2 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#FAA; color:black; margin:0px; font-style:normal; }
+      h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:yellow; color:black; margin:0px; font-style:normal;  }
+      h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#FAA; color:black; margin:0px; font-style:normal;  }
+   </style>
+   <center style='font:bold 20px Arial;color:Blue;'>TreeGrid <b>Gantt Chart</b> Tutorial</center>
+   <center style='font:bold 30px Arial'>9. Run definition</center>
+   <center style='font:bold italic;'>Two ways of defining Run and Run box types and classes</center>
+   <br />
+   <div style='margin-bottom:6px;'><a href='09 - Independent Run Boxes.xml'>09 - <h2>Independent Run Boxes</h2>.xml</a> - Run defined by Start + End or Width for every box. Demonstrates also FastGantt attribute.</div>
+   <div style='width:960px; height:250px;'>
+      <bdo Debug='check' Data_Url='09 - Independent Run Boxes.xml'></bdo>
+   </div>
+   <br />
+   <div style='margin-bottom:6px;'><a href='09 - Continuous Run Boxes.xml'>09 - <h2>Continuous Run Boxes</h2>.xml</a> - Run defined by global Start for the whole Run and adjacent boxes with only Width</div>
+   <div style='width:960px; height:250px;'>
+      <bdo Debug='check' Data_Url='09 - Continuous Run Boxes.xml'></bdo>
+   </div>
+   <ul>
+      <li>
+      The Run is universal Gantt object to show resizable and movable bars in one cell.<br />
+      It has no special meaning in Gantt chart and is usually used in other charts and purposes than Gantt chart.<br />
+      The advantages of the runs are especially various bar types (normal, solid, fixed, ...), 
+      different texts and classes for individual bars inside one cell,
+      many options for moving and resizing the run bars, search for the bars inside whole chart.<br />
+      To speed up the Run rendering, you can set Cfg attribute <b>FastGantt='1'</b>, the look is slightly worse, but every Run box is done by one HTML tag.<br />
+      </li>
+      <li>
+         The Run can be defined in two ways:
+         <ul>
+            <li>
+               <h4>Independent boxes</h4> are defined by only <h3>GanttRun</h3> attribute, every Run box is specified by its Start date and End date or by Start date and Width in GanttDataUnits.<br />
+               You define only boxes, the spaces between boxes are added automatically.
+               Internally the Run is always defined as continuous, so between all not joined boxes is always one Empty type box.
+               <ul>
+                  <li>
+                     To explicitly define space between boxes (e.g. to show text or colored background in the space) you must define the Empty box and the second box by Width only (like in the continuous definition), without Start date to not add new spaces between them.
+                  <li>
+                     To define joined boxes, you must also define the second and next boxes only by Width (like in the continuous definition), without Start date to not add spaces between them.
+                  </li>
+                  </li>
+                  <li>
+                     It is possible to define the boxes in random order, but there must be set <b>GanttRunError='Sort'</b>.<br />
+                     Remember, the GanttRunError='sort' on start slows down the initialization, because all the boxes must be sorted on start.
+                  </li>
+                  <li>
+                     By default are the Run saved back with Start+End (if not defined GanttRunStart attribute). 
+                     To save Run by Start+Width set <b>GanttRunSave='2'</b>.
+                  </li>
+               </ul>
+            </li>
+            <li>
+               <h4>Continuous Run</h4> is defined by start date for the whole Run in <h3>GanttRunStart</h3> 
+               and all bars <b>adjacent</b> defined in <h3>GanttRun</h3> by only the bar Width.<br />
+               You must define all bars including spaces between them.
+               <ul>
+                  <li>
+                     If two Run bars don't have Empty box between them, they are joined.<br />
+                     To define two not joined bars, you must include Empty box between them, even if they are adjacent.<br />
+                     To shorten the definition, the Empty box between adjacent bars can be added by completely empty definition (two semicolons) like "2,box;;2,box".
+                  </li>
+                  <li>
+                     Empty type box can have also negative width to move the next box over the previous one.
+                  </li>   
+               </ul>
+            </li>
+         </ul>
+      </li>
+      <li>
+         <h3>GanttRun</h3> attribute defines all boxes. <br /> 
+         <ul>
+            <li>
+               The boxes are separated by semicolon, the box attributes are separated by comma. 
+               The box definition items must not contain these separators.<br /> 
+               It is possible to define different separators by including them to the Run definition beginning.
+            </li>
+         </ul>
+         <ul>
+            <li>
+               The GanttRun definition is Start,End,Type,Text,Class,Tip,Id,Group or Start,Width,Type,Text,Class,Tip,Id,Group or Width,Type,Text,Class,Tip,Id,Group.<br />
+               <ul>
+                  <li>
+                     The <b>Type</b> specifies box features and permissions, if the box can be resized or moved.
+                     The Type can be Box (standard box), Solid (not resizable), Fixed (not movable and resizable), 
+                     Left (fixed left), Right (fixed right), Empty (empty space between boxes, inactive), 
+                     Nbsp (empty space between joined boxes), Bound (not movable start or end), End (automatic movable start or end).
+                  </li>
+                  <li>
+                     The <b>Text</b> specifies text displayed on the box. It can also display the box length or time formatted by <b>GanttRunFormat</b>.
+                  </li>
+                  <li>
+                     The <b>Class</b> is CSS class for the box, there are 17 predefined classes for standard background colors.<br />
+                     The Class can be custom CSS class used for the box.
+                  </li>
+                  <li>
+                     The <b>Tip</b> is tooltip displayed on mouse hover, it can be formatted by <b>GanttRunTip</b> and start and end dates of the box by <b>GanttRunTipDateFormat</b>.
+                  </li>
+                  <li>
+                     The <b>Id</b> and <b>Group</b> identify the box for referencing it by API methods.
+                  </li>
+               </ul>
+            </li>
+         </ul>
+      </li>
+   </ul>
+</body>
+</html>
