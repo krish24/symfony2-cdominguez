@@ -40,6 +40,12 @@ class Gasto
      * @ORM\JoinColumn(name="iddetalle", referencedColumnName="id")
      */
     private $detalle;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="gastos", cascade={"persist"})
+     * @ORM\JoinColumn(name="idusuario", referencedColumnName="id")
+     */
+    private $usuario;
 
     public function __construct()
     {
@@ -114,5 +120,25 @@ class Gasto
     public function getDetalle()
     {
         return $this->detalle;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param MySite\DataBaseBundle\Entity\Usuario $usuario
+     */
+    public function setUsuario(\MySite\DataBaseBundle\Entity\Usuario $usuario)
+    {
+        $this->usuario = $usuario;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return MySite\DataBaseBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 }
