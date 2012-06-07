@@ -2,7 +2,7 @@
 
 {% block title %}
     CDominguez Web Site
-{% endblock %}
+{% endblock %} 
     
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/reset.css') }}" media="screen" />
@@ -85,8 +85,8 @@
                     <img src="{{ asset('images/carlos-small.jpg') }}" alt="" />
                 </div>
                 <div id="da-user-info">
-                    John Doe
-                    <span class="da-user-title">Creative Director</span>
+                    Carlos Dom&iacute;nguez
+                    <span class="da-user-title">Creador de la p&aacute;gina</span>
                 </div>
                 <ul class="da-header-dropdown">
                     <li class="da-dropdown-caret">
@@ -94,7 +94,7 @@
                         <span class="caret-inner"></span>
                     </li>
                     <li class="da-dropdown-divider"></li>
-                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Inicio</a></li>
                     <li class="da-dropdown-divider"></li>
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Settings</a></li>
@@ -220,7 +220,7 @@
                         </ul>
                     </li>
                     <li class="da-header-button logout">
-                        <a href="#">Logout</a>
+                        <a href="#">Salir</a>
                     </li>
                 </ul>
             </div>
@@ -238,7 +238,8 @@
             <!-- Breadcrumbs -->
             <div id="da-breadcrumb">
                 <ul>
-                    <li class="active"><span><img src="{{ asset('images/icons/black/16/home.png') }}" alt="Home" />Dashboard</span></li>
+                {% block cdBreadCrumb %}
+                {% endblock %}
                 </ul>
             </div>
         </div>
@@ -258,127 +259,22 @@
             <!-- Main Navigation -->
             <div id="da-main-nav" class="da-button-container">
                 <ul>
-                    <li class="active">
-                        <a href="#">
-                            <!-- Icon Container -->
+                    <li id="menu_inicio">
+                        <a href="{{ path('cd_index') }}">
+                            <!-- Inicio -->
                             <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/black/32/home.png') }}" alt="Dashboard" />
+                                <img src="{{ asset('images/icons/color/24/home.png') }}" alt="Inicio" />
                             </span>
-                            Dashboard
+                            Inicio
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
-                            <!-- Nav Notification -->
-                            <span class="da-nav-count">32</span>
-                            <!-- Icon Container -->
+                    <li  id="menu_mis_gastos">
+                        <a href="{{ path('cd_mis_gastos') }}">
+                            <!-- Mis gastos -->
                             <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/black/32/graph.png') }}" alt="Charts" />
+                                <img src="{{ asset('images/icons/color/24/chart.png') }}" alt="Mis gastos">
                             </span>
-                            Statistics and Charts
-                        </a>
-                        <ul class="closed">
-                            <li><a href="#">Statistic Widgets</a></li>
-                            <li><a href="#">Chart Gallery</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <!-- Icon Container -->
-                            <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/black/32/day_calendar.png') }}" alt="Calendar" />
-                            </span>
-                            Calendar
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <!-- Icon Container -->
-                            <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/black/32/file_cabinet.png') }}" alt="File Handling" />
-                            </span>
-                            File Handling
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <!-- Icon Container -->
-                            <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/black/32/table_1.png') }}" alt="Table" />
-                            </span>
-                            Table
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <!-- Icon Container -->
-                            <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/black/32/create_write.png') }}" alt="Form" />
-                            </span>
-                            Form
-                        </a>
-                        <ul>
-                            <li><a href="#">Layouts</a></li>
-                            <li><a href="#">Elements</a></li>
-                            <li><a href="#">Validation</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <!-- Icon Container -->
-                            <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/black/32/settings.png') }}" alt="" />
-                            </span>
-                            UI Elements
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <!-- Icon Container -->
-                            <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/black/32/cog_4.png') }}" alt="Widgets" />
-                            </span>
-                            Widgets
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <!-- Icon Container -->
-                            <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/black/32/word_documents_1.png') }}" alt="Layout and Typography" />
-                            </span>
-                            Layout and Typography
-                        </a>
-                        <ul class="closed">
-                            <li><a href="#">Grids and Panels</a></li>
-                            <li><a href="#">Typography</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <!-- Icon Container -->
-                            <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/black/32/images_2.png') }}" alt="Gallery" />
-                            </span>
-                            Gallery
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <!-- Icon Container -->
-                            <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/black/32/alert.png') }}" alt="Error Pages" />
-                            </span>
-                            Error Page (404)
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <!-- Icon Container -->
-                            <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/black/32/pacman.png') }}" alt="Icons" />
-                            </span>
-                            Icons
+                            Mis gastos
                         </a>
                     </li>
                 </ul>
