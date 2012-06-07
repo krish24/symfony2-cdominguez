@@ -1,0 +1,50 @@
+{% extends '::cdominguezbase.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Chosen Plugin -->
+    <link rel="stylesheet" href="{{ asset('bundles/basejqueryui/plugins/chosen/chosen.css') }}" media="screen" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/baseejstreegrid/Grid/GridE.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/baseejstreegrid/js/gridExtension.js') }}" ></script>
+    <script type="text/javascript">
+        $('#menu_mis_gastos').addClass('active');
+        $('#da-wrapper').css('min-width', 500);
+        var _cdominguez = {};
+    </script> 
+    {% include 'BaseEJSTreeGridBundle::createGrid.js.twig' with {
+        'gridContainerId' : gridOptionsGenerator.containerId, 
+        'gridOptions'     : gridOptionsGenerator.options,
+        'gridId'          : gridOptionsGenerator.gridId         }
+    %}
+{% endblock %}
+
+{% block cdBreadCrumb %}
+    <li class="active">
+        <span>
+            <img src="{{ asset('images/icons/color/24/chart.png') }}" alt="Mis gastos" />
+            Mis gastos
+        </span>
+    </li>
+{% endblock %}
+    
+{% block cdContentArea %}
+    <div class="grid_4">
+        <div class="da-panel">
+            <div class="da-panel-header">
+                <span class="da-panel-title">
+                    <img src="{{ asset('images/icons/color/16/note.png') }}" >
+                    Historial de mis gastos
+                </span>
+            </div>
+            <div class="da-panel-content with-padding" >
+                <div id="msg"></div>
+                <div id="{{ gridOptionsGenerator.containerId }}"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+    

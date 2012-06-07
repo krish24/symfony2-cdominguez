@@ -12,9 +12,6 @@
             step    : 1
         });
         
-        //Crea el chosen para el index
-        a("#form-add-gasto select").chosen();
-        
         a("#form-add-gasto select").change(function(){
             addInputChosen(this);
         })
@@ -38,15 +35,18 @@ function validateForm(psendForm){
             if(t.val() == ''){
                 l.css('display', '');
                 t.addClass('error');
+                $(this).addClass('error');
                 t.fadeIn('slow');
                 enviarForm = false;
             }else{
                 l.css('display', 'none');
                 t.removeClass('error');
+                $(this).removeClass('error');
             }
         }else{
             l.css('display', 'none');
             t.removeClass('error');
+            $(this).removeClass('error');
         }
     });
     
