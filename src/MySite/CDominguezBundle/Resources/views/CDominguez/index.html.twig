@@ -8,7 +8,25 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <!-- Spinner Plugin -->
+    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.spinner.min.js') }}"></script>
+    
+    <!-- Chosen Plugin -->
+    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/plugins/chosen/chosen.jquery.min.js') }}"></script>
+    
     <script type="text/javascript">
+        //Pone el menu activo
+        $('#menu_inicio').addClass('active');
+        
+        //Crea el chosen para el index
+        $("#form-add-gasto select").chosen();
+        
+        //Agregar la informacion del browser
+        $.each($.browser, function(i, val) {
+            $("<div><b>" + i + " : </b><span>" + val + "</span>")
+                .appendTo($('#browserData'));
+        });
+        
         var _cdominguez = {
             'urls'         : {
                 'add'                   : '{{ path('cd_add_gasto') }}',
@@ -16,17 +34,20 @@
             }
         };
     </script> 
-    
-    <!-- Spinner Plugin -->
-    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.spinner.min.js') }}"></script>
-    
-    <!-- Chosen Plugin -->
-    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/plugins/chosen/chosen.jquery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/mysitecdominguez/js/index.js') }}" ></script>
     
 
 {% endblock %}
     
+{% block cdBreadCrumb %}
+    <li class="active">
+        <span>
+            <img src="{{ asset('images/icons/color/16/home.png') }}" alt="Home" />
+            Inicio
+        </span>
+    </li>
+{% endblock %}
+            
 {% block cdContentArea %}
     <div class="grid_4">
         <div class="da-panel">
@@ -80,7 +101,7 @@
                             <label id="label_cantidad" for="_cantidad" class="error" style="display: none">Ingrese la cantidad.</label>
                         </div>
                     </div>
-                    <div class="da-form-row">
+                    <div class="da-form-row" id="browserData">
                         <input type="button" value="Ok" class="da-button blue" onclick="validateForm(true)" style="float: right;" >
                     </div>
                 </form>
