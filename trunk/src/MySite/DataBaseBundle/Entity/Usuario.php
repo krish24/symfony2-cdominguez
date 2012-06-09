@@ -3,6 +3,7 @@
 namespace MySite\DataBaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * MySite\DataBaseBundle\Entity\Usuario
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="usuario")
  * @ORM\Entity(repositoryClass="MySite\DataBaseBundle\Repository\UsuarioRepository")
  */
-class Usuario
+class Usuario implements UserInterface
 {
     /**
      * @var integer $id
@@ -29,11 +30,14 @@ class Usuario
     private $displayName;
     
     /**
-     * @var string $logonName
-     *
-     * @ORM\Column(name="logonname", type="string", length=255)
+     * @ORM\Column(name="username", type="string", length=25, unique=true)
      */
-    private $logonName;
+    private $username;
+    
+     /**
+     * @ORM\Column(type="string", length=32)
+     */
+    private $salt;
     
     /**
      * @var string $password
@@ -45,7 +49,7 @@ class Usuario
     /**
      * @var string $email
      *
-     * @ORM\Column(name="email", type="string", length=200)
+     * @ORM\Column(name="email", type="string", length=60, unique=true)
      */
     private $email;
     
@@ -57,7 +61,13 @@ class Usuario
     public function __construct()
     {
         $this->gastos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->salt = md5(uniqid(null, true));
     }
+    
+    public function __toString() {
+        return $this->getUsername();
+    }
+
     
     /**
      * Get id
@@ -87,26 +97,6 @@ class Usuario
     public function getDisplayName()
     {
         return $this->displayName;
-    }
-
-    /**
-     * Set logonName
-     *
-     * @param string $logonName
-     */
-    public function setLogonName($logonName)
-    {
-        $this->logonName = $logonName;
-    }
-
-    /**
-     * Get logonName
-     *
-     * @return string 
-     */
-    public function getLogonName()
-    {
-        return $this->logonName;
     }
 
     /**
@@ -167,5 +157,43 @@ class Usuario
     public function getGastos()
     {
         return $this->gastos;
+    }
+
+    public function equals(UserInterface $user) {
+        return $user->getUsername() === $this->getUsername();
+    }
+
+    public function eraseCredentials() 
+    { 
+    }
+
+    public function getRoles() 
+    {
+        return array('ROLE_USER');
+    }
+
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername() 
+    {
+        return $this->username;
+    }
+    
+    /**
+     * Set username
+     *
+     * @param string $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
     }
 }
