@@ -30,9 +30,10 @@ DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `displayname` varchar(255) NOT NULL,
-  `logonname` varchar(255) NOT NULL,
   `password` varchar(20) NOT NULL,
-  `email` varchar(200) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `username` varchar(25) NOT NULL,
+  `salt` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -41,8 +42,8 @@ CREATE TABLE `usuario` (
 --
 
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` (`id`, `displayname`, `logonname`, `password`, `email`) VALUES
-(1, 'Carlos Dominguez', 'c', 'c', 'krlosnando@gmail.com');
+INSERT INTO `usuario` (`id`, `displayname`, `password`, `email`, `username`, `salt` ) VALUES
+(1, 'Carlos Dominguez', 'c', 'krlosnando@gmail.com', 'c', '');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 
