@@ -120,7 +120,8 @@ class MisGastosController extends Controller
      */
     public function gridDataAction() { 
         $em            = $this->getDoctrine()->getEntityManager();
-        $gastos        = $em->getRepository('MySiteDataBaseBundle:Gasto')->findAll();
+        $user          = $this->getUser();
+        $gastos        = $em->getRepository('MySiteDataBaseBundle:Gasto')->findBy(array('usuario' => $user));
         $dataFormatter = new GridDataFormatter();
 
         foreach ($gastos as $objGasto) { 
