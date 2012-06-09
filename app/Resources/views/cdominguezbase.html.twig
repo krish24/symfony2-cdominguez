@@ -85,8 +85,8 @@
                     <img src="{{ asset('images/carlos-small.jpg') }}" alt="" />
                 </div>
                 <div id="da-user-info">
-                    Carlos Dom&iacute;nguez
-                    <span class="da-user-title">Creador de la p&aacute;gina</span>
+                    {% block cdUserLogin %}{{ app.user.displayName }}{% endblock %}
+                    <span class="da-user-title">{% block cdUserTittle %}{{ app.user.userName }}{% endblock %}</span>
                 </div>
                 <ul class="da-header-dropdown">
                     <li class="da-dropdown-caret">
@@ -220,7 +220,7 @@
                         </ul>
                     </li>
                     <li class="da-header-button logout">
-                        <a href="#">Salir</a>
+                        <a href="{{path('cd_login')}}">Salir</a>
                     </li>
                 </ul>
             </div>

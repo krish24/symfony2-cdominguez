@@ -18,7 +18,7 @@ use MySite\DataBaseBundle\Entity\Categoria;
 class InicioController extends Controller
 {
     /** 
-     * @Route("/", name="cd_index")
+     * @Route("/i", name="cd_index")
      * @Template("MySiteCDominguezBundle::CDominguez/index.html.twig")
      */
     public function indexAction()

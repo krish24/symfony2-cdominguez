@@ -15,11 +15,11 @@
 
 
 --
--- Create schema cdominguezapp
+-- Create schema carlos_bd_app
 --
 
-CREATE DATABASE IF NOT EXISTS cdominguezapp;
-USE cdominguezapp;
+CREATE DATABASE IF NOT EXISTS carlos_bd_app;
+USE carlos_bd_app;
 
 --
 -- Definition of table `categoria`
@@ -30,16 +30,13 @@ CREATE TABLE `categoria` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `categoria`
 --
 
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` (`id`,`descripcion`) VALUES 
- (1,'Celular'),
- (2,'Almuerzo');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 
 
@@ -51,29 +48,21 @@ DROP TABLE IF EXISTS `gasto`;
 CREATE TABLE `gasto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `iddetalle` int(11) DEFAULT NULL,
+  `idusuario` int(11) DEFAULT NULL,
   `cantidad` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_6F82F5105F3D2E5E` (`iddetalle`),
-  CONSTRAINT `FK_6F82F5105F3D2E5E` FOREIGN KEY (`iddetalle`) REFERENCES `gastodetalle` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  KEY `IDX_AE43DA145F3D2E5E` (`iddetalle`),
+  KEY `IDX_AE43DA14FD61E233` (`idusuario`),
+  CONSTRAINT `FK_AE43DA14FD61E233` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`id`),
+  CONSTRAINT `FK_AE43DA145F3D2E5E` FOREIGN KEY (`iddetalle`) REFERENCES `gastodetalle` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `gasto`
 --
 
 /*!40000 ALTER TABLE `gasto` DISABLE KEYS */;
-INSERT INTO `gasto` (`id`,`iddetalle`,`cantidad`,`fecha`) VALUES 
- (1,1,1000,'2012-06-03 07:02:26'),
- (2,1,100000,'2012-06-03 07:21:33'),
- (3,1,100000,'2012-06-03 07:21:59'),
- (4,1,5456,'2012-06-03 07:23:33'),
- (5,1,4551,'2012-06-03 07:27:08'),
- (6,2,50000,'2012-06-03 07:27:34'),
- (7,2,4343,'2012-06-03 07:28:38'),
- (8,2,451,'2012-06-03 07:29:46'),
- (9,3,2000,'2012-06-03 07:30:22'),
- (10,3,5000,'2012-06-03 07:31:07');
 /*!40000 ALTER TABLE `gasto` ENABLE KEYS */;
 
 
@@ -87,20 +76,38 @@ CREATE TABLE `gastodetalle` (
   `idcategoria` int(11) DEFAULT NULL,
   `descripcion` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_C566556F300BBBD8` (`idcategoria`),
-  CONSTRAINT `FK_C566556F300BBBD8` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  KEY `IDX_12EAB70B300BBBD8` (`idcategoria`),
+  CONSTRAINT `FK_12EAB70B300BBBD8` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `gastodetalle`
 --
 
 /*!40000 ALTER TABLE `gastodetalle` DISABLE KEYS */;
-INSERT INTO `gastodetalle` (`id`,`idcategoria`,`descripcion`) VALUES 
- (1,1,'Recarga'),
- (2,1,'Nuevo celular'),
- (3,2,'Comida colegio de medicos');
 /*!40000 ALTER TABLE `gastodetalle` ENABLE KEYS */;
+
+
+--
+-- Definition of table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `displayname` varchar(255) NOT NULL,
+  `logonname` varchar(255) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `usuario`
+--
+
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 
 
