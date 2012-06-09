@@ -61,11 +61,10 @@ class MisGastosController extends Controller
             'SearchExpand'   =>  1,
             'ConstWidth'     =>  0,
             'SafeCSS'        =>  1,
-            'MaxVScroll'     => 600,
+            'MaxVScroll'     =>  600,
             'NoFormatEscape' =>  1,
             'StandardFilter' =>  0,
-            'ExportType'     => "Expanded,Outline",
-            
+            'ExportType'     =>  "Expanded,Outline",
         ));
         $layoutGenerator->addTopRowFilter(array(
             'CategoriaCanEdit'    =>  1,
@@ -121,7 +120,7 @@ class MisGastosController extends Controller
     public function gridDataAction() { 
         $em            = $this->getDoctrine()->getEntityManager();
         $user          = $this->getUser();
-        $gastos        = $em->getRepository('MySiteDataBaseBundle:Gasto')->findBy(array('usuario' => $user));
+        $gastos        = $em->getRepository('MySiteDataBaseBundle:Gasto')->findBy(array('usuario' => $user->getId()));
         $dataFormatter = new GridDataFormatter();
 
         foreach ($gastos as $objGasto) { 
