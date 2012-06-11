@@ -12,11 +12,11 @@
 
 /* -------------- Sections ------------------ */
 
-.GLMainTable { border-left:1px solid #E0E0E0; border-right:1px solid #E0E0E0; border-collapse:separate; text-align:left; line-height: normal; }
+.GLMainTable { border-left:1px solid #a5c65b; border-right:1px solid #a5c65b; border-collapse:separate; text-align:left; line-height: normal; }
 .GLBodyLeft,.GLBodyMid,.GLBodyRight,.GLHeadLeft,.GLHeadMid,.GLHeadRight,.GLFootLeft,.GLFootMid,.GLFootRight { }
 .GLBodyLeft,.GLBodyMid,.GLBodyRight { border-top:1px solid #b0b0a0; }
 .GLHeadLeft,.GLHeadMid,.GLHeadRight { }
-.GLFootLeft,.GLFootMid,.GLFootRight { border-top:1px solid #e0e0e0; }
+.GLFootLeft,.GLFootMid,.GLFootRight { border-top:1px solid #a5c65b; }
 .GLHeadLeft,.GLBodyLeft,.GLFootLeft { }	
 .GLHeadMid,.GLBodyMid,.GLFootMid {  }
 .GLHeadRight,.GLBodyRight,.GLFootRight { }	
@@ -43,16 +43,16 @@
 /* ------------- Round corners ------------- */
 
 .GLTop { }
-.GLTop1 { margin-left:5px; margin-right:5px; height:1px; background:#E0E0E0; overflow:hidden; }
-.GLTop2 { margin-left:3px; margin-right:3px; border-left:2px solid #E0E0E0; border-right:2px solid #E0E0E0; background:#F0F0E0; height:1px; overflow:hidden; }
-.GLTop3 { margin-left:2px; margin-right:2px; border-left:1px solid #E0E0E0; border-right:1px solid #E0E0E0; background:#F0F0E0; height:1px; overflow:hidden; }
-.GLTop4 { margin-left:1px; margin-right:1px; border-left:1px solid #E0E0E0; border-right:1px solid #E0E0E0; background:#F0F0E0; height:2px; overflow:hidden; }
+.GLTop1 { margin-left:5px; margin-right:5px; height:1px; background:#a5c65b; overflow:hidden; }
+.GLTop2 { margin-left:3px; margin-right:3px; border-left:2px solid #a5c65b; border-right:2px solid #a5c65b; background:#dedede; height:1px; overflow:hidden; }
+.GLTop3 { margin-left:2px; margin-right:2px; border-left:1px solid #a5c65b; border-right:1px solid #a5c65b; background:#dedede; height:1px; overflow:hidden; }
+.GLTop4 { margin-left:1px; margin-right:1px; border-left:1px solid #a5c65b; border-right:1px solid #a5c65b; background:#dedede; height:2px; overflow:hidden; }
 .GLTop5 { display:none; }
 .GLBottom { }
-.GLBottom5 { margin-left:5px; margin-right:5px; height:1px; background:#E0E0E0; overflow:hidden; }
-.GLBottom4 { margin-left:3px; margin-right:3px; border-left:2px solid #E0E0E0; border-right:2px solid #E0E0E0; background:#F0F0E0; height:1px; overflow:hidden; }
-.GLBottom3 { margin-left:2px; margin-right:2px; border-left:1px solid #E0E0E0; border-right:1px solid #E0E0E0; background:#F0F0E0; height:1px; overflow:hidden; }
-.GLBottom2 { margin-left:1px; margin-right:1px; border-left:1px solid #E0E0E0; border-right:1px solid #E0E0E0; background:#F0F0E0; height:2px; overflow:hidden; }
+.GLBottom5 { margin-left:5px; margin-right:5px; height:1px; background:#a5c65b; overflow:hidden; }
+.GLBottom4 { margin-left:3px; margin-right:3px; border-left:2px solid #a5c65b; border-right:2px solid #a5c65b; background:#dedede; height:1px; overflow:hidden; }
+.GLBottom3 { margin-left:2px; margin-right:2px; border-left:1px solid #a5c65b; border-right:1px solid #a5c65b; background:#dedede; height:1px; overflow:hidden; }
+.GLBottom2 { margin-left:1px; margin-right:1px; border-left:1px solid #a5c65b; border-right:1px solid #a5c65b; background:#dedede; height:2px; overflow:hidden; }
 .GLBottom1 { display:none; }
 
 /* ------------- Rows ------------------ */
@@ -63,13 +63,13 @@
 .GLSpaceMarginTouch { margin:5px; }
 
 .GLToolbarRow,.GLToolbar1Row,.GLToolbar2Row,.GLTopbarRow,.GLTopbar1Row,.GLTopbar2Row,.GLSpaceRow,.GLGroupRow,.GLSearchRow,.GLPagerRow {
-   font-size:1px; background-color:#F0F0E0; overflow:hidden; padding-top:3px; padding-bottom:3px;
+   font-size:1px; background-color:#dedede; overflow:hidden; padding-top:3px; padding-bottom:3px;
    }
 .GLTopbarRow,.GLTopbar2Row { border-bottom:1px solid #d0d0c0; margin-bottom:1px; padding-bottom:4px; }
 .GLToolbarRow,.GLToolbar1Row { border-top:1px solid #b0b0a0; padding-top:4px; }
-.GLFillRow { background-color:#F0F0E0; }
-.GLTabberRow { background: #F0F0E0; }
-.GLRowAbove,.GLRowBelow { border-left:1px solid #E0E0E0; border-right:1px solid #E0E0E0; background-color:#F0F0E0; margin-left:5px; margin-right:5px; line-height: normal; }
+.GLFillRow { background-color:#dedede; }
+.GLTabberRow { background: #dedede; }
+.GLRowAbove,.GLRowBelow { border-left:1px solid #a5c65b; border-right:1px solid #a5c65b; background-color:#dedede; margin-left:5px; margin-right:5px; line-height: normal; }
 .GLRowAbove { margin-top:3px; background:url(Backgrounds.gif) 0px 0px; overflow:hidden; }
 .GLRowBelow { margin-bottom:3px; background:url(Backgrounds.gif) 0px bottom; overflow:hidden; }
 .GLNoDataRow { padding-left:5px; padding-top:5px; padding-bottom:5px; color:gray; font-style:italic; background:#F5F5F5; }
@@ -97,18 +97,18 @@
 .GLCellSpaceAbove { border-top:1px solid #e0e0ff; }
 .GLCellSpaceBelow { border-bottom:1px solid #e0e0ff; }
 
-.GLCellHeader,.GLCellHeaderEmpty { background-color:#F0F0E0; }
-.GLCellPanel,.GLCellHeaderPanel { background-color:#F0F0E0; white-space:nowrap; direction:ltr; }
-.GLCellFilterPanel { background-color:#F0F0E0; text-align:center; padding-top:0px; padding-left:0px; direction:ltr; }
-.GLCellUser { background-color:#F0F0E0; }
-.GLCellEmpty { background:#F0F0E0; }
+.GLCellHeader,.GLCellHeaderEmpty { background-color:#dedede; }
+.GLCellPanel,.GLCellHeaderPanel { background-color:#dedede; white-space:nowrap; direction:ltr; }
+.GLCellFilterPanel { background-color:#dedede; text-align:center; padding-top:0px; padding-left:0px; direction:ltr; }
+.GLCellUser { background-color:#dedede; }
+.GLCellEmpty { background:#dedede; }
 .GLCellHeaderEmpty { }
 .GLCellHidden { background:transparent!important; border-top:none!important; border-bottom:none!important; }
 
 .GLHeaderButton { padding:0px; }
 .GLHeaderGroup { font:11px "Microsoft Sans Serif",Verdana,Arial; padding-left:3px; background:#E0E0D0; border-right:1px solid #b0b0a0; }
 .GLHeaderGroupFocus { background-color: #C0C0A0; }
-.GLHeaderGroupDelete { background-color: #F0F0E0; color: #F0F0E0; }
+.GLHeaderGroupDelete { background-color: #dedede; color: #dedede; }
 .GLHeaderGroupCustom {
    font:italic 11px "Microsoft Sans Serif",Verdana,Arial;
    color:#BBB; padding-left:5px; cursor:default; white-space:nowrap;
@@ -255,7 +255,7 @@
 .GLFGanttRunHover { border-color:red!important; overflow:hidden; }  
 .GLFGanttRunEmpty { border:none; padding:2px; padding-left:3px; padding-right:3px; }
 .GLFGanttRunNbsp { border:none; border-top:1px solid #EAEAEA; border-bottom:1px solid #EAEAEA; padding-left:3px; padding-right:3px; }
-.GLFGanttRunBox { background:#F0F0E0; }
+.GLFGanttRunBox { background:#dedede; }
 .GLFGanttRunSolid { background:#FFFF00; }
 .GLFGanttRunFixed,.GLFGanttRunLeft,.GLFGanttRunBound,.GLFGanttRunBoundStart { border-left-style:solid!important; border-left-width:2px!important; border-left-color:black; padding-left:1px!important;}
 .GLFGanttRunFixed,.GLFGanttRunRight,.GLFGanttRunBound,.GLFGanttRunBoundStart { border-right-style:solid!important; border-right-width:2px!important; border-right-color:black; padding-right:1px!important; }
@@ -277,7 +277,7 @@
 .GLGanttRunNbspOut { border:none; border-top:1px solid #EAEAEA; border-bottom:1px solid #EAEAEA; margin-left:0px; margin-right:0px; }
 .GLGanttRunNbspIn { }
 .GLGanttRunBoxOut { }
-.GLGanttRunBoxIn { background:#F0F0E0; }
+.GLGanttRunBoxIn { background:#dedede; }
 .GLGanttRunSolidOut { }
 .GLGanttRunSolidIn { background:#FFFF00; }
 .GLGanttRunFixedOut,.GLGanttRunLeftOut,.GLGanttRunBoundOut,.GLGanttRunBoundStartOut { border-left-style:solid!important; border-left-width:2px!important; border-left-color:black; margin-left:0px;}
@@ -471,7 +471,7 @@
 .GLGanttBack5 { background:#27C; }
 
 
-.GLGanttExclude,.GLGanttExcludeHidden { height:500px; overflow:hidden; background:#F0F0E0; margin-left:auto; margin-right:auto; }
+.GLGanttExclude,.GLGanttExcludeHidden { height:500px; overflow:hidden; background:#dedede; margin-left:auto; margin-right:auto; }
 .GLGanttExcludeHidden { }
 
 .GLGanttBase,.GLGanttBaseAuto,.GLGanttFinish,.GLGanttFinishAuto { height:500px; overflow:hidden; border-left:2px solid #FF9E0C; width:2px; margin-left:auto; margin-right:auto; }
@@ -696,10 +696,10 @@ u.GLPSpace4 { padding-left:61px; }
 	padding-left:5px; padding-right:5px; text-align:center;
    }
 .GLTabHtml1 { background:#BBBBBB; color:white; }
-.GLTabSep,.GLTabSepLeft,.GLTabSepRight { padding-left:2px; background:white!important; cursor:default!important; border:none; border-left:1px solid #e0e0e0; border-right:1px solid #e0e0e0; }
+.GLTabSep,.GLTabSepLeft,.GLTabSepRight { padding-left:2px; background:white!important; cursor:default!important; border:none; border-left:1px solid #a5c65b; border-right:1px solid #a5c65b; }
 .GLTabSepRight,.GLTabSepLeft { padding-left:5px; }
-.GLTabSepLast { padding-left:1px; background:white!important; cursor:default!important; border:none; border-left:1px solid #e0e0e0; }
-.GLTabSepFirst { padding-left:1px; background:white!important; cursor:default!important; border:none; border-right:1px solid #e0e0e0; }
+.GLTabSepLast { padding-left:1px; background:white!important; cursor:default!important; border:none; border-left:1px solid #a5c65b; }
+.GLTabSepFirst { padding-left:1px; background:white!important; cursor:default!important; border:none; border-right:1px solid #a5c65b; }
 
 .GLToolHtml,.GLToolHtml1 { font:11px "Microsoft Sans Serif",Verdana,Arial; padding-left:3px; padding-right:3px; }
 .GLToolHtml1 { font-weight:bold; color:blue; }
@@ -716,9 +716,9 @@ u.GLPSpace4 { padding-left:61px; }
 
 .GLToolHeader { border:none!important; padding-bottom:100px; }
 .GLToolMenuHeader { }    
-.GLToolMenuItem { background:#F0F0E0!important; }
-.GLToolMenuOuter { background:#F0F0E0!important; }
-.GLToolMenuBody { background:#F0F0E0!important; border:1px solid #e0e0ff!important;}
+.GLToolMenuItem { background:#dedede!important; }
+.GLToolMenuOuter { background:#dedede!important; }
+.GLToolMenuBody { background:#dedede!important; border:1px solid #e0e0ff!important;}
 
 /* ------------- Special Toolbar buttons ------------- */   
 .GLResizeGrid,.GLResizeGridRtl,.GLToolSave,.GLToolReload,.GLToolRepaint,.GLToolRepaint1,.GLToolAdd,.GLToolAddChild,.GLToolJoin,.GLToolSplit,.GLToolSort1,.GLToolSort,.GLToolCalc1,.GLToolCalc,
@@ -949,10 +949,10 @@ u.GLSort0Right,u.GLSort1Right,u.GLSort2Right,u.GLSort3Right,u.GLSort4Right,u.GLS
 
 /* -------------- Pager ------------------ */
 .GLPagerMain { }
-.GLPagerBody { border-left:1px solid #a0a090; background: #F0F0E0; }
+.GLPagerBody { border-left:1px solid #a0a090; background: #dedede; }
 .GLPagerHeader {
 	border-bottom:1px solid #b0b0a0;
-	vertical-align:top; padding-bottom:1px; background: #F0F0E0; cursor:default;
+	vertical-align:top; padding-bottom:1px; background: #dedede; cursor:default;
 	}
 .GLPagerCaption { font:13px "Times New Roman"; padding-left:3px; padding-right:3px; padding-bottom:2px; white-space:nowrap; }
 .GLPagerItem {
@@ -1096,7 +1096,7 @@ u.GLSort0Right,u.GLSort1Right,u.GLSort2Right,u.GLSort3Right,u.GLSort4Right,u.GLS
 .GLDragObject {
    z-index:300; margin-left:10px; margin-top:10px; 
    font:11px "Microsoft Sans Serif",Arial;
-   background:#f4f4f4; border:1px solid #e0e0e0; padding:3px;
+   background:#f4f4f4; border:1px solid #a5c65b; padding:3px;
    }
 .GLDragColInsideTop,.GLDragColInsideBottom,.GLDragColOutsideTop,.GLDragColOutsideBottom,.GLDragGanttRunTop,.GLDragGanttRunBottom {
    position:absolute; background-image:url(Sort.gif); width:15px; height:11px; overflow:hidden; z-index:258;
@@ -1111,7 +1111,7 @@ u.GLSort0Right,u.GLSort1Right,u.GLSort2Right,u.GLSort3Right,u.GLSort4Right,u.GLS
 /*--------------- Messages ----------------- */
 .GLDisabled { position:absolute; z-index:264; background:white; opacity:0.5; filter:alpha(opacity=50); } 
 .GLMessage {
-	background:#F0F0E0; border:1px solid #d0d0d0; padding:10px; white-space:nowrap; text-align:center;
+	background:#dedede; border:1px solid #d0d0d0; padding:10px; white-space:nowrap; text-align:center;
 	font:13px "Microsoft Sans Serif",Verdana,Arial;
    position: absolute; left:0px; top:0px; visibility:hidden; z-index:266;
 	}
@@ -1253,15 +1253,15 @@ u.GLSort0Right,u.GLSort1Right,u.GLSort2Right,u.GLSort3Right,u.GLSort4Right,u.GLS
 .GLMenuButton { font:11px "Microsoft Sans Serif",Arial; height:19px; width:48px; margin:2px; white-space:nowrap; padding-left:0px; padding-right:0px; } 
 
 /*--------------- Grid configuration menus ----------------- */
-.GLCfgMenuOuter,.GLColumnsMenuOuter { border:1px solid #E0E0E0; padding:6px; background:#F0F0E0; }
-.GLCfgMenuHead,.GLColumnsMenuHead { background:#F0F0E0; border:none; font-size:11px; padding-bottom:5px; }
-.GLCfgMenuBody,.GLColumnsMenuBody { padding:0px; border:none; padding-bottom:3px; padding-top:3px; border-top:1px solid white; background:#F0F0E0; }
-.GLCfgMenuFoot,.GLColumnsMenuFoot { padding-top:5px; background:#F0F0E0; border:none; border-top:1px solid white; }
+.GLCfgMenuOuter,.GLColumnsMenuOuter { border:1px solid #a5c65b; padding:6px; background:#dedede; }
+.GLCfgMenuHead,.GLColumnsMenuHead { background:#dedede; border:none; font-size:11px; padding-bottom:5px; }
+.GLCfgMenuBody,.GLColumnsMenuBody { padding:0px; border:none; padding-bottom:3px; padding-top:3px; border-top:1px solid white; background:#dedede; }
+.GLCfgMenuFoot,.GLColumnsMenuFoot { padding-top:5px; background:#dedede; border:none; border-top:1px solid white; }
 .GLCfgMenuButton { width:70px; } 
 .GLColumnsMenuButton { width:58px; } 
 .GLCfgMenuItemText,.GLColumnsMenuItemText { padding-left:3px; font-size:11px; }
 .GLColumnsMenuItemText { white-space:nowrap; }
-.GLCfgMenuItem,.GLColumnsMenuItem { padding-top:2px; padding-bottom:2px; background:#F0F0E0; }
+.GLCfgMenuItem,.GLColumnsMenuItem { padding-top:2px; padding-bottom:2px; background:#dedede; }
 .GLCfgMenuItemTouch,.GLColumnsMenuItemTouch { padding-top:5px; padding-bottom:5px; }
 .GLCfgMenuItemHover,.GLCfgMenuFocus,.GLCfgMenuFocusHover,
 .GLColumnsMenuItemHover,.GLColumnsMenuFocus,.GLColumnsMenuFocusHover { padding-top:2px; padding-bottom:2px; }
@@ -1547,7 +1547,7 @@ u.GLSort0Right,u.GLSort1Right,u.GLSort2Right,u.GLSort3Right,u.GLSort4Right,u.GLS
 .GLTipMain { position:absolute; left:0px; top:0px; z-index:262; visibility:hidden; }
 .GLTipOuter  {
    overflow:hidden; cursor:default; font:11px "Microsoft Sans Serif",Arial;
-   background:#f4f4f4; border:1px solid #e0e0e0; padding:3px;
+   background:#f4f4f4; border:1px solid #a5c65b; padding:3px;
    }
 .GLTipBody { background:#f4f4f4; white-space:nowrap; }     
 .GLTipShadow {
