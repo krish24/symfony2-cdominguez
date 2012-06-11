@@ -52,19 +52,17 @@ class MisGastosController extends Controller
     public function gridLayoutAction(){
         $layoutGenerator = new GridLayoutGenerator();
         $layoutGenerator->setConfiguration(array(
-            'Deleting'       =>  0,
-            'AutoUpdate'     =>  1,
-            'Dragging'       =>  0,
-            'Adding'         =>  0,
-            'Selecting'      =>  1,
-            'SearchDefs'     =>  "Node",
-            'SearchExpand'   =>  1,
-            'ConstWidth'     =>  0,
-            'SafeCSS'        =>  1,
-            'MaxVScroll'     =>  600,
-            'NoFormatEscape' =>  1,
-            'StandardFilter' =>  0,
-            'ExportType'     =>  "Expanded,Outline",
+            'Deleting'         =>  0,
+            'AutoUpdate'       =>  0,
+            'Dragging'         =>  0,
+            'Adding'           =>  0,
+            'Selecting'        =>  1,
+            'SearchExpand'     =>  1,
+            'NoFormatEscape'   =>  1,
+            'StandardFilter'   =>  2,
+            'Style'            =>  "Light",   
+            'Group'            =>  "Categoria,Gasto",
+            'ExportType'       =>  "Expanded,Outline",
         ));
         $layoutGenerator->addTopRowFilter(array(
             'CategoriaCanEdit'    =>  1,
@@ -75,7 +73,7 @@ class MisGastosController extends Controller
             'GastoRange'    =>  1,
             'GastoDefaults' => "{Position:{Align:'below center'},Items:[{Name:'*FilterOff'},'-',{Columns:3,Items:'|*RowsAllCanFilter'}]}",
         ))->addVariableColumn(array(
-            'CanEdit'   => 0,
+            'CanEdit'   => 1,
             'RelWidth'  => 2,
             'MinWidth'  => 70,
             'Name'      => "Categoria",
@@ -83,7 +81,7 @@ class MisGastosController extends Controller
             'CanSort'   => 1,
             'Type'      => "Text",
         ))->addVariableColumn(array(
-            'CanEdit'   => 0,
+            'CanEdit'   => 1,
             'RelWidth'  => 2,
             'MinWidth'  => 70,
             'Name'      => "Gasto",
@@ -91,23 +89,43 @@ class MisGastosController extends Controller
             'CanSort'   => 1,
             'Type'      => "Text",
         ))->addVariableColumn(array(
-            'CanEdit'   => 0,
-            'RelWidth'  => 2,
-            'MinWidth'  => 110,
+            'CanEdit'   => 1,
+            'Width'     => 0,
+            'MinWidth'  => 0,
             'Name'      => "Fecha",
             'CanFilter' => 1,
             'CanSort'   => 1,
             'Type'      => "Date", 
         ))->addVariableColumn(array(
-            'CanEdit'   => 0,
+            'CanEdit'   => 1,
             'RelWidth'  => 1,
             'MinWidth'  => 30,
             'Name'      => "Cantidad",
             'CanFilter' => 1,
             'CanSort'   => 1,
-            'Type'      => "Int",        
+            'Type'      => "Int",      
+        ))->addDefaultRow(array(
+            'Name'               => "Group",    
+            'Calculated'         => 1,    
+            'CantidadFormula'    => "sum()",    
+            'FechaFormula'       => "max()",  
+            'CantidadCanEdit'    => 1,    
+            'CantidadHtmlPrefix' => "<b>",
+            'CantidadHtmlPostfix' => "</b>",
+            'CalcOrder'          => "Cantidad,Fecha",
+        ))->addDefaultRow(array(
+            'Name'               => "R",    
+            'Calculated'         => 1,
+            'CalcOrder'          => "Total",
         ))->setToolbar(array(
-            'Cells' => "Style,Reload,Repaint,Print,Export,ExpandAll,CollapseAll,Cfg,Formula"
+            'Cells' => "ExpandAll,CollapseAll,Total,Formula",
+            'TotalType'       => "Int",
+            'TotalLabelRight' => "<b>Total</b>",
+            'TotalFormula'    => "sum('Cantidad')",
+            //'TREEType'        => "Bool",
+            //'TREELabelRight'  => "<b style='color:black;'>Independent group trees</b>",
+            //'TREELeft'        => 5,
+            //'TREEOnChange'    => " Grid.GroupTree = Value?3:0; Grid.Def.Group.CategoriaCanEdit = !Value; Grid.Def.Group.Spanned = !Value; Grid.DoGrouping(Grid.Group); Grids.GastosGrid.ExpandAll();"
         ));
         
         return array('gridLayoutGenerator' => $layoutGenerator);
