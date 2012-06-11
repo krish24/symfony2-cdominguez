@@ -69,6 +69,7 @@ class InicioController extends Controller
         $objDetalle->setCategoria($objCategoria);
         $objGasto->setDetalle($objDetalle);
         $objGasto->setCantidad($cantidad);
+        $objGasto->setUsuario($this->getUser());
         $em->persist($objGasto);
         $em->flush();
         return $this->redirect($this->generateUrl('cd_index', array('s' => 1)));

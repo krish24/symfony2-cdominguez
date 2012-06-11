@@ -159,7 +159,7 @@ class GridLayoutGenerator {
     }
     
     public function addVariableColumn($columnAttributes) {
-        $defaultOptions = array(
+        $defaultOptions = array( 
             'CanEdit'   => 0,
             'Type'      => "Text",
         );
