@@ -90,8 +90,8 @@ class MisGastosController extends Controller
             'Type'      => "Text",
         ))->addVariableColumn(array(
             'CanEdit'   => 1,
-            'Width'     => 0,
-            'MinWidth'  => 0,
+            'RelWidth'  => 0,
+            'MinWidth'  => 30,
             'Name'      => "Fecha",
             'CanFilter' => 1,
             'CanSort'   => 1,
@@ -147,7 +147,7 @@ class MisGastosController extends Controller
                 'Categoria' => $objGasto->getDetalle()->getCategoria()->getDescripcion(),
                 'Gasto'     => $objGasto->getDetalle()->getDescripcion(),
                 'Cantidad'  => $objGasto->getCantidad(),
-                'Fecha'     => $objGasto->getFecha()->format('d-M-Y h:m:s')
+                'Fecha'     => $objGasto->getFecha()->format('d-M-Y')
             ));
         }
         return array('gridDataFormatter' => $dataFormatter);
