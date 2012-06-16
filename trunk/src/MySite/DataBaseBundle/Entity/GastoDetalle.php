@@ -39,6 +39,10 @@ class GastoDetalle
      */
     private $gastos;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="gastoDetalles")
+     */
+    private $usuarios;
     
     public function __construct()
     {
@@ -113,5 +117,25 @@ class GastoDetalle
     public function getGastos()
     {
         return $this->gastos;
+    }
+
+    /**
+     * Add usuarios
+     *
+     * @param MySite\DataBaseBundle\Entity\Usuario $usuarios
+     */
+    public function addUsuario(\MySite\DataBaseBundle\Entity\Usuario $usuarios)
+    {
+        $this->usuarios[] = $usuarios;
+    }
+
+    /**
+     * Get usuarios
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getUsuarios()
+    {
+        return $this->usuarios;
     }
 }
