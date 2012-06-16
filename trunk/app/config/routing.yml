@@ -1,12 +1,6 @@
 MySiteDataBaseBundle:
     resource: "@MySiteDataBaseBundle/Resources/config/routing.yml"
     prefix:   /
-cd_login:
-    pattern:   /login
-    defaults:  { _controller: MySiteCDominguezBundle:Secured:login }
-
-cd_login_check:
-    pattern:   /login_check
 
 cd_logout:
   pattern: /logout

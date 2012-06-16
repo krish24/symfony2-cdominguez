@@ -16,16 +16,13 @@ security:
             pattern:    ^/
             anonymous:  ~
             provider:   administrators
-            #form_login:
+            form_login:
                 # the user is redirected here when he/she needs to login
-                #login_path:                     /login
-                # submit the login form here
-                #check_path:                     /login_check
-                # by default, the login form *must* be a POST, not a GET
-                #post_only:                      true
-                # In case no previous URL was stored in the session, you may wish to try using the HTTP_REFERER instead, as this will often be the same. You can do this by setting use_referer to true (it defaults to false):
-                #use_referer:                    true
+                login_path:   /cdlogin
+            logout:
+                path:         /logout
+                target:       /cdlogin
                 
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/cdlogin, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
