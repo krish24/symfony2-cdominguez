@@ -54,6 +54,16 @@ class Usuario implements UserInterface
     private $email;
     
     /**
+     * @ORM\ManyToMany(targetEntity="Categoria", inversedBy="usuarios")
+     */
+    private $categorias;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="GastoDetalle", inversedBy="usuarios")
+     */
+    private $gastoDetalles;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Gasto", mappedBy="usuario", cascade={"persist"})
      */
     private $gastos;
@@ -195,5 +205,55 @@ class Usuario implements UserInterface
     public function setUsername($username)
     {
         $this->username = $username;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+
+    /**
+     * Add categorias
+     *
+     * @param MySite\DataBaseBundle\Entity\Categoria $categorias
+     */
+    public function addCategoria(\MySite\DataBaseBundle\Entity\Categoria $categorias)
+    {
+        $this->categorias[] = $categorias;
+    }
+
+    /**
+     * Get categorias
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getCategorias()
+    {
+        return $this->categorias;
+    }
+
+    /**
+     * Add gastoDetalles
+     *
+     * @param MySite\DataBaseBundle\Entity\GastoDetalle $gastoDetalles
+     */
+    public function addGastoDetalle(\MySite\DataBaseBundle\Entity\GastoDetalle $gastoDetalles)
+    {
+        $this->gastoDetalles[] = $gastoDetalles;
+    }
+
+    /**
+     * Get gastoDetalles
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getGastoDetalles()
+    {
+        return $this->gastoDetalles;
     }
 }
