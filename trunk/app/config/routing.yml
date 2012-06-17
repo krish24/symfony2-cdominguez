@@ -1,13 +1,9 @@
-MySiteDataBaseBundle:
-    resource: "@MySiteDataBaseBundle/Resources/config/routing.yml"
-    prefix:   /
-
-cd_logout:
-  pattern: /logout
-
 MySiteCDominguezBundle:
     resource: "@MySiteCDominguezBundle/Resources/config/routing.yml"
     prefix:   /
+
+cd_logout:
+    pattern:  /logout
 
 MySiteOldSiteBundle:
     resource: "@MySiteOldSiteBundle/Resources/config/routing.yml"
