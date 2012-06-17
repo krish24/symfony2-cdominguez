@@ -14,6 +14,9 @@
     <!-- Chosen Plugin -->
     <script type="text/javascript" src="{{ asset('bundles/basejqueryui/plugins/chosen/chosen.jquery.min.js') }}"></script>
     
+    <!-- Chosen Plugin -->
+    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.timepicker.min.js') }}"></script>
+    
     <script type="text/javascript">
         //Pone el menu activo
         $('#menu_inicio').addClass('active');
@@ -32,6 +35,11 @@
                 'add'                   : '{{ path('cd_add_gasto') }}',
                 'getOptGDetallesByCat'  : '{{ path('cd_get_opt_gdetalles_by_cat') }}'
             }
+        };
+        
+        //Variable declarada en el Twig base.
+        _app.urls.images.color = {
+            'calendar'  :   '{{ asset('images/icons/color/16/calendar.png') }}'
         };
     </script> 
     <script type="text/javascript" src="{{ asset('bundles/mysitecdominguez/js/index.js') }}" ></script>
@@ -66,7 +74,7 @@
                 <form class="da-form" action="{{path('cd_add_gasto')}}" id="form-add-gasto" method="GET" novalidate="novalidate">
                     <div class="da-form-row">
                         <label><span class="required">* </span>Categoria</label>
-                        <div class="da-form-item large">
+                        <div class="da-form-inline">
                             <select name="_categoria" id="_categoria" style="display: none; ">
                                 <option value="-1" >Seleccionar una opci&oacute;n</option>
                                 {% for categoria in categorias %}
@@ -81,7 +89,7 @@
                     </div>
                     <div class="da-form-row">
                         <label><span class="required">* </span>Gaste en</label>
-                        <div class="da-form-item large">
+                        <div class="da-form-inline">
                             <select name="_gasto" id="_gasto" style="display: none; ">
                                 <option value="-1" >Seleccionar una opci&oacute;n</option>
                                 {% for detalle in detalles %}
@@ -96,9 +104,15 @@
                     </div>
                     <div class="da-form-row">
                         <label><span class="required">* </span>¿C&uacute;anto?</label>
-                        <div class="da-form-item large">
+                        <div class="da-form-inline">
                             <input name="_cantidad" type="text" id="_cantidad" value="0" >
                             <label id="label_cantidad" for="_cantidad" class="error" style="display: none">Ingrese la cantidad.</label>
+                        </div>
+                    </div>
+                    <div class="da-form-row">
+                        <label>¿C&uacute;ando?</label>
+                        <div class="da-form-inline" >
+                            <input type="text" id="_datepicker" name="_datepicker">
                         </div>
                     </div>
                     <div class="da-form-row" id="browserData">
