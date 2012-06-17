@@ -14,7 +14,20 @@
         
         a("#form-add-gasto select").change(function(){
             addInputChosen(this);
-        })
+        });
+        
+        a("#_datepicker").datetimepicker({
+            showOtherMonths :true,
+            showWeek        :true,
+            dateFormat      : 'yy-mm-dd',
+            showButtonPanel : true,
+            showOn          : "button",
+            buttonImage     : _app.urls.images.color.calendar,
+            buttonImageOnly : true,
+            buttonText      : 'Seleccionar día',
+            showAnim        : "drop"
+        });        
+        a("#_datepicker").datetimepicker('setDate', new Date());    
     });
 })(jQuery);
 

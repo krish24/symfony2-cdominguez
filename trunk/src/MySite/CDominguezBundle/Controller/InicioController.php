@@ -44,6 +44,7 @@ class InicioController extends Controller
         $idGastoDetalle = $request->query->get('_gasto');
         $addGasto       = $request->query->get('add_gasto');
         $cantidad       = $request->query->get('_cantidad');
+        $date           = $request->query->get('_datepicker');
         $em             = $this->getDoctrine()->getEntityManager();
         $user           = $this->getUser();
         
@@ -76,6 +77,7 @@ class InicioController extends Controller
         $objGasto->setDetalle($objDetalle);
         $objGasto->setCantidad($cantidad);
         $objGasto->setUsuario($user);
+        $objGasto->setFecha(new \DateTime($date));
         $em->persist($objGasto);
         $em->flush();
         return $this->redirect($this->generateUrl('cd_index', array('s' => 1)));

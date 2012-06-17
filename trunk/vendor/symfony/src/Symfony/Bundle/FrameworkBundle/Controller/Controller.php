@@ -191,9 +191,8 @@ class Controller extends ContainerAware
     
     /**
      * Get actual user logged in the system
-     * @return \SpareCast\UserBundle\Entity\User $user instace of User
      */
     protected function getUser(){
-        return $this->get('security.context')->getToken()->getUser();
+        return $this->get('security.context')->getToken()->getUser(); 
     }
 }
