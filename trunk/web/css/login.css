@@ -15,25 +15,25 @@ body {
 }
 div#da-login {
     margin:auto;
-    padding-top:100px
+    padding-top:25px
 }
 div#da-login-top-shadow {
     background:url(../images/login-shadow.png) no-repeat center top;
     padding-top:16px;
     z-index:15;
     margin:auto;
-    width:450px;
+    max-width: 450px;
     position:relative
 }
 div#da-login #da-login-bottom-shadow {
-    width:320px;
-    height:11px;
+    max-width:320px;
+    height:11px;  
     margin:auto;
     z-index:20;
     background:url(../images/login-box-footer.png) no-repeat center top
 }
 div#da-login #da-login-box {
-    width:280px;
+    max-width:280px; 
     margin:auto;
     margin-top:-15px;
     z-index:10;
