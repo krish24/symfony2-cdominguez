@@ -853,9 +853,9 @@ div#da-footer p {
         border-bottom:1px solid #cacaca
     }
     div#da-content #da-main-nav {
-        position:absolute;
+        /*position:absolute;
         display:none;
-        top:41px
+        top:41px*/
     }
     div#da-content #da-main-nav.open {
         display:block
@@ -1990,10 +1990,10 @@ div.pp_default .pp_social {
     height:120px;
     top:8px;
     left:8px;
-    z-index:50
+    z-index:0
 }
 .da-circular-stat .da-circular-front {
-    z-index:100;
+    z-index:1;
     background:url(../images/circular-stat-front.png) no-repeat center center;
     background-size:100% 100%
 }
