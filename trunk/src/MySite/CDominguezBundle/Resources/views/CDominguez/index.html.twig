@@ -20,9 +20,9 @@
     <script type="text/javascript">
         //Pone el menu activo
         $('#menu_inicio').addClass('active');
-        
+         
         //Crea el chosen para el index
-        $("#form-add-gasto select").chosen();
+        {#$("#form-add-gasto select").chosen();#}
         
         //Agregar la informacion del browser
         $.each($.browser, function(i, val) {
@@ -75,7 +75,8 @@
                     <div class="da-form-row">
                         <label><span class="required">* </span>Categoria</label>
                         <div class="da-form-inline">
-                            <select name="_categoria" id="_categoria" style="display: none; ">
+                            {#<select name="_categoria" id="_categoria" style="display: none; ">#}
+                            <select name="_categoria" id="_categoria" >
                                 <option value="-1" >Seleccionar una opci&oacute;n</option>
                                 {% for categoria in categorias %}
                                     <option value="{{categoria.id}}" >{{categoria.descripcion}}</option>
@@ -90,7 +91,8 @@
                     <div class="da-form-row">
                         <label><span class="required">* </span>Gaste en</label>
                         <div class="da-form-inline">
-                            <select name="_gasto" id="_gasto" style="display: none; ">
+                            {#<select name="_gasto" id="_gasto" style="display: none; ">#}
+                            <select name="_gasto" id="_gasto" >
                                 <option value="-1" >Seleccionar una opci&oacute;n</option>
                                 {% for detalle in detalles %}
                                     <option value="{{detalle['id']}}" >{{detalle['descripcion']}}</option>
