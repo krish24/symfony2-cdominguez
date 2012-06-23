@@ -70,7 +70,7 @@ class Usuario implements UserInterface
     
     /**
      * @ORM\ManyToMany(targetEntity="GastoDetalle", inversedBy="usuarios")
-     * @ORM\JoinTable(name="usuario_gatosdetalle"),
+     * @ORM\JoinTable(name="usuario_gastodetalle"),
      *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
      *      joinColumns={@ORM\JoinColumn(name="gastodetalle_id", referencedColumnName="id")},
      */
