@@ -47,6 +47,13 @@ class Usuario implements UserInterface
     private $password;
     
     /**
+     * @var integer $capital
+     *
+     * @ORM\Column(name="capital", type="integer")
+     */
+    private $capital;
+    
+    /**
      * @var string $email
      *
      * @ORM\Column(name="email", type="string", length=60, unique=true)
@@ -55,11 +62,17 @@ class Usuario implements UserInterface
     
     /**
      * @ORM\ManyToMany(targetEntity="Categoria", inversedBy="usuarios")
+     * @ORM\JoinTable(name="usuario_categoria"),
+     *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="categoria_id", referencedColumnName="id")},
      */
     private $categorias;
     
     /**
      * @ORM\ManyToMany(targetEntity="GastoDetalle", inversedBy="usuarios")
+     * @ORM\JoinTable(name="usuario_gatosdetalle"),
+     *      joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="gastodetalle_id", referencedColumnName="id")},
      */
     private $gastoDetalles;
     
@@ -70,7 +83,6 @@ class Usuario implements UserInterface
     
     public function __construct()
     {
-        $this->gastos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salt = md5(uniqid(null, true));
     }
     
@@ -256,4 +268,24 @@ class Usuario implements UserInterface
     {
         return $this->gastoDetalles;
     }
+
+    /**
+     * Set capital 
+     *
+     * @param integer $capital
+     */
+    public function setCapital($capital)
+    {
+        $this->capital = $capital;
+    }
+
+    /**
+     * Get capital
+     *
+     * @return integer 
+     */
+    public function getCapital()
+    {
+        return $this->capital;
+    } 
 }
