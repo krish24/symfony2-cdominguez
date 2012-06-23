@@ -7,7 +7,7 @@
         a("#_cantidad").spinner({
             prefix  : "¢ ",
             min     : 0,
-            max     : 100000,
+            max     : 9999999,
             places  : 0,
             step    : 1
         });

@@ -26,9 +26,17 @@
     <script src="{{ asset('js/core/dandelion.customizer.js') }}" ></script>
     <script src="{{ asset('js/base.js') }}" ></script>
     <script> 
+        var capital        = {{ app.user.capital }};
+        var dineroGastado  = {{ dineroGastado }};
+        var toMulti        = 100 / capital;
+        var porcentGastado = toMulti * dineroGastado;
+        var disponible     = capital - dineroGastado;
+        var strDinero      = '¢ ' + disponible + ' / ' + '¢ ' + capital;
+        
         $( "#progressBarCapital" ).progressbar({
-                value: 41.5
+                value: Math.floor(100 - porcentGastado)
         });
+        $( "#dineroDisponible" ).text(strDinero);
     </script>
 {% endblock %}
 
@@ -76,7 +84,7 @@
         <!-- Logo Container. All images put here will be vertically centere -->
         <div id="cd-disponible-wrap">
             <div id="cd-disponible">
-                <span>¢ 56, 5465, 778</span>
+                <span id="dineroDisponible"></span>
                 <div id="progressBarCapital" ></div>
             </div>
         </div>
@@ -160,6 +168,15 @@
                                 <img src="{{ asset('images/icons/color/24/chart.png') }}" alt="Mis gastos">
                             </span>
                             Mis gastos
+                        </a>
+                    </li>
+                    <li  id="menu_mi_dinero">
+                        <a href="{{ path('cd_mi_dinero') }}">
+                            <!-- Mis gastos -->
+                            <span class="da-nav-icon">
+                                <img src="{{ asset('images/icons/color/24/money.png') }}" alt="Administrar mi dinero">
+                            </span>
+                            Mi dinero
                         </a>
                     </li>
                 </ul>

@@ -40,8 +40,12 @@ class MisGastosController extends Controller
                 'Export_Url'        => $router->generate('cd_export_grid'),
             ));
 
+        $dineroGastado = $this->getDoctrine()
+                                ->getRepository('MySiteDataBaseBundle:Usuario')
+                                ->getDineroGastado($this->getUser());
         return array(
-            'gridOptionsGenerator' => $gridOptionsGenerator
+            'gridOptionsGenerator' => $gridOptionsGenerator,
+            'dineroGastado'        => $dineroGastado,
         );
     }
     
@@ -138,9 +142,10 @@ class MisGastosController extends Controller
      * @Template("BaseEJSTreeGridBundle::gridData.json.twig")
      */
     public function gridDataAction() { 
-        $em            = $this->getDoctrine()->getEntityManager();
         $user          = $this->getUser();
-        $gastos        = $em->getRepository('MySiteDataBaseBundle:Gasto')->findBy(array('usuario' => $user->getId()));
+        $gastos        = $this->getDoctrine()
+                                ->getRepository('MySiteDataBaseBundle:Gasto')
+                                ->findBy(array('usuario' => $user->getId()));
         $dataFormatter = new GridDataFormatter();
 
         foreach ($gastos as $objGasto) { 

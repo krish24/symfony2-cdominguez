@@ -22,14 +22,19 @@ class InicioController extends Controller
      * @Template("MySiteCDominguezBundle::CDominguez/index.html.twig")
      */
     public function indexAction() {
-        $request    = $this->getRequest();
-        $s          = $request->query->get('s');
-        $categorias = $this->getUser()->getCategorias();
-        $detalles   = array();
+        $request       = $this->getRequest();
+        $s             = $request->query->get('s');
+        $objUser       = $this->getUser();
+        $categorias    = $objUser->getCategorias();
+        $detalles      = array();
+        $dineroGastado = $this->getDoctrine()
+                                ->getRepository('MySiteDataBaseBundle:Usuario')
+                                ->getDineroGastado($objUser);
         return array(
-            'categorias' => $categorias,
-            'detalles'   => $detalles,
-            'saveData'   => $s
+            'categorias'    => $categorias,
+            'detalles'      => $detalles,
+            'dineroGastado' => $dineroGastado,
+            'saveData'      => $s
         );
     }
     

@@ -13,85 +13,38 @@ use MySite\DataBaseBundle\Entity\GastoDetalle;
 use MySite\DataBaseBundle\Entity\Categoria;
 
 /**
- * @Route("/mis-gastos")
+ * @Route("/mi-dinero")
  */
-class InicioController extends Controller
+class MiDineroController extends Controller
 {
     /** 
-     * @Route("/", name="cd_index")
-     * @Template("MySiteCDominguezBundle::CDominguez/index.html.twig")
+     * @Route("/", name="cd_mi_dinero")
+     * @Template("MySiteCDominguezBundle::CDominguez/miDinero.html.twig")
      */
     public function indexAction() {
-        $request    = $this->getRequest();
-        $s          = $request->query->get('s');
-        $categorias = $this->getUser()->getCategorias();
-        $detalles   = array();
+        $request       = $this->getRequest();
+        $s             = $request->query->get('s');
+        $dineroGastado = $this->getDoctrine()
+                                ->getRepository('MySiteDataBaseBundle:Usuario')
+                                ->getDineroGastado($this->getUser());
         return array(
-            'categorias' => $categorias,
-            'detalles'   => $detalles,
-            'saveData'   => $s
+            'saveData'      => $s,
+            'dineroGastado' => $dineroGastado,
         );
-    }
-    
-    /**
-     * @Route("/AddGasto", name="cd_add_gasto")
-     */
-    public function addGasto() {
-        $request        = $this->getRequest();
-        $idCategoria    = $request->query->get('_categoria');
-        $addCategoria   = $request->query->get('add_categoria');
-        $idGastoDetalle = $request->query->get('_gasto');
-        $addGasto       = $request->query->get('add_gasto');
-        $cantidad       = $request->query->get('_cantidad');
-        $date           = $request->query->get('_datepicker');
-        $em             = $this->getDoctrine()->getEntityManager();
-        $user           = $this->getUser();
-        
-        $objGasto = new Gasto();
-        $cantidad = str_replace("¢ ", "", $cantidad);
-        
-        if($idCategoria == -1){
-            $objCategoria = new Categoria();
-            $objCategoria->setDescripcion($addCategoria);
-            $objCategoria->addUsuario($user);
-            $em->persist($objCategoria);
-            $user->addCategoria($objCategoria);
-            $em->merge($user);
-        }else{
-            $objCategoria = $em->getRepository('MySiteDataBaseBundle:Categoria')->findOneBy(array('id' => $idCategoria)); 
-        }
-        
-        if($idGastoDetalle == -1){
-            $objDetalle = new GastoDetalle();
-            $objDetalle->setDescripcion($addGasto);
-            $objDetalle->addUsuario($user);
-            $em->persist($objDetalle);
-            $user->addGastoDetalle($objDetalle);
-            $em->merge($user);
-        }else{
-            $objDetalle = $em->getRepository('MySiteDataBaseBundle:GastoDetalle')->findOneBy(array('id' => $idGastoDetalle)); 
-        }
-        
-        $objDetalle->setCategoria($objCategoria);
-        $objGasto->setDetalle($objDetalle);
-        $objGasto->setCantidad($cantidad);
-        $objGasto->setUsuario($user);
-        $objGasto->setFecha(new \DateTime($date));
-        $em->persist($objGasto);
-        $em->flush();
-        return $this->redirect($this->generateUrl('cd_index', array('s' => 1)));
     }
 
     /**
-     * @Route("/GetGDetallesByCat", name="cd_get_opt_gdetalles_by_cat")
-     * @Template("MySiteCDominguezBundle::CDominguez/optionsChosenDetalleGastos.html.twig")
+     * @Route("/set-mi-dinero", name="cd_set_mi_dinero")
      */
-    public function getOptGDetallesByCat() {
-        $request      = $this->getRequest();
-        $idCategoria  = array($request->query->get('pidCategoria'));
-        $em           = $this->getDoctrine()->getEntityManager();
-        $objCategoria = $em->getRepository('MySiteDataBaseBundle:Categoria')->findOneBy(array('id' => $idCategoria)); 
-        $detalles     = $em->getRepository('MySiteDataBaseBundle:GastoDetalle')->loadByUserAndCategory($this->getUser(), $objCategoria); 
-        return array( 'detalles'   => $detalles );
+    public function setMiDinero() {
+        $request        = $this->getRequest();
+        $cantidad       = $request->query->get('_cantidad');
+        $em             = $this->getDoctrine()->getEntityManager();
+        $user           = $this->getUser();
+        $cantidad = str_replace("¢ ", "", $cantidad);
+        $user->setCapital($cantidad);
+        $em->merge($user);
+        $em->flush();
+        return $this->redirect($this->generateUrl('cd_mi_dinero', array('s' => 1)));
     }
 }
