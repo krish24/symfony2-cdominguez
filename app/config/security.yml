@@ -18,11 +18,11 @@ security:
             provider:   administrators
             form_login:
                 # the user is redirected here when he/she needs to login
-                login_path:   /cdlogin
+                login_path:   /clogin
             logout:
                 path:         /logout
-                target:       /cdlogin
+                target:       /clogin
                 
     access_control:
-        - { path: ^/cdlogin, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/clogin, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
