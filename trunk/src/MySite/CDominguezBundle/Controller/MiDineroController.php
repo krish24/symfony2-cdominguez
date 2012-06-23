@@ -13,7 +13,7 @@ use MySite\DataBaseBundle\Entity\GastoDetalle;
 use MySite\DataBaseBundle\Entity\Categoria;
 
 /**
- * @Route("")
+ * @Route("/mis-gastos")
  */
 class InicioController extends Controller
 {
@@ -34,7 +34,7 @@ class InicioController extends Controller
     }
     
     /**
-     * @Route("/add-gasto", name="cd_add_gasto")
+     * @Route("/AddGasto", name="cd_add_gasto")
      */
     public function addGasto() {
         $request        = $this->getRequest();
@@ -83,7 +83,7 @@ class InicioController extends Controller
     }
 
     /**
-     * @Route("/get-detalles", name="cd_get_opt_gdetalles_by_cat")
+     * @Route("/GetGDetallesByCat", name="cd_get_opt_gdetalles_by_cat")
      * @Template("MySiteCDominguezBundle::CDominguez/optionsChosenDetalleGastos.html.twig")
      */
     public function getOptGDetallesByCat() {
@@ -93,5 +93,5 @@ class InicioController extends Controller
         $objCategoria = $em->getRepository('MySiteDataBaseBundle:Categoria')->findOneBy(array('id' => $idCategoria)); 
         $detalles     = $em->getRepository('MySiteDataBaseBundle:GastoDetalle')->loadByUserAndCategory($this->getUser(), $objCategoria); 
         return array( 'detalles'   => $detalles );
-    } 
-}  
+    }
+}

@@ -187,16 +187,26 @@ div#da-header {
 div#da-header #da-header-top {
     position:relative
 }
-div#da-header #da-header-top #da-logo-wrap {
+div#da-header #da-header-top #cd-disponible-wrap {
     float:left
 }
-div#da-header #da-header-top #da-logo {
-    width:230px;
-    height:55px;
-    display:table-cell;
-    vertical-align:middle
+div#da-header #da-header-top #cd-disponible {
+    min-width: 145px;
+    text-align: center;
+    width: 98%;
+    color: white;
+    font-family: cursive;
+    font-size: 22px;
+    border: 1px solid #CCC;
+    margin: 3px 3px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.20);
+    -moz-box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.20);
+    -webkit-box-shadow: 0px 0px 19px rgba(0, 0, 0, 0.20);
 }
-div#da-header #da-header-top #da-logo-img img {
+div#da-header #da-header-top #cd-disponible-img img {
     max-width:230px;
     max-height:55px
 }
@@ -210,26 +220,28 @@ div#da-header #da-header-top #da-header-toolbar #da-user-profile, div#da-header 
     position:relative
 }
 div#da-header #da-header-top #da-header-toolbar #da-user-profile {
+    min-width: 130px;
+    max-width: 130px;
     border-left:1px solid #535353;
     border-left:1px solid rgba(255, 255, 255, 0.2);
     border-right:1px solid #161616;
     border-right:1px solid rgba(0, 0, 0, 0.6);
-    padding:0 12px;
+    padding:0 4px;
     cursor:pointer;
     background:url(../images/user-drop-arrow.png) no-repeat right center;
-    padding-right:24px
+    padding-right:20px
 }
 div#da-header #da-header-top #da-header-toolbar #da-user-profile #da-user-avatar, div#da-header #da-header-top #da-header-toolbar #da-user-profile #da-user-info {
     float:left
 }
 div#da-header #da-header-top #da-header-toolbar #da-user-profile #da-user-avatar {
-    height:32px;
-    padding:12px 0;
-    margin-right:12px
+    height:50px;
+    padding:4px 0;
+    margin-right:5px
 }
 div#da-header #da-header-top #da-header-toolbar #da-user-profile #da-user-avatar img {
-    max-width:32px;
-    max-height:32px
+    max-width:50px;
+    max-height:50px
 }
 div#da-header #da-header-top #da-header-toolbar #da-user-profile #da-user-info {
     font-size:12px;
@@ -237,7 +249,7 @@ div#da-header #da-header-top #da-header-toolbar #da-user-profile #da-user-info {
     line-height:1;
     padding:13px 0;
     font-weight:bold;
-    position:relative
+    float: none;
 }
 div#da-header #da-header-top #da-header-toolbar #da-user-profile #da-user-info .da-user-title {
     color:#eaeaea;
@@ -770,9 +782,9 @@ div#da-footer p {
     div#da-header #da-header-top da-header-toolbar #da-user-profile #da-user-avatar {
         margin:0
     }
-    div#da-header #da-header-top #da-header-toolbar #da-user-profile #da-user-info {
+    /*div#da-header #da-header-top #da-header-toolbar #da-user-profile #da-user-info {
         display:none
-    }
+    }*/
 }
 @media only screen and (max-width:480px) {
     div#da-wrapper .da-container {
@@ -781,28 +793,27 @@ div#da-footer p {
     div#da-header #da-header-bottom {
         height:auto
     }
-    div#da-header #da-header-top #da-logo-wrap {
+    div#da-header #da-header-top #cd-disponible-wrap {
         float:none;
-        position:absolute;
         width:100%;
-        height:55px;
+        height:100%;
         border-bottom:1px solid #161616
     }
-    div#da-header #da-header-top #da-logo {
+    div#da-header #da-header-top #cd-disponible {
         position:absolute;
-        left:50%;
         text-align:center;
-        margin-left:-115px
     }
     div#da-header #da-header-top #da-header-toolbar {
         border:0;
         width:100%;
-        margin-top:56px;
+        margin-top:42px;
         border-top:1px solid #535353
     }
     div#da-header #da-header-top #da-header-toolbar #da-user-profile {
         border:0;
-        float:left
+        float:left;
+        min-width: 145px;
+        max-width: 145px;
     }
     div#da-header #da-header-top #da-header-toolbar #da-header-button-container {
         padding:10px 7px;
@@ -828,7 +839,6 @@ div#da-footer p {
     }
     div#da-content #da-sidebar {
         display:block;
-        height:55px;
         width:100%;
         cursor:pointer;
         float:none;

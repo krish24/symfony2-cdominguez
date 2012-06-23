@@ -17,7 +17,7 @@ use Base\EJSTreeGridBundle\Framework\GridOptionsGenerator,
     Base\EJSTreeGridBundle\Framework\GridDataFormatter;
 
 /**
- * @Route("/MisGastos")
+ * @Route("/mis-gastos")
  */
 class MisGastosController extends Controller
 {
@@ -25,7 +25,7 @@ class MisGastosController extends Controller
      * @Route("/", name="cd_mis_gastos")
      * @Template("MySiteCDominguezBundle::CDominguez/misgastos.html.twig")
      */
-    public function misGastosAction(){
+    public function misGastosAction() {
         $router = $this->get('router');
         
         $gridOptionsGenerator = new GridOptionsGenerator(
@@ -46,10 +46,10 @@ class MisGastosController extends Controller
     }
     
      /**
-     * @Route("/GridLayout", name="cd_grid_layout_gastos", defaults={"_format" = "json"})
+     * @Route("/grid-layout", name="cd_grid_layout_gastos", defaults={"_format" = "json"})
      * @Template("BaseEJSTreeGridBundle::gridLayout.json.twig")
      */
-    public function gridLayoutAction(){
+    public function gridLayoutAction() {
         $layoutGenerator = new GridLayoutGenerator();
         $layoutGenerator->setConfiguration(array(
             'SearchExpand'     =>  1,
@@ -134,7 +134,7 @@ class MisGastosController extends Controller
     }
     
      /**
-     * @Route("/GridData", name="cd_grid_data_gastos", defaults={"_format" = "json"})
+     * @Route("/grid-data", name="cd_grid_data_gastos", defaults={"_format" = "json"})
      * @Template("BaseEJSTreeGridBundle::gridData.json.twig")
      */
     public function gridDataAction() { 

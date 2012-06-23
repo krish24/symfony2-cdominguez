@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 class SecuredController extends Controller
 {
     /**
-     * @Route("/cdlogin", name="cd_login")
+     * @Route("/clogin", name="cd_login")
      * @Template()
      */
     public function loginAction()
@@ -33,7 +33,7 @@ class SecuredController extends Controller
     }
 
     /**
-     * @Route("/cdlogin_check", name="cd_security_check")
+     * @Route("/clogin_check", name="cd_security_check")
      */
     public function securityCheckAction()
     {
