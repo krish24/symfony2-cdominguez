@@ -56,7 +56,7 @@ class MisGastosController extends Controller
             'NoFormatEscape'   =>  1,
             'StandardFilter'   =>  2,
             'NoVScroll'        =>  1,
-            'MaxVScroll'       =>  1500,
+            'MaxVScroll'       =>  2500,
             'Style'            =>  "Query",   
             'Group'            =>  "Categoria,Gasto",
             'Sort'             =>  "-Cantidad",
