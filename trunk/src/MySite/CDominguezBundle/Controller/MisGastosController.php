@@ -60,6 +60,7 @@ class MisGastosController extends Controller
             'NoFormatEscape'   =>  1,
             'StandardFilter'   =>  2,
             'NoVScroll'        =>  1,
+            'Deleting'         =>  1,
             'MaxVScroll'       =>  2500,
             'Style'            =>  "Query",   
             'Group'            =>  "Categoria,Gasto",
@@ -111,27 +112,25 @@ class MisGastosController extends Controller
             'Calculated'        => 1,    
             'CantidadFormula'   => "sum()",    
             'FechaFormula'      => "max()",  
-            'ExpandedFormula'   => "[1,0,0,0][Row.Level%4]",
+            'ExpandedFormula'   => "var index = (Row.GroupCol == 'Categoria') ? 0 : 1; return [1,0][index]",
             'CantidadCanEdit'   => 1,
-            'ClassFormula'      => "['level1','level2'][Row.Level%4]",
-            'HtmlPrefixFormula' => "['<span style=\"color:#599bd7;font-weight:bold\">','<span style=\"color:#e25c5b\">'][Row.Level%4]",
+            'ClassFormula'      => "var index = (Row.GroupCol == 'Categoria') ? 0 : 1; return ['level1','level2'][index]",
+            'HtmlPrefixFormula' => "var index = (Row.GroupCol == 'Categoria') ? 0 : 1; return ['<span style=\"color:#599bd7;font-weight:bold\">','<span style=\"color:#e25c5b\">'][index]; ",
             'HtmlPostfix'       => "</span>",
-            'CalcOrder'         => "Cantidad,Fecha,HtmlPrefix,Class,Expanded",
+            'CalcOrder'         => "Cantidad,Fecha,Class,Expanded,HtmlPrefix",
         ))->addDefaultRow(array(
             'Name'               => "R",    
             'Calculated'         => 1,
-            'HtmlPrefix' => "<span style=\"color:#FF9E0C\">",
-            'HtmlPostfix'       => "</span>",
+            'HtmlPrefix'         => "<span style=\"color:#FF9E0C\">",
+            'HtmlPostfix'        => "</span>",
             'CalcOrder'          => "Total",
         ))->setToolbar(array(
-            'Cells' => "ExpandAll,CollapseAll,Total,Formula",
-            'TotalType'       => "Int",
-            'TotalLabelRight' => "<b>Total</b>",
-            'TotalFormula'    => 'sum("Cantidad")',
-            //'TREEType'        => "Bool",
-            //'TREELabelRight'  => "<b style='color:black;'>Independent group trees</b>",
-            //'TREELeft'        => 5,
-            //'TREEOnChange'    => " Grid.GroupTree = Value?3:0; Grid.Def.Group.CategoriaCanEdit = !Value; Grid.Def.Group.Spanned = !Value; Grid.DoGrouping(Grid.Group); Grids.GastosGrid.ExpandAll();"
+            'Cells'            => "ExpandAll,CollapseAll,Total,Formula",
+            'TotalType'        => "Int",
+            'TotalLabelRight'  => "<b>Total</b>",
+            'TotalFormula'     => "sum(\"Cantidad\")",
+            'TotalHtmlPrefix'  => "<b>",
+            'TotalHtmlPostfix' => "</b>"
         ));
         
         return array('gridLayoutGenerator' => $layoutGenerator);

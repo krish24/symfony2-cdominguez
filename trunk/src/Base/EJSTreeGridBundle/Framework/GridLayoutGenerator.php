@@ -37,11 +37,8 @@ class GridLayoutGenerator {
         // Set default options
         $this->configuration = array(
             'Style'               => "Modern",
-            'Deleting'            => 0,
-            'AutoUpdate'          => 0,
             'Dragging'            => 0,
             'Adding'              => 0,
-            'Selecting'           => 1,
             'SaveValues'          => 0,
             'ShowDeleted'         => 0,
             'DateStrings'         => 1,

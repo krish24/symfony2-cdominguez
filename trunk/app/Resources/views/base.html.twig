@@ -74,6 +74,20 @@
                         }
                     }
                 };
+                
+                //Funcion para debug en Javascript.
+                function varDump(obj){
+                    console.log('Type: ', typeof obj);
+                    if(typeof obj == 'object'){
+                        var keys = Object.keys(obj); 
+                        console.log('Keys: ', keys); 
+                        for(var i in keys){
+                            console.log(keys[i], '=' , $(obj).attr(keys[i]));
+                        }
+                    }else{
+                        console.log(obj);
+                    }
+                }
             </script>
         {% endblock %}
     </body>
