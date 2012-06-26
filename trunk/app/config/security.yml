@@ -24,5 +24,7 @@ security:
                 target:       /clogin
                 
     access_control:
-        - { path: ^/clogin, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/clogin,          roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/activdevnocline, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/_nocline_,       roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/,                roles: IS_AUTHENTICATED_FULLY }
