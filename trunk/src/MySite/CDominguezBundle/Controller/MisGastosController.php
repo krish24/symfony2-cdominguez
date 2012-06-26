@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use MySite\DataBaseBundle\Entity\Gasto;
+use MySite\DataBaseBundle\Entity\Cuenta;
 use MySite\DataBaseBundle\Entity\GastoDetalle;
 use MySite\DataBaseBundle\Entity\Categoria;
 
@@ -141,10 +142,9 @@ class MisGastosController extends Controller
      * @Template("BaseEJSTreeGridBundle::gridData.json.twig")
      */
     public function gridDataAction() { 
+        $d             = $this->getDoctrine();
         $user          = $this->getUser();
-        $gastos        = $this->getDoctrine()
-                                ->getRepository('MySiteDataBaseBundle:Gasto')
-                                ->findBy(array('usuario' => $user->getId()));
+        $gastos        = $d->getRepository('MySiteDataBaseBundle:Gasto')->loadRecentsByUser($user);
         $dataFormatter = new GridDataFormatter();
 
         foreach ($gastos as $objGasto) { 
@@ -157,5 +157,40 @@ class MisGastosController extends Controller
             ));
         }
         return array('gridDataFormatter' => $dataFormatter);
+    }
+
+    /**
+     * @Route("/cerrar-cuenta", name="cd_cerrar_cuenta")
+     */
+    public function cerrarCuentaAction() {
+        $em            = $this->getDoctrine()->getEntityManager();
+        $r             = $this->getRequest();
+        $objUser       = $this->getUser();            
+        $idTipoCuenta  = $r->request->get('_tipo_cuenta');
+        $objCuenta     = new Cuenta();
+        $gastos        = $em->getRepository('MySiteDataBaseBundle:Gasto')
+                                ->loadRecentsByUser($objUser);
+        $objTipoCuenta = $em->getRepository('MySiteDataBaseBundle:TipoCuenta')->findOneBy(
+            array('id' => $idTipoCuenta)
+        ); 
+        $dineroGastado = $em->getRepository('MySiteDataBaseBundle:Usuario')
+                                ->getDineroGastado($objUser);
+        $capital       = $objUser->getCapital();
+        
+        $objUser->setCapital(($capital - $dineroGastado));
+        $em->merge($objUser);
+        
+        $objCuenta->setTipo($objTipoCuenta);
+        $objCuenta->setFechaCierre(new \DateTime());
+        $objCuenta->setUsuario($objUser);
+        $em->persist($objCuenta);
+        
+        foreach ($gastos as $objGasto) {
+            $objGasto->setCuenta($objCuenta);
+            $em->merge($objGasto);
+        }
+        
+        $em->flush();
+        return $this->redirect($this->generateUrl('cd_mis_gastos', array('s' => 1)));
     }
 }
