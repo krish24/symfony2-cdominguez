@@ -29,3 +29,8 @@ _configurator:
 
 _main:
     resource: routing.yml
+
+ActivDevNoclineBundle:
+    resource: "@ActivDevNoclineBundle/Controller/"
+    type:     annotation
+    prefix:   /_nocline_
