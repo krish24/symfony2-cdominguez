@@ -46,7 +46,13 @@ class Gasto
      * @ORM\JoinColumn(name="idusuario", referencedColumnName="id")
      */
     private $usuario;
-
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Cuenta", inversedBy="gastos", cascade={"remove"})
+     * @ORM\JoinColumn(name="idcuenta", referencedColumnName="id", nullable=true)
+     */
+    private $cuenta;
+    
     public function __construct()
     {
         $this->fecha = new \DateTime();
@@ -140,5 +146,25 @@ class Gasto
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    /**
+     * Set cuenta
+     *
+     * @param MySite\DataBaseBundle\Entity\Cuenta $cuenta
+     */
+    public function setCuenta(\MySite\DataBaseBundle\Entity\Cuenta $cuenta)
+    {
+        $this->cuenta = $cuenta;
+    }
+
+    /**
+     * Get cuenta
+     *
+     * @return MySite\DataBaseBundle\Entity\Cuenta 
+     */
+    public function getCuenta()
+    {
+        return $this->cuenta;
     }
 }

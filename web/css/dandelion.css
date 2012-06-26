@@ -1443,7 +1443,7 @@ form.da-form .da-form-col-8-8 {
 }
 .da-form .da-form-row label, .da-form .da-form-inline .da-form-row label, .da-form .da-form-row.da-form-inline label {
     float:left;
-    width:120px;
+    width:100%;
     padding:6px 0
 }
 .da-form .da-form-row .da-form-item, .da-form .da-form-inline .da-form-row .da-form-item, .da-form .da-form-row.da-form-inline .da-form-item {

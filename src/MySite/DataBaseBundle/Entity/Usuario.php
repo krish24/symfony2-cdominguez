@@ -81,6 +81,11 @@ class Usuario implements UserInterface
      */
     private $gastos;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Cuenta", mappedBy="usuario", cascade={"persist"})
+     */
+    private $cuentas;
+    
     public function __construct()
     {
         $this->salt = md5(uniqid(null, true));
@@ -288,4 +293,24 @@ class Usuario implements UserInterface
     {
         return $this->capital;
     } 
+
+    /**
+     * Add cuentas
+     *
+     * @param MySite\DataBaseBundle\Entity\Cuenta $cuentas
+     */
+    public function addCuenta(\MySite\DataBaseBundle\Entity\Cuenta $cuentas)
+    {
+        $this->cuentas[] = $cuentas;
+    }
+
+    /**
+     * Get cuentas
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getCuentas()
+    {
+        return $this->cuentas;
+    }
 }

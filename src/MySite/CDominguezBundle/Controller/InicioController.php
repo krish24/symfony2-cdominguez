@@ -42,13 +42,13 @@ class InicioController extends Controller
      * @Route("/add-gasto", name="cd_add_gasto")
      */
     public function addGasto() {
-        $request        = $this->getRequest();
-        $idCategoria    = $request->query->get('_categoria');
-        $addCategoria   = $request->query->get('add_categoria');
-        $idGastoDetalle = $request->query->get('_gasto');
-        $addGasto       = $request->query->get('add_gasto');
-        $cantidad       = $request->query->get('_cantidad');
-        $date           = $request->query->get('_datepicker');
+        $r              = $this->getRequest();
+        $idCategoria    = $r->request->get('_categoria');
+        $addCategoria   = $r->request->get('add_categoria');
+        $idGastoDetalle = $r->request->get('_gasto');
+        $addGasto       = $r->request->get('add_gasto');
+        $cantidad       = $r->request->get('_cantidad');
+        $date           = $r->request->get('_datepicker');
         $em             = $this->getDoctrine()->getEntityManager();
         $user           = $this->getUser();
         
@@ -63,7 +63,9 @@ class InicioController extends Controller
             $user->addCategoria($objCategoria);
             $em->merge($user);
         }else{
-            $objCategoria = $em->getRepository('MySiteDataBaseBundle:Categoria')->findOneBy(array('id' => $idCategoria)); 
+            $objCategoria = $em->getRepository('MySiteDataBaseBundle:Categoria')->findOneBy(
+                array('id' => $idCategoria)
+            ); 
         }
         
         if($idGastoDetalle == -1){
@@ -74,7 +76,9 @@ class InicioController extends Controller
             $user->addGastoDetalle($objDetalle);
             $em->merge($user);
         }else{
-            $objDetalle = $em->getRepository('MySiteDataBaseBundle:GastoDetalle')->findOneBy(array('id' => $idGastoDetalle)); 
+            $objDetalle = $em->getRepository('MySiteDataBaseBundle:GastoDetalle')->findOneBy(
+                array('id' => $idGastoDetalle)
+            ); 
         }
         
         $objDetalle->setCategoria($objCategoria);
@@ -95,8 +99,11 @@ class InicioController extends Controller
         $request      = $this->getRequest();
         $idCategoria  = array($request->query->get('pidCategoria'));
         $em           = $this->getDoctrine()->getEntityManager();
-        $objCategoria = $em->getRepository('MySiteDataBaseBundle:Categoria')->findOneBy(array('id' => $idCategoria)); 
-        $detalles     = $em->getRepository('MySiteDataBaseBundle:GastoDetalle')->loadByUserAndCategory($this->getUser(), $objCategoria); 
+        $objCategoria = $em->getRepository('MySiteDataBaseBundle:Categoria')->findOneBy(
+            array('id' => $idCategoria)
+        ); 
+        $detalles     = $em->getRepository('MySiteDataBaseBundle:GastoDetalle')
+                                ->loadByUserAndCategory($this->getUser(), $objCategoria); 
         return array( 'detalles'   => $detalles );
     } 
 }  

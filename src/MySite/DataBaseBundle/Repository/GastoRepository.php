@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class GastoRepository extends EntityRepository
 {
+    public function loadRecentsByUser($objUser) {
+                $q = $this->createQueryBuilder('query')
+                        ->select('g')
+                        ->from('MySiteDataBaseBundle:Gasto', 'g')
+                        ->join('g.usuario', 'u')
+                        ->where('u = :user AND g.cuenta is null')
+                        ->setParameter('user', $objUser)
+                        ->getQuery();
+
+        $gastos = $q->getResult();
+        return $gastos;
+    }
 }

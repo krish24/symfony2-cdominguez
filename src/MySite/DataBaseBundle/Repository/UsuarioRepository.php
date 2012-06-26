@@ -13,9 +13,15 @@ use Doctrine\ORM\EntityRepository;
 class UsuarioRepository extends EntityRepository
 {
     public function getDineroGastado($objUser){
-        $gastos = $this->getEntityManager()
-                            ->getRepository('MySiteDataBaseBundle:Gasto')
-                            ->findBy(array('usuario' => $objUser->getId()));
+        $q = $this->createQueryBuilder('query')
+                        ->select('g')
+                        ->from('MySiteDataBaseBundle:Gasto', 'g')
+                        ->join('g.usuario', 'u')
+                        ->where('u = :user AND g.cuenta is null')
+                        ->setParameter('user', $objUser)
+                        ->getQuery();
+
+        $gastos = $q->getResult();
         $total = 0;
         foreach ($gastos as $objGasto) {
             $total += $objGasto->getCantidad();
