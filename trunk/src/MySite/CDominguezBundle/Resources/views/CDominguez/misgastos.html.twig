@@ -49,36 +49,43 @@
         </div>
     </div>
     <div class="grid_1">
-        <div class="da-panel-widget">
-            <h1>Cerrar cuenta</h1>
-            
-            <form class="da-form" action="{{path('cd_cerrar_cuenta')}}" id="form-cerrar-gasto" method="POST" >
-                <div class="da-form-row">
-                    <label><span class="required">* </span>¿Qu&eacute; tipo de cuenta es?</label>
-                    <div class="da-form-inline">
-                        {#<select name="_categoria" id="_categoria" style="display: none; ">#}
-                        <select name="_tipo_cuenta" id="_tipo_cuenta" >
-                            <option value="-1" >Seleccionar una opci&oacute;n</option>
-                            <option value="1" >Mes</option>
-                            <option value="2" >Quinsena</option>
-                            <option value="3" >Semana</option>
-                            <option value="4" >Dia</option>
-                            {#
-                            {% for categoria in categorias %}
-                                <option value="{{categoria.id}}" >{{categoria.descripcion}}</option>
-                            {% endfor %}
-                            #}
-                        </select>
-                        {#<div id="add-tipo-cuenta">
-                            <input type="text" name="add_tipo_cuenta" id="add_categoria" placeholder="Agregar nuevo tipo de lista." >
-                        </div>#}
-                        <label id="label_categoria" for="add_tipo_cuenta" class="error" style="display: none">Seleccione o ingrese una nueva categoria.</label>
+        <div class="da-panel">
+            <div class="da-panel-header">
+                <span class="da-panel-title">
+                    <img src="{{ asset('images/icons/color/16/note.png') }}" >
+                    Cerrar cuenta
+                </span>
+            </div>
+            <div class="da-panel-content " >
+                <div id="msg"></div>
+                <form class="da-form" action="{{path('cd_cerrar_cuenta')}}" id="form-cerrar-gasto" method="POST" >
+                    <div class="da-form-row">
+                        <label><span class="required">* </span>¿Qu&eacute; tipo de cuenta es?</label>
+                        <div class="da-form-inline">
+                            {#<select name="_categoria" id="_categoria" style="display: none; ">#}
+                            <select name="_tipo_cuenta" id="_tipo_cuenta" >
+                                <option value="-1" >Seleccionar una opci&oacute;n</option>
+                                <option value="1" >Mes</option>
+                                <option value="2" >Quinsena</option>
+                                <option value="3" >Semana</option>
+                                <option value="4" >Dia</option>
+                                {#
+                                {% for categoria in categorias %}
+                                    <option value="{{categoria.id}}" >{{categoria.descripcion}}</option>
+                                {% endfor %}
+                                #}
+                            </select>
+                            {#<div id="add-tipo-cuenta">
+                                <input type="text" name="add_tipo_cuenta" id="add_categoria" placeholder="Agregar nuevo tipo de lista." >
+                            </div>#}
+                            <label id="label_categoria" for="add_tipo_cuenta" class="error" style="display: none">Seleccione o ingrese una nueva categoria.</label>
+                        </div>
                     </div>
-                </div>
-                <div class="da-form-row" id="browserData">
-                    <input type="submit" value="Ok" class="da-button blue" style="float: right;" >
-                </div>
-            </form>
+                    <div class="da-form-row" id="browserData">
+                        <input type="submit" value="Ok" class="da-button blue" style="float: right;" >
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}
