@@ -1,205 +1,240 @@
 {% extends '::base.html.twig' %}
+{% spaceless %}
+    {% block title %}
+        CDominguez Web Site
+    {% endblock %} 
 
-{% block title %}
-    CDominguez Web Site
-{% endblock %} 
-    
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/reset.css') }}" media="screen" />
-    <!--  Fluid Grid System -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/fluid.css') }}" media="screen" />
-    <!-- Theme Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/dandelion.theme.css') }}" media="screen" />
-    <!--  Main Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/dandelion.css') }}" media="screen" />
-    <!--  JQuery Styles -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/basejqueryui/jui/css/jquery.ui.all.css') }}" media="screen" />
-{% endblock %}
-    
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('bundles/basejqueryui/jquery-1.7.2.js') }}" ></script>
-    <script src="{{ asset('bundles/basejqueryui/ui/jquery-ui-1.8.20.custom.js') }}" ></script>
-    <script src="{{ asset('js/jquery.metadata.js') }}" ></script>
-    <script src="{{ asset('js/core/plugins/dandelion.circularstat.min.js') }}" ></script>
-    <script src="{{ asset('js/core/dandelion.core.js') }}" ></script>
-    <script src="{{ asset('js/core/dandelion.customizer.js') }}" ></script>
-    <script src="{{ asset('js/base.js') }}" ></script>
-    <script> 
-        var capital        = {{ app.user.capital }};
-        var dineroGastado  = {{ dineroGastado }};
-        var toMulti        = 100 / capital;
-        var porcentGastado = toMulti * dineroGastado;
-        var disponible     = capital - dineroGastado;
-        var strDinero      = '¢ ' + disponible + ' / ' + '¢ ' + capital;
-        
-        $( "#progressBarCapital" ).progressbar({
-                value: Math.floor(100 - porcentGastado)
-        });
-        $( "#dineroDisponible" ).text(strDinero);
-    </script>
-{% endblock %}
+    {% block stylesheets %}
+        {#
+        <!-- ------------------------------   ARCHIVOS ORIGINALES ------------------------------------------------ -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/reset.css') }}" media="screen" />
+        <!--  Fluid Grid System -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/fluid.css') }}" media="screen" />
+        <!-- Theme Stylesheet -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/dandelion.theme.css') }}" media="screen" />
+        <!--  Main Stylesheet -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/dandelion.css') }}" media="screen" />
+        #}
+        {#
+        <!-- ------------------------------  GENERAR ARCHIVOS COMPRIMIDOS  --------------------------------------- -->
+        {% stylesheets filter='yui_css,cssrewrite' 
+            'css/reset.css'
+            'css/fluid.css'
+            'css/dandelion.theme.css'
+            'css/dandelion.css'
+        %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+        #}
+        <!-- ------------------------------  ARCHIVOS COMPRIMIDOS  ----------------------------------------------- -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/basejqueryui/jui/css/jquery.ui.all.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('dumpFiles/css/4fd6eed.css') }}">    
+    {% endblock %}
 
-{% block cdCustomizer %}
-    <div id="da-customizer-content">
-        <ul>
-            <li>
-                <span class="da-customizer-title">Background Pattern</span>
-                <span id="da-customizer-body-bg"></span>
-            </li>
-            <li>
-                <span>Header Pattern</span>
-                <span id="da-customizer-header-bg"></span>
-            </li>
-            <li>
-                <span>
-                    Layout
-                    <span title="This functionality can only provide you the CSS for background and header patterns. Instructions to switch between fixed or fluid layout can be found in the documentation." class="da-tooltip-w da-customizer-tooltip">
-                        [?]
+    {% block javascripts %}
+        {{ parent() }}
+        {#
+        <!-- ------------------------------   ARCHIVOS ORIGINALES ------------------------------------------------ -->
+        <script src="{{ asset('bundles/basejqueryui/jquery-1.7.2.js') }}" ></script>
+        <script src="{{ asset('bundles/basejqueryui/ui/jquery-ui-1.8.20.custom.js') }}" ></script>
+        <script src="{{ asset('js/jquery.metadata.js') }}" ></script>
+        <script src="{{ asset('js/core/plugins/dandelion.circularstat.min.js') }}" ></script>
+        <script src="{{ asset('js/core/dandelion.core.js') }}" ></script>
+        <script src="{{ asset('js/core/dandelion.customizer.js') }}" ></script>
+        <script src="{{ asset('js/base.js') }}" ></script>
+        #}
+        {#
+        <!-- ------------------------------  GENERAR ARCHIVOS COMPRIMIDOS  --------------------------------------- -->
+        {% javascripts filter='yui_js' 
+            'bundles/basejqueryui/jquery-1.7.2.js'
+            'bundles/basejqueryui/ui/jquery-ui-1.8.20.custom.js'
+            'js/jquery.metadata.js'
+            'js/core/plugins/dandelion.circularstat.min.js'
+            'js/core/dandelion.core.js'
+            'js/core/dandelion.customizer.js'
+            'js/base.js'
+        %}
+            <script src="{{ asset_url }}" ></script>
+        {% endjavascripts %}
+        #}
+        <!-- ------------------------------  ARCHIVOS COMPRIMIDOS  ----------------------------------------------- -->
+        <script src="{{ asset('dumpFiles/js/e387240.js') }}" ></script>
+        <script> 
+            var capital        = {{ app.user.capital }};
+            var dineroGastado  = {{ dineroGastado }};
+            var toMulti        = 100 / capital;
+            var porcentGastado = toMulti * dineroGastado;
+            var disponible     = capital - dineroGastado;
+            var strDinero      = '¢ ' + disponible + ' / ' + '¢ ' + capital;
+
+            $( "#progressBarCapital" ).progressbar({
+                    value: Math.floor(100 - porcentGastado)
+            });
+            $( "#dineroDisponible" ).text(strDinero);
+        </script>
+    {% endblock %}
+
+    {% block cdCustomizer %}
+        <div id="da-customizer-content">
+            <ul>
+                <li>
+                    <span class="da-customizer-title">Background Pattern</span>
+                    <span id="da-customizer-body-bg"></span>
+                </li>
+                <li>
+                    <span>Header Pattern</span>
+                    <span id="da-customizer-header-bg"></span>
+                </li>
+                <li>
+                    <span>
+                        Layout
+                        <span title="This functionality can only provide you the CSS for background and header patterns. Instructions to switch between fixed or fluid layout can be found in the documentation." class="da-tooltip-w da-customizer-tooltip">
+                            [?]
+                        </span>
                     </span>
-                </span>
-                <ul id="da-customizer-layouts" class="clearfix">
-                    <li>
-                        <input type="radio" id="da-customizer-fluid" name="da-layout" checked="checked" />
-                        <label for="da-customizer-fluid">Fluid</label>
-                    </li>
-                    <li>
-                        <input type="radio" id="da-customizer-fixed" name="da-layout" />
-                        <label for="da-customizer-fixed">Fixed</label>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        <div id="da-customizer-button">
-                <button class="da-button red">Get CSS</button>
-            </div>
-    </div>
-    <span id="da-customizer-pulldown"></span>
-{% endblock %}
+                    <ul id="da-customizer-layouts" class="clearfix">
+                        <li>
+                            <input type="radio" id="da-customizer-fluid" name="da-layout" checked="checked" />
+                            <label for="da-customizer-fluid">Fluid</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="da-customizer-fixed" name="da-layout" />
+                            <label for="da-customizer-fixed">Fixed</label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div id="da-customizer-button">
+                    <button class="da-button red">Get CSS</button>
+                </div>
+        </div>
+        <span id="da-customizer-pulldown"></span>
+    {% endblock %}
 
-{% block cdHeader %}
-    <div id="da-header-top">
-    <!-- Container -->
-    <div class="da-container clearfix">
-        <!-- Logo Container. All images put here will be vertically centere -->
-        <div id="cd-disponible-wrap">
-            <div id="cd-disponible">
-                <span id="dineroDisponible"></span>
-                <div id="progressBarCapital" ></div>
-            </div>
-        </div>
-        <!-- Header Toolbar Menu -->
-        <div id="da-header-toolbar" class="clearfix">
-            <div id="da-user-profile">
-                <div id="da-user-avatar">
-                    <img src="{{ asset('images/carlos-small.jpg') }}" alt="" />
-                </div>
-                <div id="da-user-info">
-                    {% block cdUserLogin %}{{ app.user.displayName }}{% endblock %}
-                </div>
-                <ul class="da-header-dropdown">
-                    <li class="da-dropdown-caret">
-                        <span class="caret-outer"></span>
-                        <span class="caret-inner"></span>
-                    </li>
-                    <li class="da-dropdown-divider"></li>
-                    <li><a href="#">Inicio</a></li>
-                    <li class="da-dropdown-divider"></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="#">Change Password</a></li>
-                </ul>
-            </div>
-            <div id="da-header-button-container">
-                <ul>
-                    <li class="da-header-button logout">
-                        <a href="{{path('cd_logout')}}">Salir</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    </div>
-    <div id="da-header-bottom">
+    {% block cdHeader %}
+        <div id="da-header-top">
         <!-- Container -->
         <div class="da-container clearfix">
-            <div id="da-search">
-                <form>
-                    <input type="text" placeholder="Search..." />
-                </form>
+            <!-- Logo Container. All images put here will be vertically centere -->
+            <div id="cd-disponible-wrap">
+                <div id="cd-disponible">
+                    <span id="dineroDisponible"></span>
+                    <div id="progressBarCapital" ></div>
+                </div>
             </div>
-            <!-- Breadcrumbs -->
-            <div id="da-breadcrumb">
-                <ul>
-                {% block cdBreadCrumb %}
-                {% endblock %}
-                </ul>
+            <!-- Header Toolbar Menu -->
+            <div id="da-header-toolbar" class="clearfix">
+                <div id="da-user-profile">
+                    <div id="da-user-avatar">
+                        <img src="{{ asset('images/carlos-small.jpg') }}" alt="" />
+                    </div>
+                    <div id="da-user-info">
+                        {% block cdUserLogin %}{{ app.user.displayName }}{% endblock %}
+                    </div>
+                    <ul class="da-header-dropdown">
+                        <li class="da-dropdown-caret">
+                            <span class="caret-outer"></span>
+                            <span class="caret-inner"></span>
+                        </li>
+                        <li class="da-dropdown-divider"></li>
+                        <li><a href="#">Inicio</a></li>
+                        <li class="da-dropdown-divider"></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">Change Password</a></li>
+                    </ul>
+                </div>
+                <div id="da-header-button-container">
+                    <ul>
+                        <li class="da-header-button logout">
+                            <a href="{{path('cd_logout')}}">Salir</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-{% endblock %}
+        </div>
+        <div id="da-header-bottom">
+            <!-- Container -->
+            <div class="da-container clearfix">
+                <div id="da-search">
+                    <form>
+                        <input type="text" placeholder="Search..." />
+                    </form>
+                </div>
+                <!-- Breadcrumbs -->
+                <div id="da-breadcrumb">
+                    <ul>
+                    {% block cdBreadCrumb %}
+                    {% endblock %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
 
-{% block cdContent %}
-    <!-- Container -->
-    <div class="da-container clearfix">
+    {% block cdContent %}
+        <!-- Container -->
+        <div class="da-container clearfix">
 
-        <!-- Sidebar Separator do not remove -->
-        <div id="da-sidebar-separator"></div>
+            <!-- Sidebar Separator do not remove -->
+            <div id="da-sidebar-separator"></div>
 
-        <!-- Sidebar -->
-        <div id="da-sidebar">
+            <!-- Sidebar -->
+            <div id="da-sidebar">
 
-            <!-- Main Navigation -->
-            <div id="da-main-nav" class="da-button-container">
-                <ul>
-                    <li id="menu_inicio">
-                        <a href="{{ path('cd_index') }}">
-                            <!-- Inicio -->
-                            <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/color/24/home.png') }}" alt="Inicio" />
-                            </span>
-                            Inicio
-                        </a>
-                    </li>
-                    <li  id="menu_mis_gastos">
-                        <a href="{{ path('cd_mis_gastos') }}">
-                            <!-- Mis gastos -->
-                            <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/color/24/chart.png') }}" alt="Mis gastos">
-                            </span>
-                            Mis gastos
-                        </a>
-                    </li>
-                    <li  id="menu_mi_dinero">
-                        <a href="{{ path('cd_mi_dinero') }}">
-                            <!-- Mis gastos -->
-                            <span class="da-nav-icon">
-                                <img src="{{ asset('images/icons/color/24/money.png') }}" alt="Administrar mi dinero">
-                            </span>
-                            Mi dinero
-                        </a>
-                    </li>
-                </ul>
+                <!-- Main Navigation -->
+                <div id="da-main-nav" class="da-button-container">
+                    <ul>
+                        <li id="menu_inicio">
+                            <a href="{{ path('cd_index') }}">
+                                <!-- Inicio -->
+                                <span class="da-nav-icon">
+                                    <img src="{{ asset('images/icons/color/24/home.png') }}" alt="Inicio" />
+                                </span>
+                                Inicio
+                            </a>
+                        </li>
+                        <li  id="menu_mis_gastos">
+                            <a href="{{ path('cd_mis_gastos') }}">
+                                <!-- Mis gastos -->
+                                <span class="da-nav-icon">
+                                    <img src="{{ asset('images/icons/color/24/chart.png') }}" alt="Mis gastos">
+                                </span>
+                                Mis gastos
+                            </a>
+                        </li>
+                        <li  id="menu_mi_dinero">
+                            <a href="{{ path('cd_mi_dinero') }}">
+                                <!-- Mis gastos -->
+                                <span class="da-nav-icon">
+                                    <img src="{{ asset('images/icons/color/24/money.png') }}" alt="Administrar mi dinero">
+                                </span>
+                                Mi dinero
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Main Content Wrapper -->
+            <div id="da-content-wrap" class="clearfix">
+
+                <!-- Content Area -->
+                <div id="da-content-area">
+                    {% block cdContentArea %}
+                    {% endblock %}
+                </div>
+
             </div>
 
         </div>
+    {% endblock %}
 
-        <!-- Main Content Wrapper -->
-        <div id="da-content-wrap" class="clearfix">
-
-            <!-- Content Area -->
-            <div id="da-content-area">
-                {% block cdContentArea %}
-                {% endblock %}
-            </div>
-
+    {% block cdFooter %}
+        <div class="da-container clearfix">
+            <p>Copyright 2012. Carlos Domínguez Lara. All Rights Reserved.</p>
         </div>
-
-    </div>
-{% endblock %}
-
-{% block cdFooter %}
-    <div class="da-container clearfix">
-        <p>Copyright 2012. Carlos Domínguez Lara. All Rights Reserved.</p>
-    </div>
-{% endblock %}
+    {% endblock %}
+{% endspaceless %}
