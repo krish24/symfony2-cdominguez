@@ -29,6 +29,10 @@ BaseEJSTreeGridBundle:
     resource: "@BaseEJSTreeGridBundle/Resources/config/routing.yml"
     prefix:   /EJSTreeGrid
 
+_assetic:
+    resource: .
+    type:     assetic
+
 # Internal routing configuration to handle ESI
 #_internal:
 #   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
