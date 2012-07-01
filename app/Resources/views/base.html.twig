@@ -1,94 +1,81 @@
-<!DOCTYPE html>
-<html>
-    <head>
-    	<meta http-equiv="X-UA-Compatible" content="IE=9">
-        <meta charset="utf-8" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{% spaceless %}
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta http-equiv="X-UA-Compatible" content="IE=9">
+            <meta charset="utf-8" /> 
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <title> 
+                {% block title %}
+                {% endblock %}
+            </title>
 
-        <!-- Viewport metatags -->
-        <meta name="HandheldFriendly" content="true" />
-        <meta name="MobileOptimized" content="320" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
-        <!-- iOS webapp metatags -->
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-                
-        <!-- iOS webapp icons -->
-        <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-retina.png" />
-
-        <title>
-            {% block title %}
+            {% block stylesheets %}
             {% endblock %}
-        </title>
-        
-        {% block stylesheets %}
-        {% endblock %}
-        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        <div id="da-customizer">
-            {% block cdCustomizer %}
-            {% endblock %}
-        </div>
-        <div id="da-wrapper" class="fluid">
-            <div id="da-header">
-                {% block cdHeader %}
+            <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        </head>
+        <body>
+            <div id="da-customizer">
+                {% block cdCustomizer %}
                 {% endblock %}
             </div>
-            <div id="da-content">
-                {% block cdContent %}
-                {% endblock %}
+            <div id="da-wrapper" class="fluid">
+                <div id="da-header">
+                    {% block cdHeader %}
+                    {% endblock %}
+                </div>
+                <div id="da-content">
+                    {% block cdContent %}
+                    {% endblock %}
+                </div>
+                <div id="da-footer">
+                    {% block cdFooter %}
+                    {% endblock %}
+                </div>
             </div>
-            <div id="da-footer">
-                {% block cdFooter %}
-                {% endblock %}
-            </div>
-        </div>
-        {% block javascripts %}
-            <script type="text/javascript">
-                var _app = {
-                    'urls'         : {
-                        'images'        : {
-                            'bg'            : {
-                                'blueprint'     : '{{ asset('images/bg/blueprint.png') }}',
-                                'bricks'        : '{{ asset('images/bg/bricks.png') }}',
-                                'carbon'        : '{{ asset('images/bg/carbon.png') }}',
-                                'circuit'       : '{{ asset('images/bg/circuit.png') }}',
-                                'holes'         : '{{ asset('images/bg/holes.png') }}',
-                                'mozaic'        : '{{ asset('images/bg/mozaic.png') }}',
-                                'roof'          : '{{ asset('images/bg/roof.png') }}',
-                                'stripes'       : '{{ asset('images/bg/stripes.png') }}',
-                                'wood'          : '{{ asset('images/headers/wood.png') }}',
-                                'lightWood'     : '{{ asset('images/headers/light-wood.png') }}'
-                            },
-                            'headers'       : {
-                                'carbon'        : '{{ asset('images/headers/carbon.png') }}',
-                                'linen'         : '{{ asset('images/headers/linen.png') }}',
-                                'leather'       : '{{ asset('images/headers/leather.png') }}',
-                                'wood'          : '{{ asset('images/headers/wood.png') }}',
-                                'lightWood'     : '{{ asset('images/headers/light-wood.png') }}'
+            {% block javascripts %}
+                <script type="text/javascript">
+                    var _app = {
+                        'urls'         : {
+                            'images'        : {
+                                'bg'            : {
+                                    'blueprint'     : '{{ asset('images/bg/blueprint.png') }}',
+                                    'bricks'        : '{{ asset('images/bg/bricks.png') }}',
+                                    'carbon'        : '{{ asset('images/bg/carbon.png') }}',
+                                    'circuit'       : '{{ asset('images/bg/circuit.png') }}',
+                                    'holes'         : '{{ asset('images/bg/holes.png') }}',
+                                    'mozaic'        : '{{ asset('images/bg/mozaic.png') }}',
+                                    'roof'          : '{{ asset('images/bg/roof.png') }}',
+                                    'stripes'       : '{{ asset('images/bg/stripes.png') }}',
+                                    'wood'          : '{{ asset('images/headers/wood.png') }}',
+                                    'lightWood'     : '{{ asset('images/headers/light-wood.png') }}'
+                                },
+                                'headers'       : {
+                                    'carbon'        : '{{ asset('images/headers/carbon.png') }}',
+                                    'linen'         : '{{ asset('images/headers/linen.png') }}',
+                                    'leather'       : '{{ asset('images/headers/leather.png') }}',
+                                    'wood'          : '{{ asset('images/headers/wood.png') }}',
+                                    'lightWood'     : '{{ asset('images/headers/light-wood.png') }}'
+                                }
                             }
                         }
-                    }
-                };
-                
-                //Funcion para debug en Javascript.
-                function varDump(obj){
-                    console.log('Type: ', typeof obj);
-                    if(typeof obj == 'object'){
-                        var keys = Object.keys(obj); 
-                        console.log('Keys: ', keys); 
-                        for(var i in keys){
-                            console.log(keys[i], '=' , $(obj).attr(keys[i]));
+                    };
+
+                    //Funcion para debug en Javascript.
+                    function varDump(obj){
+                        console.log('Type: ', typeof obj);
+                        if(typeof obj == 'object'){
+                            var keys = Object.keys(obj); 
+                            console.log('Keys: ', keys); 
+                            for(var i in keys){
+                                console.log(keys[i], '=' , $(obj).attr(keys[i]));
+                            }
+                        }else{
+                            console.log(obj);
                         }
-                    }else{
-                        console.log(obj);
                     }
-                }
-            </script>
-        {% endblock %}
-    </body>
-</html>
+                </script>
+            {% endblock %}
+        </body>
+    </html>
+{% endspaceless %}
