@@ -1,134 +1,154 @@
 {% extends '::cdominguezbase.html.twig' %}
+{% spaceless %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <!-- Chosen Plugin -->
-    <link rel="stylesheet" href="{{ asset('bundles/basejqueryui/plugins/chosen/chosen.css') }}" media="screen" />
-{% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+        {#
+        <!-- ------------------------------   ARCHIVOS ORIGINALES ------------------------------------------------ -->
+        <!-- Spinner Plugin -->
+        <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.spinner.min.js') }}"></script>
 
-{% block javascripts %}
-    {{ parent() }}
-    <!-- Spinner Plugin -->
-    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.spinner.min.js') }}"></script>
-    
-    <!-- Chosen Plugin -->
-    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/plugins/chosen/chosen.jquery.min.js') }}"></script>
-    
-    <!-- Chosen Plugin -->
-    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.timepicker.min.js') }}"></script>
-    
-    <script type="text/javascript">
-        //Pone el menu activo
-        $('#menu_inicio').addClass('active');
-         
-        //Crea el chosen para el index
-        {#$("#form-add-gasto select").chosen();#}
-        
-        //Agregar la informacion del browser
-        $.each($.browser, function(i, val) {
-            $("<div><b>" + i + " : </b><span>" + val + "</span>")
-                .appendTo($('#browserData'));
-        });
-        
-        var _cdominguez = {
-            'urls'         : {
-                'add'                   : '{{ path('cd_add_gasto') }}',
-                'getOptGDetallesByCat'  : '{{ path('cd_get_opt_gdetalles_by_cat') }}'
-            }
-        };
-        
-        //Variable declarada en el Twig base.
-        _app.urls.images.color = {
-            'calendar'  :   '{{ asset('images/icons/color/16/calendar.png') }}'
-        };
-    </script> 
-    <script type="text/javascript" src="{{ asset('bundles/mysitecdominguez/js/index.js') }}" ></script>
-    
+        <!-- Chosen Plugin -->
+        <script type="text/javascript" src="{{ asset('bundles/basejqueryui/plugins/chosen/chosen.jquery.min.js') }}"></script>
 
-{% endblock %}
-    
-{% block cdBreadCrumb %}
-    <li class="active">
-        <span>
-            <img src="{{ asset('images/icons/color/16/home.png') }}" alt="Home" />
-            Inicio
-        </span>
-    </li>
-{% endblock %}
-            
-{% block cdContentArea %}
-    <div class="grid_4">
-        <div class="da-panel">
-            <div class="da-panel-header">
-                <span class="da-panel-title">
-                    <img src="{{ asset('images/icons/color/coins.png') }}" >
-                    Agregar gasto
-                </span>
-            </div>
-            <div class="da-panel-content" >
-                <div id="msg">
-                    {% if saveData == 1 %}
-                        <div class="da-message success">Los datos se guardaron correctamente</div>
-                    {% endif %}
+        <!-- Chosen Plugin -->
+        <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.timepicker.min.js') }}"></script>
+        #}
+        {#
+        <!-- ------------------------------  GENERAR ARCHIVOS COMPRIMIDOS  --------------------------------------- -->
+        {% javascripts filter='yui_js' 
+            'bundles/basejqueryui/jui/js/jquery.ui.spinner.min.js'
+            'bundles/basejqueryui/plugins/chosen/chosen.jquery.min.js'
+            'bundles/basejqueryui/jui/js/jquery.ui.timepicker.min.js'
+        %}
+            <script src="{{ asset_url }}" ></script>
+        {% endjavascripts %}
+        #}
+        <!-- ------------------------------  ARCHIVOS COMPRIMIDOS  ----------------------------------------------- -->
+        <script src="{{ asset('dumpFiles/js/138c38c.js') }}" ></script>
+        <script type="text/javascript">
+            //Pone el menu activo
+            $('#menu_inicio').addClass('active');
+
+            //Crea el chosen para el index
+            {#$("#form-add-gasto select").chosen();#}
+
+            //Agregar la informacion del browser
+            $.each($.browser, function(i, val) {
+                $("<div><b>" + i + " : </b><span>" + val + "</span>")
+                    .appendTo($('#browserData'));
+            });
+
+            var _cdominguez = {
+                'urls'         : {
+                    'add'                   : '{{ path('cd_add_gasto') }}',
+                    'getOptGDetallesByCat'  : '{{ path('cd_get_opt_gdetalles_by_cat') }}'
+                }
+            };
+
+            //Variable declarada en el Twig base.
+            _app.urls.images.color = {
+                'calendar'  :   '{{ asset('images/icons/color/16/calendar.png') }}'
+            };
+        </script> 
+        {#
+        <!-- ------------------------------   ARCHIVOS ORIGINALES ------------------------------------------------ -->
+        <script type="text/javascript" src="{{ asset('bundles/mysitecdominguez/js/index.js') }}" ></script>
+        #}
+        {#
+        <!-- ------------------------------  GENERAR ARCHIVOS COMPRIMIDOS  --------------------------------------- -->
+        {% javascripts filter='yui_js' 
+            'bundles/mysitecdominguez/js/index.js'
+        %}
+            <script src="{{ asset_url }}" ></script>
+        {% endjavascripts %}
+        #}
+        <!-- ------------------------------  ARCHIVOS COMPRIMIDOS  ----------------------------------------------- -->
+        <script src="{{ asset('dumpFiles/js/b68aa00.js') }}" ></script>
+    {% endblock %}
+
+    {% block cdBreadCrumb %}
+        <li class="active">
+            <span>
+                <img src="{{ asset('images/icons/color/16/home.png') }}" alt="Home" />
+                Inicio
+            </span>
+        </li>
+    {% endblock %}
+
+    {% block cdContentArea %}
+        <div class="grid_4">
+            <div class="da-panel">
+                <div class="da-panel-header">
+                    <span class="da-panel-title">
+                        <img src="{{ asset('images/icons/color/coins.png') }}" >
+                        Agregar gasto
+                    </span>
                 </div>
-                <form class="da-form" action="{{path('cd_add_gasto')}}" id="form-add-gasto" method="POST" novalidate="novalidate">
-                    <div class="da-form-row">
-                        <label><span class="required">* </span>Categoria</label>
-                        <div class="da-form-inline">
-                            {#<select name="_categoria" id="_categoria" style="display: none; ">#}
-                            <select name="_categoria" id="_categoria" >
-                                <option value="-1" >Seleccionar una opci&oacute;n</option>
-                                {% for categoria in categorias %}
-                                    <option value="{{categoria.id}}" >{{categoria.descripcion}}</option>
-                                {% endfor %}
-                            </select>
-                            <div id="add-chosen-categoria">
-                                <input type="text" name="add_categoria" id="add_categoria" placeholder="Agregar nueva categoria." >
+                <div class="da-panel-content" >
+                    <div id="msg">
+                        {% if saveData == 1 %}
+                            <div class="da-message success">Los datos se guardaron correctamente</div>
+                        {% endif %}
+                    </div>
+                    <form class="da-form" action="{{path('cd_add_gasto')}}" id="form-add-gasto" method="POST" novalidate="novalidate">
+                        <div class="da-form-row">
+                            <label><span class="required">* </span>Categoria</label>
+                            <div class="da-form-inline">
+                                {#<select name="_categoria" id="_categoria" style="display: none; ">#}
+                                <select name="_categoria" id="_categoria" >
+                                    <option value="-1" >Seleccionar una opci&oacute;n</option>
+                                    {% for categoria in categorias %}
+                                        <option value="{{categoria.id}}" >{{categoria.descripcion}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div id="add-chosen-categoria">
+                                    <input type="text" name="add_categoria" id="add_categoria" placeholder="Agregar nueva categoria." >
+                                </div>
+                                <label id="label_categoria" for="add_categoria" class="error" style="display: none">Seleccione o ingrese una nueva categoria.</label>
                             </div>
-                            <label id="label_categoria" for="add_categoria" class="error" style="display: none">Seleccione o ingrese una nueva categoria.</label>
                         </div>
-                    </div>
-                    <div class="da-form-row">
-                        <label><span class="required">* </span>Gaste en</label>
-                        <div class="da-form-inline">
-                            {#<select name="_gasto" id="_gasto" style="display: none; ">#}
-                            <select name="_gasto" id="_gasto" >
-                                <option value="-1" >Seleccionar una opci&oacute;n</option>
-                                {% for detalle in detalles %}
-                                    <option value="{{detalle['id']}}" >{{detalle['descripcion']}}</option>
-                                {% endfor %}
-                            </select>
-                            <div id="add-chosen-gasto">
-                                <input name="add_gasto" type="text" id="add_gasto" placeholder="Agregar nuevo gasto." >
+                        <div class="da-form-row">
+                            <label><span class="required">* </span>Gaste en</label>
+                            <div class="da-form-inline">
+                                {#<select name="_gasto" id="_gasto" style="display: none; ">#}
+                                <select name="_gasto" id="_gasto" >
+                                    <option value="-1" >Seleccionar una opci&oacute;n</option>
+                                    {% for detalle in detalles %}
+                                        <option value="{{detalle['id']}}" >{{detalle['descripcion']}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div id="add-chosen-gasto">
+                                    <input name="add_gasto" type="text" id="add_gasto" placeholder="Agregar nuevo gasto." >
+                                </div>
+                                <label id="label_gasto" for="add_gasto" class="error" style="display: none">Seleccione o ingrese un nuevo gasto.</label>
                             </div>
-                            <label id="label_gasto" for="add_gasto" class="error" style="display: none">Seleccione o ingrese un nuevo gasto.</label>
                         </div>
-                    </div>
-                    <div class="da-form-row">
-                        <label><span class="required">* </span>¿C&uacute;anto?</label>
-                        <div class="da-form-inline">
-                            <input name="_cantidad" type="text" id="_cantidad" value="0" >
-                            <label id="label_cantidad" for="_cantidad" class="error" style="display: none">Ingrese la cantidad.</label>
+                        <div class="da-form-row">
+                            <label><span class="required">* </span>¿C&uacute;anto?</label>
+                            <div class="da-form-inline">
+                                <input name="_cantidad" type="text" id="_cantidad" value="0" >
+                                <label id="label_cantidad" for="_cantidad" class="error" style="display: none">Ingrese la cantidad.</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="da-form-row">
-                        <label>¿C&uacute;ando?</label>
-                        <div class="da-form-inline" >
-                            <input type="text" id="_datepicker" name="_datepicker">
+                        <div class="da-form-row">
+                            <label>¿C&uacute;ando?</label>
+                            <div class="da-form-inline" >
+                                <input type="text" id="_datepicker" name="_datepicker">
+                            </div>
                         </div>
-                    </div>
-                    <div class="da-form-row" id="browserData">
-                        <input type="button" value="Ok" class="da-button blue" onclick="validateForm(true)" style="float: right;" >
-                    </div>
-                </form>
+                        <div class="da-form-row" id="browserData">
+                            <input type="button" value="Ok" class="da-button blue" onclick="validateForm(true)" style="float: right;" >
+                        </div>
+                    </form>
+                </div>
             </div>
+            <ul class="da-circular-stat-wrap">
+                <li class="da-circular-stat {fillColor: '#a6d037', value: 55, maxValue: 98, label: 'Seeds Collected'}"></li>
+                <li class="da-circular-stat {fillColor: '#ea799b', percent: true, value: 200, maxValue: 241, label: 'iPads Cloned'}"></li>
+                <li class="da-circular-stat {fillColor: '#fab241', value: 124, maxValue: 523, label: 'Androids Bought'}"></li>
+                <li class="da-circular-stat {fillColor: '#61a5e4', percent: true, value: 42, maxValue: 100, label: 'Funds Collected'}"></li>
+            </ul>
         </div>
-        <ul class="da-circular-stat-wrap">
-            <li class="da-circular-stat {fillColor: '#a6d037', value: 55, maxValue: 98, label: 'Seeds Collected'}"></li>
-            <li class="da-circular-stat {fillColor: '#ea799b', percent: true, value: 200, maxValue: 241, label: 'iPads Cloned'}"></li>
-            <li class="da-circular-stat {fillColor: '#fab241', value: 124, maxValue: 523, label: 'Androids Bought'}"></li>
-            <li class="da-circular-stat {fillColor: '#61a5e4', percent: true, value: 42, maxValue: 100, label: 'Funds Collected'}"></li>
-        </ul>
-    </div>
-{% endblock %}
-    
+    {% endblock %}
+{% endspaceless %}

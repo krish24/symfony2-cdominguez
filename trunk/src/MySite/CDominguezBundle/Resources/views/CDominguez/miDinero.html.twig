@@ -1,96 +1,83 @@
 {% extends '::cdominguezbase.html.twig' %}
+{% spaceless %}
+    {% block stylesheets %}
+        {{ parent() }}
+        <!-- Chosen Plugin -->
+        <link rel="stylesheet" href="{{ asset('bundles/basejqueryui/plugins/chosen/chosen.css') }}" media="screen" />
+    {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <!-- Chosen Plugin -->
-    <link rel="stylesheet" href="{{ asset('bundles/basejqueryui/plugins/chosen/chosen.css') }}" media="screen" />
-{% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.spinner.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.timepicker.min.js') }}"></script>
 
-{% block javascripts %}
-    {{ parent() }}
-    <!-- Spinner Plugin -->
-    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.spinner.min.js') }}"></script>
-    
-    <!-- Chosen Plugin -->
-    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/plugins/chosen/chosen.jquery.min.js') }}"></script>
-    
-    <!-- Chosen Plugin -->
-    <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.timepicker.min.js') }}"></script>
-    
-    <script type="text/javascript">
-        //Pone el menu activo
-        $('#menu_mi_dinero').addClass('active');
-         
-        //Crea el chosen para el index
-        {#$("#form-add-gasto select").chosen();#}
-        
-        //Agregar la informacion del browser
-        $.each($.browser, function(i, val) {
-            $("<div><b>" + i + " : </b><span>" + val + "</span>")
-                .appendTo($('#browserData'));
-        });
-        
-        var _cdominguez = {
-            'urls'         : {
-                'add'                   : '{{ path('cd_add_gasto') }}',
-                'getOptGDetallesByCat'  : '{{ path('cd_get_opt_gdetalles_by_cat') }}'
-            }
-        };
-        
-        //Variable declarada en el Twig base.
-        _app.urls.images.color = {
-            'calendar'  :   '{{ asset('images/icons/color/16/calendar.png') }}'
-        };
-    </script> 
-    <script type="text/javascript" src="{{ asset('bundles/mysitecdominguez/js/index.js') }}" ></script>
-    
+        <script type="text/javascript">
+            //Pone el menu activo
+            $('#menu_mi_dinero').addClass('active');
 
-{% endblock %}
-    
-{% block cdBreadCrumb %}
-    <li class="active">
-        <span>
-            <img src="{{ asset('images/icons/color/16/money.png') }}" alt="Home" />
-            Mi dinero
-        </span>
-    </li>
-{% endblock %}
-            
-{% block cdContentArea %}
-    <div class="grid_4">
-        <div class="da-panel">
-            <div class="da-panel-header">
-                <span class="da-panel-title">
-                    <img src="{{ asset('images/icons/color/16/config.png') }}" >
-                    Configuarar
-                </span>
-            </div>
-            <div class="da-panel-content" >
-                <div id="msg">
-                    {% if saveData == 1 %}
-                        <div class="da-message success">Los datos se guardaron correctamente</div>
-                    {% endif %}
+            //Crea el chosen para el index
+            {#$("#form-add-gasto select").chosen();#}
+
+            //Agregar la informacion del browser
+            $.each($.browser, function(i, val) {
+                $("<div><b>" + i + " : </b><span>" + val + "</span>")
+                    .appendTo($('#browserData'));
+            });
+
+            var _cdominguez = {
+                'urls'         : {
+                    'add'                   : '{{ path('cd_add_gasto') }}',
+                    'getOptGDetallesByCat'  : '{{ path('cd_get_opt_gdetalles_by_cat') }}'
+                }
+            };
+
+            //Variable declarada en el Twig base.
+            _app.urls.images.color = {
+                'calendar'  :   '{{ asset('images/icons/color/16/calendar.png') }}'
+            };
+        </script> 
+        <script type="text/javascript" src="{{ asset('bundles/mysitecdominguez/js/miDinero.js') }}" ></script>
+
+    {% endblock %}
+
+    {% block cdBreadCrumb %}
+        <li class="active">
+            <span>
+                <img src="{{ asset('images/icons/color/16/money.png') }}" alt="Home" />
+                Mi dinero
+            </span>
+        </li>
+    {% endblock %}
+
+    {% block cdContentArea %}
+        <div class="grid_4">
+            <div class="da-panel">
+                <div class="da-panel-header">
+                    <span class="da-panel-title">
+                        <img src="{{ asset('images/icons/color/16/config.png') }}" >
+                        Configuarar
+                    </span>
                 </div>
-                <form class="da-form" action="{{path('cd_set_mi_dinero')}}" id="form-add-gasto" method="GET" novalidate="novalidate">
-                    <div class="da-form-row">
-                        <label><span class="required">* </span>¿C&uacute;anto tengo?</label>
-                        <div class="da-form-inline">
-                            <input name="_cantidad" type="text" id="_cantidad" value="0" >
-                            <label id="label_cantidad" for="_cantidad" class="error" style="display: none">Ingrese la cantidad.</label>
+                <div class="da-panel-content" >
+                    <div id="msg">
+                        {% if saveData == 1 %}
+                            <div class="da-message success">Los datos se guardaron correctamente</div>
+                        {% endif %}
+                    </div>
+                    <form class="da-form" action="{{path('cd_set_mi_dinero')}}" id="form-mi-dinero" method="POST" novalidate="novalidate">
+                        <div class="da-form-row">
+                            <label><span class="required">* </span>¿C&uacute;anto tengo?</label>
+                            <div class="da-form-inline">
+                                <input name="_cantidad" type="text" id="_cantidad" value="0" >
+                                <label id="label_cantidad" for="_cantidad" class="error" style="display: none">Ingrese la cantidad.</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="da-form-row" id="browserData">
-                        <input type="button" value="Ok" class="da-button blue" onclick="validateForm(true)" style="float: right;" >
-                    </div>
-                </form>
+                        <div class="da-form-row" id="browserData">
+                            <input type="button" value="Ok" class="da-button blue" onclick="validateForm(true)" style="float: right;" >
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-        <ul class="da-circular-stat-wrap">
-            <li class="da-circular-stat {fillColor: '#a6d037', value: 55, maxValue: 98, label: 'Seeds Collected'}"></li>
-            <li class="da-circular-stat {fillColor: '#ea799b', percent: true, value: 200, maxValue: 241, label: 'iPads Cloned'}"></li>
-            <li class="da-circular-stat {fillColor: '#fab241', value: 124, maxValue: 523, label: 'Androids Bought'}"></li>
-            <li class="da-circular-stat {fillColor: '#61a5e4', percent: true, value: 42, maxValue: 100, label: 'Funds Collected'}"></li>
-        </ul>
-    </div>
-{% endblock %}
-    
+    {% endblock %}
+{% endspaceless %}
