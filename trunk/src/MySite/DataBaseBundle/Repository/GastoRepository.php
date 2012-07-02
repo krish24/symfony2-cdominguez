@@ -13,15 +13,18 @@ use Doctrine\ORM\EntityRepository;
 class GastoRepository extends EntityRepository
 {
     public function loadRecentsByUser($objUser) {
-                $q = $this->createQueryBuilder('query')
-                        ->select('g')
-                        ->from('MySiteDataBaseBundle:Gasto', 'g')
-                        ->join('g.usuario', 'u')
-                        ->where('u = :user AND g.cuenta is null')
-                        ->setParameter('user', $objUser)
-                        ->getQuery();
-
-        $gastos = $q->getResult();
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT g, d, c 
+             FROM MySiteDataBaseBundle:Gasto g 
+                    JOIN g.usuario u 
+                    JOIN g.detalle d 
+                    JOIN d.categoria c 
+             WHERE g.usuario = :puser AND g.cuenta is null 
+             ORDER BY c.id, d.id '
+        )->setHint("doctrine.includeMetaColumns",true)
+        ->setParameter('puser', $objUser);
+        $gastos = $query->getResult();
         return $gastos;
     }
 }
