@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class GastoRepository extends EntityRepository
 {
-    public function loadRecentsByUser($objUser) {
+    public function loadRecentsByUserOrderCategoria($objUser) {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
             'SELECT g, d, c 
@@ -21,7 +21,23 @@ class GastoRepository extends EntityRepository
                     JOIN g.detalle d 
                     JOIN d.categoria c 
              WHERE g.usuario = :puser AND g.cuenta is null 
-             ORDER BY c.id, d.id '
+             ORDER BY c.id, d.id, g.fecha '
+        )->setHint("doctrine.includeMetaColumns",true)
+        ->setParameter('puser', $objUser);
+        $gastos = $query->getResult();
+        return $gastos;
+    }
+    
+    public function loadRecentsByUserOrderDia($objUser) {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT g, d, c 
+             FROM MySiteDataBaseBundle:Gasto g 
+                    JOIN g.usuario u 
+                    JOIN g.detalle d 
+                    JOIN d.categoria c 
+             WHERE g.usuario = :puser AND g.cuenta is null 
+             ORDER BY g.fecha, c.id, d.id '
         )->setHint("doctrine.includeMetaColumns",true)
         ->setParameter('puser', $objUser);
         $gastos = $query->getResult();
