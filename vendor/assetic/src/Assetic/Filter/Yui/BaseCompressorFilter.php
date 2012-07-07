@@ -88,13 +88,14 @@ abstract class BaseCompressorFilter implements FilterInterface
         $code = $proc->run();
         unlink($input);
 
-        if (0 < $code) {
-            if (file_exists($output)) {
-                unlink($output);
-            }
-
-            throw new \RuntimeException($proc->getErrorOutput());
-        } elseif (!file_exists($output)) {
+//        if (0 < $code) {
+//            if (file_exists($output)) {
+//                unlink($output);
+//            }
+//
+//            throw new \RuntimeException($proc->getErrorOutput());
+//        } elseif (!file_exists($output)) {
+        if (!file_exists($output)) {
             throw new \RuntimeException('Error creating output file.');
         }
 
