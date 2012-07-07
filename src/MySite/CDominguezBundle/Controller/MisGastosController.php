@@ -196,14 +196,14 @@ class MisGastosController extends Controller
                     }
 
                     $dataFormatter->addSubRow(array(
-                        'id'            => $objGasto->getId(),
-                        'Name'          => $objGasto->getCantidad() . ' / ' . $objGasto->getDetalle()->getDescripcion(),
-                        'NodeCol'       => $objGasto->getFecha()->format('Y/m/d h:m:s'),
-                        'NodeColFormat' => "dddd dd MMMM yyyy hh:mm tt",
-                        'NodeColType'   => "Date",
-                        'Gasto'         => $objGasto->getDetalle()->getDescripcion(),
-                        'Cantidad'      => $objGasto->getCantidad(),
-                        'Fecha'         => $objGasto->getFecha()->format('Y/m/d h:m:s'),
+                        'id'              => $objGasto->getId(),
+                        'Name'            => $objGasto->getCantidad() . ' / ' . $objGasto->getDetalle()->getDescripcion(),
+                        'NodeCol'         => $objGasto->getFecha()->format('Y/m/d H:m:s'),
+                        'NodeColFormat'   => "dddd dd MMMM yyyy hh:mm tt",
+                        'NodeColType'     => "Date",
+                        'Gasto'           => $objGasto->getDetalle()->getDescripcion(),
+                        'Cantidad'        => $objGasto->getCantidad(),
+                        'Fecha'           => $objGasto->getFecha()->format('Y/m/d H:m:s'),
                     ), 2);
 
                     $categoriaLast = $categoriaActual;
@@ -241,28 +241,12 @@ class MisGastosController extends Controller
                         ));
                         $contador ++;
                     }
-                    
-                    $categoriaActual = $objGasto->getDetalle()->getCategoria()->getDescripcion();
-                    if($diaActual != $diaLast || $categoriaActual != $categoriaLast){
-                        $dataFormatter->addSubRow(array(
-                            'id'              => 'R' . $contador,
-                            'NodeCol'         => $objGasto->getDetalle()->getCategoria()->getDescripcion(),
-                            'CantidadFormula' => "sum()",
-                            'CanDelete'       => 0,
-                            'CanEdit'         => 0,
-                            'Expanded'        => 1,
-                            'CantidadCanEdit' => 1,
-                            'HtmlPrefix'      => "<span style=\"color:#e25c5b;\">",
-                            'HtmlPostfix'     => "</span>",
-                        ));
-                        $contador ++;
-                    }
 
                     $gastoActual = $objGasto->getDetalle()->getDescripcion();
-                    if($diaActual != $diaLast || $categoriaActual != $categoriaLast || $gastoActual != $gastoLast){
+                    if($diaActual != $diaLast || $gastoActual != $gastoLast){
                         $dataFormatter->addSubRow(array(
                             'id'              => 'R' . $contador,
-                            'NodeCol'         => $objGasto->getDetalle()->getDescripcion(),
+                            'NodeCol'         => $objGasto->getDetalle()->getCategoria()->getDescripcion() . ' / ' . $objGasto->getDetalle()->getDescripcion(),
                             'CantidadFormula' => "sum()",
                             'CanDelete'       => 0,
                             'CanEdit'         => 0,
@@ -270,7 +254,7 @@ class MisGastosController extends Controller
                             'CantidadCanEdit' => 1,
                             'HtmlPrefix'      => "<span style=\"color:#599bd7;\">",
                             'HtmlPostfix'     => "</span>",
-                        ), 2);
+                        ), 1);
                         $contador ++;
                     }
 
@@ -283,7 +267,7 @@ class MisGastosController extends Controller
                         'Gasto'         => $objGasto->getDetalle()->getDescripcion(),
                         'Cantidad'      => $objGasto->getCantidad(),
                         'Fecha'         => $objGasto->getFecha()->format('Y/m/d h:m:s'),
-                    ), 3);
+                    ), 2);
 
                     $diaLast       = $diaActual;
                     $categoriaLast = $categoriaActual;

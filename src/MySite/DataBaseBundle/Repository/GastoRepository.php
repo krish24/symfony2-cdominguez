@@ -21,7 +21,7 @@ class GastoRepository extends EntityRepository
                     JOIN g.detalle d 
                     JOIN d.categoria c 
              WHERE g.usuario = :puser AND g.cuenta is null 
-             ORDER BY c.id, d.id, g.fecha '
+             ORDER BY c.id, d.id, g.fecha DESC '
         )->setHint("doctrine.includeMetaColumns",true)
         ->setParameter('puser', $objUser);
         $gastos = $query->getResult();
@@ -31,13 +31,13 @@ class GastoRepository extends EntityRepository
     public function loadRecentsByUserOrderDia($objUser) {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            'SELECT g, d, c 
+            'SELECT g  
              FROM MySiteDataBaseBundle:Gasto g 
                     JOIN g.usuario u 
                     JOIN g.detalle d 
                     JOIN d.categoria c 
              WHERE g.usuario = :puser AND g.cuenta is null 
-             ORDER BY g.fecha, c.id, d.id '
+             ORDER BY g.fecha DESC '
         )->setHint("doctrine.includeMetaColumns",true)
         ->setParameter('puser', $objUser);
         $gastos = $query->getResult();

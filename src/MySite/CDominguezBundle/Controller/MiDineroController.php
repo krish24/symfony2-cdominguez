@@ -37,8 +37,7 @@ class MiDineroController extends Controller
      * @Route("/set-mi-dinero", name="cd_set_mi_dinero")
      */
     public function setMiDinero() {
-        $request        = $this->getRequest();
-        $cantidad       = $request->query->get('_cantidad');
+        $cantidad       = $this->getRequest()->request->get('_cantidad');
         $em             = $this->getDoctrine()->getEntityManager();
         $user           = $this->getUser();
         $cantidad = str_replace("¢ ", "", $cantidad);
