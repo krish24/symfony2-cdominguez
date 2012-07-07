@@ -13,7 +13,7 @@
     outline:0;
     font:12px/17px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     padding:4px 12px;
-    margin:0;
+    margin: 2px;
     width:auto;
     cursor:pointer;
     text-decoration:none;
@@ -1396,7 +1396,9 @@ form.da-form .da-form-col-8-8 {
     background-color:#fafafa;
     border:1px solid #d3d3d3
 }
-.da-form .da-form-item .errorMessage, .da-form .da-form-item label.error {
+.da-form .da-form-item .errorMessage, 
+.da-form .da-form-item label.error,
+.da-form .da-form-inline label.error {
     display:block;
     color:#d44d24;
     font-size:11px;
