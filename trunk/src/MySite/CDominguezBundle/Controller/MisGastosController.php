@@ -35,8 +35,8 @@ class MisGastosController extends Controller
         $gridOptionsGenerator
             ->setGridId('GastosGrid')
             ->setOptions(array(
-                'Layout_Url'        => $router->generate('cd_grid_layout_gastos', array( 'pcolGrouping' => 'Categoria')),
-                'Data_Url'          => $router->generate('cd_grid_data_gastos', array( 'pcolGrouping' => 'Categoria')),
+                'Layout_Url'        => $router->generate('cd_grid_layout_gastos', array( 'pcolGrouping' => 'Dia')),
+                'Data_Url'          => $router->generate('cd_grid_data_gastos', array( 'pcolGrouping' => 'Dia')),
                 'Upload_Url'        => $router->generate('cd_upload_grid_default'),
                 'Export_Url'        => $router->generate('cd_export_grid'),
             ));
@@ -217,20 +217,23 @@ class MisGastosController extends Controller
                 $gastos          = $d->getRepository('MySiteDataBaseBundle:Gasto')->loadRecentsByUserOrderDia($user);
                 $diaActual       = "";
                 $diaLast         = "";
-                $categoriaActual = "";
-                $categoriaLast   = "";
                 $gastoActual     = "";
                 $gastoLast       = "";
                 $contador = 1;
 
                 foreach ($gastos as $objGasto) { 
-                    $diaActual = $objGasto->getFecha()->format('Y/m/d');
+                    $diaActual   = $objGasto->getFecha()->format('Y/m/d');
+                    $fechaGasto  = $objGasto->getFecha()->format('Y/m/d H:m:s');
+                    $horaGasto   = $objGasto->getFecha()->format('h:m:s A');
+                    $gastoActual = $objGasto->getDetalle()->getDescripcion();
+                    $categoria   = $objGasto->getDetalle()->getCategoria()->getDescripcion();
+                    
                     if($diaActual != $diaLast){
                         $dataFormatter->addRow(array(
-                            'id'            => 'R' . $contador,
-                            'NodeCol'       => $objGasto->getFecha()->format('Y/m/d h:m:s'),
-                            'NodeColFormat' => "dddd dd MMMM yyyy",
-                            'NodeColType'   => "Date",
+                            'id'              => 'R' . $contador,
+                            'NodeCol'         => $fechaGasto,
+                            'NodeColFormat'   => "dddd dd MMMM yyyy",
+                            'NodeColType'     => "Date",
                             'CantidadFormula' => "sum()",
                             'CanDelete'       => 0,
                             'CanEdit'         => 0,
@@ -242,13 +245,13 @@ class MisGastosController extends Controller
                         $contador ++;
                     }
 
-                    $gastoActual = $objGasto->getDetalle()->getDescripcion();
                     if($diaActual != $diaLast || $gastoActual != $gastoLast){
                         $dataFormatter->addSubRow(array(
-                            'id'              => 'R' . $contador,
-                            'NodeCol'         => $objGasto->getDetalle()->getCategoria()->getDescripcion() . ' / ' . $objGasto->getDetalle()->getDescripcion(),
-                            'CantidadFormula' => "sum()",
-                            'CanDelete'       => 0,
+                            'id'              => $objGasto->getId(),
+                            'Name'            => $gastoActual . ' - ' . $objGasto->getId(),
+                            'NodeCol'         => $gastoActual . ' | ' . $horaGasto . ' | ' . $categoria,
+                            'Cantidad'        => $objGasto->getCantidad(),
+                            'CanDelete'       => 1,
                             'CanEdit'         => 0,
                             'Expanded'        => 0,
                             'CantidadCanEdit' => 1,
@@ -258,19 +261,7 @@ class MisGastosController extends Controller
                         $contador ++;
                     }
 
-                    $dataFormatter->addSubRow(array(
-                        'id'            => $objGasto->getId(),
-                        'Name'          => $objGasto->getCantidad() . ' / ' . $objGasto->getDetalle()->getDescripcion(),
-                        'NodeCol'       => $objGasto->getFecha()->format('Y/m/d h:m:s'),
-                        'NodeColFormat' => "hh:mm tt",
-                        'NodeColType'   => "Date",
-                        'Gasto'         => $objGasto->getDetalle()->getDescripcion(),
-                        'Cantidad'      => $objGasto->getCantidad(),
-                        'Fecha'         => $objGasto->getFecha()->format('Y/m/d h:m:s'),
-                    ), 2);
-
                     $diaLast       = $diaActual;
-                    $categoriaLast = $categoriaActual;
                     $gastoLast     = $gastoActual;
                 }
                 break;
@@ -289,7 +280,7 @@ class MisGastosController extends Controller
         $idTipoCuenta  = $r->request->get('_tipo_cuenta');
         $objCuenta     = new Cuenta();
         $gastos        = $em->getRepository('MySiteDataBaseBundle:Gasto')
-                                ->loadRecentsByUser($objUser);
+                                ->loadRecentsByUserOrderDia($objUser);
         $objTipoCuenta = $em->getRepository('MySiteDataBaseBundle:TipoCuenta')->findOneBy(
             array('id' => $idTipoCuenta)
         ); 
