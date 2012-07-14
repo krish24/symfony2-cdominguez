@@ -245,22 +245,19 @@ class MisGastosController extends Controller
                         $contador ++;
                     }
 
-                    if($diaActual != $diaLast || $gastoActual != $gastoLast){
-                        $dataFormatter->addSubRow(array(
-                            'id'              => $objGasto->getId(),
-                            'Name'            => $gastoActual . ' - ' . $objGasto->getId(),
-                            'NodeCol'         => $gastoActual . ' | ' . $horaGasto . ' | ' . $categoria,
-                            'Cantidad'        => $objGasto->getCantidad(),
-                            'CanDelete'       => 1,
-                            'CanEdit'         => 0,
-                            'Expanded'        => 0,
-                            'CantidadCanEdit' => 1,
-                            'HtmlPrefix'      => "<span style=\"color:#599bd7;\">",
-                            'HtmlPostfix'     => "</span>",
-                        ), 1);
-                        $contador ++;
-                    }
-
+                    $dataFormatter->addSubRow(array(
+                        'id'              => $objGasto->getId(),
+                        'Name'            => $gastoActual . ' - ' . $objGasto->getId(),
+                        'NodeCol'         => $gastoActual . ' | ' . $horaGasto . ' | ' . $categoria,
+                        'Cantidad'        => $objGasto->getCantidad(),
+                        'CanDelete'       => 1,
+                        'CanEdit'         => 0,
+                        'Expanded'        => 0,
+                        'CantidadCanEdit' => 1,
+                        'HtmlPrefix'      => "<span style=\"color:#599bd7;\">",
+                        'HtmlPostfix'     => "</span>",
+                    ), 1);
+                  
                     $diaLast       = $diaActual;
                     $gastoLast     = $gastoActual;
                 }
