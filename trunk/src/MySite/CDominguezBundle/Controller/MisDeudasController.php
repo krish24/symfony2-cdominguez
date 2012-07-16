@@ -18,15 +18,15 @@ use Base\EJSTreeGridBundle\Framework\GridOptionsGenerator,
     Base\EJSTreeGridBundle\Framework\GridDataFormatter;
 
 /**
- * @Route("/mis-pagos")
+ * @Route("/mis-deudas")
  */
-class MisPagosController extends Controller
+class MisDeudasController extends Controller
 {
     /** 
-     * @Route("/", name="cd_mis_pagos")
-     * @Template("MySiteCDominguezBundle::CDominguez/misPagos.html.twig")
+     * @Route("/", name="cd_mis_deudas")
+     * @Template("MySiteCDominguezBundle::MisDeudas/index.html.twig")
      */
-    public function misPagosAction() {
+    public function misDeudasAction() {
         $router = $this->get('router');
         
         $gridOptionsGenerator = new GridOptionsGenerator(
@@ -35,8 +35,8 @@ class MisPagosController extends Controller
         $gridOptionsGenerator
             ->setGridId('GastosGrid')
             ->setOptions(array(
-                'Layout_Url'        => $router->generate('cd_grid_layout_pagos'),
-                'Data_Url'          => $router->generate('cd_grid_data_pagos'),
+                'Layout_Url'        => $router->generate('cd_grid_layout_deudas'),
+                'Data_Url'          => $router->generate('cd_grid_data_deudas'),
                 'Upload_Url'        => $router->generate('cd_upload_grid_default'),
                 'Export_Url'        => $router->generate('cd_export_grid'),
             ));
@@ -51,7 +51,7 @@ class MisPagosController extends Controller
     }
     
      /**
-     * @Route("/grid-layout", name="cd_grid_layout_pagos", defaults={"_format" = "json"})
+     * @Route("/grid-layout", name="cd_grid_layout_deudas", defaults={"_format" = "json"})
      * @Template("BaseEJSTreeGridBundle::gridLayout.json.twig")
      */
     public function gridLayoutAction() {
@@ -137,7 +137,7 @@ class MisPagosController extends Controller
     }
     
      /**
-     * @Route("/grid-data", name="cd_grid_data_pagos", defaults={"_format" = "json"})
+     * @Route("/grid-data", name="cd_grid_data_deudas", defaults={"_format" = "json"})
      * @Template("BaseEJSTreeGridBundle::gridData.json.twig")
      */
     public function gridDataAction() { 

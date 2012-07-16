@@ -24,7 +24,7 @@ class MisCuentasController extends Controller
 {
     /** 
      * @Route("/", name="cd_mis_cuentas")
-     * @Template("MySiteCDominguezBundle::CDominguez/misCuentas.html.twig")
+     * @Template("MySiteCDominguezBundle::MisCuentas/index.html.twig")
      */
     public function misCuentasAction() {
         $router = $this->get('router');

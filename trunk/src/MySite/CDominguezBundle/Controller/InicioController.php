@@ -19,7 +19,7 @@ class InicioController extends Controller
 {
     /** 
      * @Route("/", name="cd_index")
-     * @Template("MySiteCDominguezBundle::CDominguez/index.html.twig")
+     * @Template("MySiteCDominguezBundle::Inicio/index.html.twig")
      */
     public function indexAction() {
         $request       = $this->getRequest();
@@ -93,7 +93,7 @@ class InicioController extends Controller
 
     /**
      * @Route("/get-detalles", name="cd_get_opt_gdetalles_by_cat")
-     * @Template("MySiteCDominguezBundle::CDominguez/optionsChosenDetalleGastos.html.twig")
+     * @Template("MySiteCDominguezBundle::Inicio/optionsChosenDetalleGastos.html.twig")
      */
     public function getOptGDetallesByCat() {
         $request      = $this->getRequest();
