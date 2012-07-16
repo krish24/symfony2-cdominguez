@@ -5,14 +5,12 @@
     {% endblock %} 
 
     {% block stylesheets %}
-        {#
         <!-- ------------------------------   ARCHIVOS ORIGINALES ------------------------------------------------ -->
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/basejqueryui/jui/css/jquery.ui.all.css') }}" media="screen" />
         <link rel="stylesheet" type="text/css" href="{{ asset('css/reset.css') }}" media="screen" />
         <link rel="stylesheet" type="text/css" href="{{ asset('css/fluid.css') }}" media="screen" />
         <link rel="stylesheet" type="text/css" href="{{ asset('css/dandelion.theme.css') }}" media="screen" />
         <link rel="stylesheet" type="text/css" href="{{ asset('css/dandelion.css') }}" media="screen" />
-        #}
         {#
         <!-- ------------------------------  GENERAR ARCHIVOS COMPRIMIDOS  --------------------------------------- -->
         {% stylesheets filter='yui_css,cssrewrite' 
@@ -24,23 +22,28 @@
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
         #}
+        {#
         <!-- ------------------------------  ARCHIVOS COMPRIMIDOS  ----------------------------------------------- -->
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/basejqueryui/jui/css/jquery.ui.all.css') }}" media="screen" />
         <link rel="stylesheet" type="text/css" href="{{ asset('dumpFiles/css/4fd6eed.css') }}">    
+        #}
     {% endblock %}
 
     {% block javascripts %}
         {{ parent() }}
-        {#
         <!-- ------------------------------   ARCHIVOS ORIGINALES ------------------------------------------------ -->
+        {#JQuery Framework#}
         <script src="{{ asset('bundles/basejqueryui/jquery-1.7.2.js') }}" ></script>
-        <script src="{{ asset('bundles/basejqueryui/ui/jquery-ui-1.8.20.custom.js') }}" ></script>
+        {#Carga el Core, Widget y el PrgressBar#}
+        <script src="{{ asset('bundles/basejqueryui/ui/minified/jquery-ui-1.8.20.all-min.js') }}" ></script>
+        {#Carga los tag Metadata del HTML.#}
         <script src="{{ asset('js/jquery.metadata.js') }}" ></script>
-        <script src="{{ asset('js/core/plugins/dandelion.circularstat.min.js') }}" ></script>
+        {#Panel, Toltips, Ajuste del menu.#}
         <script src="{{ asset('js/core/dandelion.core.js') }}" ></script>
+        {#Para poder modificar la interfaz.#}
         <script src="{{ asset('js/core/dandelion.customizer.js') }}" ></script>
+        {#Para mostrar los mensajes de confirmacion y errores.#}
         <script src="{{ asset('js/base.js') }}" ></script>
-        #}
         {#
         <!-- ------------------------------  GENERAR ARCHIVOS COMPRIMIDOS  --------------------------------------- -->
         {% javascripts filter='yui_js' 
@@ -55,8 +58,10 @@
             <script src="{{ asset_url }}" ></script>
         {% endjavascripts %}
         #}
+        {#
         <!-- ------------------------------  ARCHIVOS COMPRIMIDOS  ----------------------------------------------- -->
         <script src="{{ asset('dumpFiles/js/e387240.js') }}" ></script>
+        #}
         <script> 
             var capital        = {{ app.user.capital }};
             var dineroGastado  = {{ dineroGastado }};
@@ -184,7 +189,7 @@
                 <!-- Main Navigation -->
                 <div id="da-main-nav" class="da-button-container">
                     <ul>
-                        <li id="menu_inicio">
+                        <li id="menu_inicio" {% if active == 'Inicio'%} class="active" {% endif%}>
                             <a href="{{ path('cd_index') }}">
                                 <!-- Inicio -->
                                 <span class="da-nav-icon">
@@ -193,7 +198,7 @@
                                 Inicio
                             </a>
                         </li>
-                        <li  id="menu_mis_gastos">
+                        <li  id="menu_mis_gastos" {% if active == 'MisGastos'%} class="active" {% endif%}>
                             <a href="{{ path('cd_mis_gastos') }}">
                                 <!-- Mis gastos -->
                                 <span class="da-nav-icon">
@@ -202,7 +207,7 @@
                                 Mis gastos
                             </a>
                         </li>
-                        <li  id="menu_mi_dinero">
+                        <li  id="menu_mi_dinero" {% if active == 'MiDinero'%} class="active" {% endif%}>
                             <a href="{{ path('cd_mi_dinero') }}">
                                 <!-- Mis gastos -->
                                 <span class="da-nav-icon">
