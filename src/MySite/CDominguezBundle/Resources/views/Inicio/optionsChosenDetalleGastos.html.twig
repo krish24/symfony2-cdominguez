@@ -1,0 +1,6 @@
+{% spaceless %}
+    <option value="-1" >Seleccionar una opci&oacute;n</option>
+    {% for detalle in detalles %}
+        <option value="{{detalle.id}}" >{{detalle.descripcion}}</option>
+    {% endfor %}
+{% endspaceless %}
