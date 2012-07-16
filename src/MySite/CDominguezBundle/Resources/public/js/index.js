@@ -1,8 +1,5 @@
 (function(a){
     a(document).ready(function(d){
-        //Crea los graficos circulares.
-        a(".da-circular-stat").daCircularStat();
-        
         //Crea el Spinner
         a("#_cantidad").spinner({
             prefix  : "¢ ",
