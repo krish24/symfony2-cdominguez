@@ -19,7 +19,7 @@ class MiDineroController extends Controller
 {
     /** 
      * @Route("/", name="cd_mi_dinero")
-     * @Template("MySiteCDominguezBundle::CDominguez/miDinero.html.twig")
+     * @Template("MySiteCDominguezBundle::MiDinero/index.html.twig")
      */
     public function indexAction() {
         $request       = $this->getRequest();

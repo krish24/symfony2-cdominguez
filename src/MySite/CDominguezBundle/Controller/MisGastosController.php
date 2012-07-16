@@ -24,7 +24,7 @@ class MisGastosController extends Controller
 {
     /** 
      * @Route("/", name="cd_mis_gastos")
-     * @Template("MySiteCDominguezBundle::CDominguez/misGastos.html.twig")
+     * @Template("MySiteCDominguezBundle::MisGastos/index.html.twig")
      */
     public function misGastosAction() {
         $router = $this->get('router');

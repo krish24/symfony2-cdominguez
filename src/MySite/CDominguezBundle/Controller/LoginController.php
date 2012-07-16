@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 /**
  * @Route("")
  */
-class SecuredController extends Controller
+class LoginController extends Controller
 {
     /**
      * @Route("/clogin", name="cd_login")
