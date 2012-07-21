@@ -183,9 +183,25 @@
             <!-- Sidebar Separator do not remove -->
             <div id="da-sidebar-separator"></div>
 
+            <!-- Main Navigation Mobile -->
+            <div id="cd-main-nav-mobile">
+                <ul id="navlist">
+                    <li id="menu_mobile_inicio" {% if active == 'Inicio'%} class="active" {% endif%}>
+                        <a href="{{ path('cd_index') }}">
+                            <!-- Inicio -->
+                            <img src="{{ asset('images/icons/color/24/home.png') }}" alt="Inicio" />
+                        </a>
+                    </li>
+                    <li  id="menu_mobile_mis_gastos" {% if active == 'MisGastos'%} class="active" {% endif%}>
+                        <a href="{{ path('cd_mis_gastos') }}">
+                            <!-- Mis gastos -->
+                            <img src="{{ asset('images/icons/color/24/chart.png') }}" alt="Mis gastos">
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <!-- Sidebar -->
             <div id="da-sidebar">
-
                 <!-- Main Navigation -->
                 <div id="da-main-nav" class="da-button-container">
                     <ul>
@@ -205,6 +221,42 @@
                                     <img src="{{ asset('images/icons/color/24/chart.png') }}" alt="Mis gastos">
                                 </span>
                                 Mis gastos
+                            </a>
+                        </li>
+                        <li  id="menu_mis_cuentas" {% if active == 'MisCuentas'%} class="active" {% endif%}>
+                            <a href="{{ path('cd_mis_cuentas') }}">
+                                <!-- Mis cuentas -->
+                                <span class="da-nav-icon">
+                                    <img src="{{ asset('images/icons/color/24/order.png') }}" alt="Ver las cuentas que he cerrado">
+                                </span>
+                                Mis cuentas
+                            </a>
+                        </li>
+                        <li  id="menu_mis_deudas" {% if active == 'MisDeudas'%} class="active" {% endif%}>
+                            <a href="{{ path('cd_mis_deudas') }}">
+                                <!-- Mis deudas -->
+                                <span class="da-nav-icon">
+                                    <img src="{{ asset('images/icons/color/24/money1.png') }}" alt="Dinero que debo">
+                                </span>
+                                Mis deudas
+                            </a>
+                        </li>
+                        <li  id="menu_mis_prestamos" {% if active == 'MisPrestamos'%} class="active" {% endif%}>
+                            <a href="{{ path('cd_mis_prestamos') }}">
+                                <!-- Mis prestamos -->
+                                <span class="da-nav-icon">
+                                    <img src="{{ asset('images/icons/color/24/personal.png') }}" alt="Dinero que he prestado">
+                                </span>
+                                Mis prestamos
+                            </a>
+                        </li>
+                        <li  id="menu_planear_gastos" {% if active == 'PlanearGastos'%} class="active" {% endif%}>
+                            <a href="{{ path('cd_planear_gastos') }}">
+                                <!-- Planear mis gastos -->
+                                <span class="da-nav-icon">
+                                    <img src="{{ asset('images/icons/color/24/help-contents.png') }}" alt="Ingresar gastos que podre tener mas adelante">
+                                </span>
+                                Planear mis gastos
                             </a>
                         </li>
                         <li  id="menu_mi_dinero" {% if active == 'MiDinero'%} class="active" {% endif%}>
