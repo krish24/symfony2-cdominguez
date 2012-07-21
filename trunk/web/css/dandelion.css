@@ -576,7 +576,7 @@ div#da-content #da-sidebar .da-button-container {
     background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0, #fff), color-stop(1, #f1f1f1))
 }
 div#da-content #da-sidebar #da-main-nav.da-button-container {
-    width:174px
+    width:190px;
 }
 div#da-content #da-main-nav ul, div#da-content #da-main-nav ul li {
     margin:0;
@@ -614,6 +614,12 @@ div#da-content #da-main-nav ul li:last-child {
     -moz-border-radius:0 0 4px 4px;
     border-radius:0 0 4px 4px
 }
+
+div#da-content #da-main-nav ul li:hover a, div#da-content #da-main-nav ul li:hover span {
+    background-color: #D3EAFE;
+    background-image:url(../images/menu-bulb-hover.png)
+}
+
 div#da-content #da-main-nav ul li a, div#da-content #da-main-nav ul li span {
     display:block;
     color:#444;
@@ -625,6 +631,7 @@ div#da-content #da-main-nav ul li a, div#da-content #da-main-nav ul li span {
     background:url(../images/menu-bulb-off.png) right center no-repeat
 }
 div#da-content #da-main-nav ul li.active a, div#da-content #da-main-nav ul li.active span {
+    background-color: #ccffcc;
     background-image:url(../images/menu-bulb-on.png)
 }
 div#da-content #da-main-nav ul li span.da-nav-count {
@@ -723,6 +730,10 @@ div#da-footer {
 div#da-footer p {
     margin:0
 }
+/*Estilo 1 con la resolucion mas grande*/
+#navlist{
+    display: none;
+}
 @media only screen and (max-width:1023px) {
     div#da-wrapper.fixed {
         min-width:0
@@ -774,6 +785,10 @@ div#da-footer p {
         padding:6px 0;
         text-align:center
     }
+    /*Estilo 2*/
+    #navlist{
+        display: none;
+    }
     div#da-content #da-content-wrap {
         margin-left:165px
     }
@@ -782,11 +797,25 @@ div#da-footer p {
     div#da-header #da-header-top da-header-toolbar #da-user-profile #da-user-avatar {
         margin:0
     }
+    /*Estilo 3*/
+    #navlist{
+        display: none;
+    }
     /*div#da-header #da-header-top #da-header-toolbar #da-user-profile #da-user-info {
         display:none
     }*/
 }
 @media only screen and (max-width:480px) {
+    /*Estilo 4 Mobile*/
+    #navlist, #navlist li{
+        display: inline;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    #cd-main-nav-mobile{
+        text-align: center;
+        background-color: white;
+    }
     div#da-wrapper .da-container {
         width:100%!important
     }
@@ -839,6 +868,7 @@ div#da-footer p {
     }
     div#da-content #da-sidebar {
         display:block;
+        height:48px;
         width:100%;
         cursor:pointer;
         float:none;
@@ -863,9 +893,9 @@ div#da-footer p {
         border-bottom:1px solid #cacaca
     }
     div#da-content #da-main-nav {
-        /*position:absolute;
+        position:absolute;
         display:none;
-        top:41px*/
+        top:41px;
     }
     div#da-content #da-main-nav.open {
         display:block
