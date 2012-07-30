@@ -592,7 +592,7 @@ final class PersistentCollection implements Collection
      */
     public function __sleep()
     {
-        return array('coll', 'initialized');
+        return array('initialized');
     }
 
     /* ArrayAccess implementation */
