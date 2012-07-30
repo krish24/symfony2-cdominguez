@@ -25,11 +25,11 @@ class InicioController extends Controller
         $request       = $this->getRequest();
         $s             = $request->query->get('s');
         $objUser       = $this->getUser();
-        $categorias    = $objUser->getCategorias();
+        $objUserRepo   = $this->getDoctrine()->getRepository('MySiteDataBaseBundle:Usuario');
+        $categorias    = $objUserRepo->getCategoriasOrderByDescription($objUser);
+        $dineroGastado = $objUserRepo->getDineroGastado($objUser);
         $detalles      = array();
-        $dineroGastado = $this->getDoctrine()
-                                ->getRepository('MySiteDataBaseBundle:Usuario')
-                                ->getDineroGastado($objUser);
+        
         return array(
             'categorias'    => $categorias,
             'detalles'      => $detalles,
@@ -97,13 +97,13 @@ class InicioController extends Controller
      */
     public function getOptGDetallesByCat() {
         $request      = $this->getRequest();
-        $idCategoria  = array($request->query->get('pidCategoria'));
+        $idCategoria  = $request->query->get('pidCategoria');
         $em           = $this->getDoctrine()->getEntityManager();
-        $objCategoria = $em->getRepository('MySiteDataBaseBundle:Categoria')->findOneBy(
-            array('id' => $idCategoria)
-        ); 
+        $objCategoria = $em->getRepository('MySiteDataBaseBundle:Categoria')
+                            ->findOneBy(array('id' => $idCategoria));
         $detalles     = $em->getRepository('MySiteDataBaseBundle:GastoDetalle')
-                                ->loadByUserAndCategory($this->getUser(), $objCategoria); 
-        return array( 'detalles'   => $detalles );
-    } 
+                            ->loadByUserAndCategory($this->getUser(), $objCategoria);
+        return array('detalles' => $detalles);
+    }
+
 }  

@@ -69,8 +69,14 @@ class MisGastosController extends Controller
             'MainCol'          =>  "NodeCol",
             'Style'            =>  "Query",   
             'ExportType'       =>  "Expanded,Outline",
-            //'Sort'             =>  "-Cantidad",
         ));
+        
+        if(isset($colGroup)){
+            if($colGroup == 'Categoria'){
+                $layoutGenerator->setConfigurationOption('Sort','-Cantidad');
+            }
+        }
+        
         $layoutGenerator->addTopRowFilter(array(
             'CategoriaCanEdit' =>  1,
             'CategoriaType'    => "Text",

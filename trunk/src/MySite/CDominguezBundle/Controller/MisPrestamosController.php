@@ -35,7 +35,7 @@ class MisPrestamosController extends Controller
         $gridOptionsGenerator
             ->setGridId('GastosGrid')
             ->setOptions(array(
-                'Layout_Url'        => $router->generate('cd_grid_layout_pagos'),
+                'Layout_Url'        => $router->generate('cd_grid_layout_'),
                 'Data_Url'          => $router->generate('cd_grid_data_pagos'),
                 'Upload_Url'        => $router->generate('cd_upload_grid_default'),
                 'Export_Url'        => $router->generate('cd_export_grid'),
@@ -51,7 +51,7 @@ class MisPrestamosController extends Controller
     }
     
      /**
-     * @Route("/grid-layout", name="cd_grid_layout_cuentas", defaults={"_format" = "json"})
+     * @Route("/grid-layout", name="cd_grid_layout_prestamos", defaults={"_format" = "json"})
      * @Template("BaseEJSTreeGridBundle::gridLayout.json.twig")
      */
     public function gridLayoutAction() {
@@ -137,7 +137,7 @@ class MisPrestamosController extends Controller
     }
     
      /**
-     * @Route("/grid-data", name="cd_grid_data_cuentas", defaults={"_format" = "json"})
+     * @Route("/grid-data", name="cd_grid_data_prestamos", defaults={"_format" = "json"})
      * @Template("BaseEJSTreeGridBundle::gridData.json.twig")
      */
     public function gridDataAction() { 
