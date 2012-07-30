@@ -1,5 +1,0 @@
-services:
-    mysite.twig.mysite_extension:
-        class: MySite\CDominguezBundle\Twig\MySiteExtension
-        tags:
-            - { name: twig.extension }
