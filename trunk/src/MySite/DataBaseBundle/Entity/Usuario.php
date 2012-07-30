@@ -42,7 +42,7 @@ class Usuario implements UserInterface
     /**
      * @var string $password
      *
-     * @ORM\Column(name="password", type="string", length=20)
+     * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
     
@@ -82,7 +82,7 @@ class Usuario implements UserInterface
     private $gastos;
     
     /**
-     * @ORM\OneToMany(targetEntity="Cuenta", mappedBy="usuario", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Cuenta", mappedBy="usuario")
      */
     private $cuentas;
     
@@ -196,7 +196,7 @@ class Usuario implements UserInterface
 
     public function getRoles() 
     {
-        return array('ROLE_USER');
+        return array('ROLE_ADMIN');
     }
 
     public function getSalt()

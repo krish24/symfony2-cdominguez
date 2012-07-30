@@ -43,4 +43,32 @@ class GastoRepository extends EntityRepository
         $gastos = $query->getResult();
         return $gastos;
     }
+    
+    public function loadByCuentaOrderCategoria($idCuenta) {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT g, d, c 
+             FROM MySiteDataBaseBundle:Gasto g 
+                    JOIN g.detalle d 
+                    JOIN d.categoria c 
+             WHERE g.cuenta = :pidCuenta 
+             ORDER BY c.id, d.id, g.fecha DESC '
+        )->setParameter('pidCuenta', $idCuenta);
+        $gastos = $query->getResult();
+        return $gastos;
+    }
+    
+    public function loadByCuentaOrderDia($idCuenta) {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT g  
+             FROM MySiteDataBaseBundle:Gasto g 
+                    JOIN g.detalle d 
+                    JOIN d.categoria c 
+             WHERE g.cuenta = :pidCuenta 
+             ORDER BY g.fecha DESC '
+        )->setParameter('pidCuenta', $idCuenta);
+        $gastos = $query->getResult();
+        return $gastos;
+    }
 }

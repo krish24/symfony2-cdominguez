@@ -14,14 +14,15 @@ class GastoDetalleRepository extends EntityRepository
 {
     public function loadByUserAndCategory($objUser, $objCategory) {
         $q = $this->createQueryBuilder('query')
-                        ->select('gd')
-                        ->from('MySiteDataBaseBundle:GastoDetalle', 'gd')
-                        ->join('gd.categoria', 'c')
-                        ->join('gd.usuarios', 'u')
-                        ->where('u = :user AND c = :category')
-                        ->setParameter('user', $objUser)
-                        ->setParameter('category', $objCategory)
-                        ->getQuery();
+                ->select('gd')
+                ->from('MySiteDataBaseBundle:GastoDetalle', 'gd')
+                ->join('gd.categoria', 'c')
+                ->join('gd.usuarios', 'u')
+                ->where('u = :user AND c = :category')
+                ->orderBy('gd.descripcion')
+                ->setParameter('user', $objUser)
+                ->setParameter('category', $objCategory)
+                ->getQuery();
 
         $gastosDetalles = $q->getResult();
         return $gastosDetalles;

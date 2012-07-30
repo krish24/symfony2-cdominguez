@@ -12,14 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class UsuarioRepository extends EntityRepository
 {
-    public function getDineroGastado($objUser){
+    public function getDineroGastado($objUser) {
         $q = $this->createQueryBuilder('query')
-                        ->select('g')
-                        ->from('MySiteDataBaseBundle:Gasto', 'g')
-                        ->join('g.usuario', 'u')
-                        ->where('u = :user AND g.cuenta is null')
-                        ->setParameter('user', $objUser)
-                        ->getQuery();
+                ->select('g')
+                ->from('MySiteDataBaseBundle:Gasto', 'g')
+                ->join('g.usuario', 'u')
+                ->where('u = :user AND g.cuenta is null')
+                ->setParameter('user', $objUser)
+                ->getQuery();
 
         $gastos = $q->getResult();
         $total = 0;
@@ -27,5 +27,19 @@ class UsuarioRepository extends EntityRepository
             $total += $objGasto->getCantidad();
         }
         return $total;
+    }
+    
+    public function getCategoriasOrderByDescription($objUser) {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT c
+             FROM MySiteDataBaseBundle:Categoria c
+                    JOIN c.usuarios u  
+             WHERE u = :puser 
+             ORDER BY c.descripcion '
+        )->setParameter('puser', $objUser);
+        
+        $categorias = $query->getResult();
+        return $categorias;
     }
 }

@@ -2,9 +2,16 @@ MySiteCDominguezBundle:
     resource: "@MySiteCDominguezBundle/Resources/config/routing.yml"
     prefix:   /
 
-cd_logout:
-    pattern:  /logout
+_security_login:
+    pattern:  /login
+    defaults: { _controller: MySiteCDominguezBundle:Security:login }
 
+_security_check:
+    pattern:  /login_check
+
+_security_logout:
+    pattern:  /logout
+    
 MySiteOldSiteBundle:
     resource: "@MySiteOldSiteBundle/Resources/config/routing.yml"
     prefix:   /OldSite
