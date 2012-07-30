@@ -24,37 +24,61 @@ class MisCuentasController extends Controller
 {
     /** 
      * @Route("/", name="cd_mis_cuentas")
-     * @Template("MySiteCDominguezBundle::MisCuentas/index.html.twig")
+     * @Template()
      */
     public function misCuentasAction() {
-        $router = $this->get('router');
+        $r        = $this->getRequest();
+        $router   = $this->get('router');
+        $idCuenta = $r->query->get('pidCuenta');
+        
+        if(!isset($idCuenta)){
+            $viewRender  = 'MySiteCDominguezBundle::MisCuentas/index.html.twig';
+            $params = array(
+                'ptypeData' => 'All'
+            );
+        }else{
+            $colGrouping = $r->query->get('pcolGrouping');
+            $viewRender  = 'MySiteCDominguezBundle::MisCuentas/verCuenta.html.twig';
+            $params = array(
+                'ptypeData'    => 'One',
+                'pidCuenta'    => $idCuenta,
+                'pcolGrouping' => $colGrouping
+            );
+        }
         
         $gridOptionsGenerator = new GridOptionsGenerator(
-            'ContainerGastosGrid'
-        );
+            'ContainerCuentasGrid'
+        ); 
+        
         $gridOptionsGenerator
-            ->setGridId('GastosGrid')
+            ->setGridId('CuentasGrid')
             ->setOptions(array(
-                'Layout_Url'        => $router->generate('cd_grid_layout_pagos'),
-                'Data_Url'          => $router->generate('cd_grid_data_pagos'),
-                'Upload_Url'        => $router->generate('cd_upload_grid_default'),
-                'Export_Url'        => $router->generate('cd_export_grid'),
+                'Layout_Url' => $router->generate('cd_grid_layout_cuentas', $params),
+                'Data_Url'   => $router->generate('cd_grid_data_cuentas', $params),
+                'Upload_Url' => $router->generate('cd_upload_grid_default'),
+                'Export_Url' => $router->generate('cd_export_grid'),
             ));
 
         $dineroGastado = $this->getDoctrine()
                                 ->getRepository('MySiteDataBaseBundle:Usuario')
                                 ->getDineroGastado($this->getUser());
-        return array(
+        
+        return $this->render($viewRender, array(
             'gridOptionsGenerator' => $gridOptionsGenerator,
             'dineroGastado'        => $dineroGastado,
-        );
+            'idCuenta'             => $idCuenta,
+        ));
     }
     
-     /**
+    /**
      * @Route("/grid-layout", name="cd_grid_layout_cuentas", defaults={"_format" = "json"})
      * @Template("BaseEJSTreeGridBundle::gridLayout.json.twig")
      */
     public function gridLayoutAction() {
+        $r            = $this->getRequest();
+        $pcolGrouping = $r->query->get('pcolGrouping');
+        //$typeData     = $r->query->get("ptypeData"); //All, One
+        
         $layoutGenerator = new GridLayoutGenerator();
         $layoutGenerator->setConfiguration(array(
             'SearchExpand'     =>  1,
@@ -65,11 +89,17 @@ class MisCuentasController extends Controller
             'Dragging'         =>  1,
             'Adding'           =>  1,
             'MaxVScroll'       =>  2500,
-            'MainCol'          =>  "Categoria",
+            'MainCol'          =>  "NodeCol",
             'Style'            =>  "Query",   
-            'Sort'             =>  "-Cantidad",
             'ExportType'       =>  "Expanded,Outline",
         ));
+        
+        if(isset($pcolGrouping)){
+            if($pcolGrouping == 'Categoria'){
+                $layoutGenerator->setConfigurationOption('Sort','-Cantidad');
+            }
+        }
+        
         $layoutGenerator->addTopRowFilter(array(
             'CategoriaCanEdit' =>  1,
             'CategoriaType'    => "Text",
@@ -91,10 +121,11 @@ class MisCuentasController extends Controller
             'CanEdit'   => 1,
             'RelWidth'  => 2,
             'MinWidth'  => 70,
-            'Name'      => "Categoria",
+            'Name'      => "NodeCol",
             'CanFilter' => 1,
             'CanSort'   => 1,
             'Type'      => "Text",
+            'Align'     => 'Left',
         ))->addVariableColumn(array(
             'CanEdit'   => 1,
             'Width'     => 0,
@@ -110,6 +141,7 @@ class MisCuentasController extends Controller
             'CanFilter' => 1,
             'CanSort'   => 1,
             'Type'      => "Int",      
+            'Align'     => 'Left',
         ))->addVariableColumn(array(
             'CanEdit'   => 1,
             'Width'     => 0,
@@ -133,73 +165,183 @@ class MisCuentasController extends Controller
             'TotalHtmlPostfix' => "</b>"
         ));
         
+        $layoutGenerator->setHeaderRow(array(
+            'NodeCol' => 'Cuenta'
+        ));
+        
         return array('gridLayoutGenerator' => $layoutGenerator);
     }
     
      /**
-     * @Route("/grid-data", name="cd_grid_data_cuentas", defaults={"_format" = "json"})
+     * @Route("/grid-data", name="cd_grid_data_cuentas", defaults={"_format" = "html"})
      * @Template("BaseEJSTreeGridBundle::gridData.json.twig")
      */
     public function gridDataAction() { 
+        $typeData = $this->getRequest()->query->get("ptypeData"); //All, One
+        switch ($typeData) {
+            case 'All':
+                $data = $this->getDataAll();
+                break;
+            
+            case 'One':
+                $data = $this->getDataOne();
+                break;
+        }
+        return array('gridDataFormatter' => $data);
+    }
+
+    /**
+     * FUNCION PARA OBTENER LA INFORMACIÓN DE LAS CUENTAS.
+     */
+    public function getDataAll() {
+        $objUser       = $this->getUser();
+        $dataFormatter = new GridDataFormatter();
+        $cuentas       = $objUser->getCuentas()->toArray();
+        $contador      = 1;
+        
+        foreach ($cuentas as $objCuenta){
+            $fechaCierre = $objCuenta->getFechaCierre()->format('Y/m/d H:m:s');
+            
+            $dataFormatter->addRow(array(
+                'id'              => $objCuenta->getId(),
+                'NodeCol'         => $fechaCierre,
+                'NodeColFormat'   => "ID: [" . $objCuenta->getId() . "] dddd dd MMMM yyyy",
+                'NodeColType'     => "Date",
+                'Cantidad'        => $objCuenta->getTotal(),
+                'CanDelete'       => 0,
+                'CanEdit'         => 0,
+                'CantidadCanEdit' => 0,
+                'HtmlPrefix'      => "<span style=\"color:#e25c5b;\">",
+                'HtmlPostfix'     => "</span>",
+            ));
+            $contador ++;
+        }
+        
+        return $dataFormatter;
+    }
+    
+    /**
+     * FUNCION PARA OBTENER LA INFORMACIÓN DE UNA CUENTA SELECCIONADA.
+     */
+    public function getDataOne(){
+        $r             = $this->getRequest();
+        $colGroup      = $r->query->get("pcolGrouping");
+        $idCuenta      = $r->query->get("pidCuenta");
         $d             = $this->getDoctrine();
-        $user          = $this->getUser();
-        $gastos        = $d->getRepository('MySiteDataBaseBundle:Gasto')->loadRecentsByUser($user);
         $dataFormatter = new GridDataFormatter();
 
-        $categoriaActual = "";
-        $categoriaLast   = "";
-        $gastoActual     = "";
-        $gastoLast       = "";
-        $contador = 1;
-        foreach ($gastos as $objGasto) { 
-            $categoriaActual = $objGasto->getDetalle()->getCategoria()->getDescripcion();
-            if($categoriaActual != $categoriaLast){
-                $dataFormatter->addRow(array(
-                    'id'              => 'R' . $contador,
-                    'Categoria'       => $objGasto->getDetalle()->getCategoria()->getDescripcion(),
-                    'CantidadFormula' => "sum()",
-                    'CanDelete'       => 0,
-                    'CanEdit'         => 0,
-                    'Expanded'        => 1,
-                    'CantidadCanEdit' => 1,
-                    'Class'           => "level1",
-                    'HtmlPrefix'      => "<span style=\"color:#599bd7;font-weight:bold\">",
-                    'HtmlPostfix'     => "</span>",
-                ));
-                $contador ++;
-            }
-            
-            $gastoActual = $objGasto->getDetalle()->getDescripcion();
-            if($gastoActual != $gastoLast){
-                $dataFormatter->addSubRow(array(
-                    'id'              => 'R' . $contador,
-                    'Categoria'       => $objGasto->getDetalle()->getDescripcion(),
-                    'CantidadFormula' => "sum()",
-                    'CanDelete'       => 0,
-                    'CanEdit'         => 0,
-                    'Expanded'        => 0,
-                    'CantidadCanEdit' => 1,
-                    'Class'           => "level2",
-                    'HtmlPrefix'      => "<span style=\"color:#e25c5b\">",
-                    'HtmlPostfix'     => "</span>",
-                ));
-                $contador ++;
-            }
-            
-            $dataFormatter->addSubRow(array(
-                'id'              => $objGasto->getId(),
-                'Name'            => $objGasto->getCantidad() . ' / ' . $objGasto->getDetalle()->getDescripcion(),
-                'Categoria'       => $objGasto->getFecha()->format('Y/m/d h:m:s'),
-                'CategoriaFormat' => "dddd dd MMMM yyyy hh:mm tt",
-                'CategoriaType'   => "Date",
-                'Gasto'           => $objGasto->getDetalle()->getDescripcion(),
-                'Cantidad'        => $objGasto->getCantidad(),
-                'Fecha'           => $objGasto->getFecha()->format('Y/m/d h:m:s'),
-            ), 2);
-            
-            $categoriaLast = $categoriaActual;
-            $gastoLast     = $gastoActual;
+        switch ($colGroup) {
+            // ---------------------------------------------------------------------------------------------
+            case 'Categoria': 
+                $gastos          = $d->getRepository('MySiteDataBaseBundle:Gasto')->loadByCuentaOrderCategoria($idCuenta);
+                $categoriaActual = "";
+                $categoriaLast   = "";
+                $gastoActual     = "";
+                $gastoLast       = "";
+                $contador = 1;
+
+                foreach ($gastos as $objGasto) { 
+                    $categoriaActual = $objGasto->getDetalle()->getCategoria()->getDescripcion();
+                    if($categoriaActual != $categoriaLast){
+                        $dataFormatter->addRow(array(
+                            'id'              => 'R' . $contador,
+                            'NodeCol'         => $objGasto->getDetalle()->getCategoria()->getDescripcion(),
+                            'CantidadFormula' => "sum()",
+                            'CanDelete'       => 0,
+                            'CanEdit'         => 0,
+                            'Expanded'        => 1,
+                            'CantidadCanEdit' => 1,
+                            'HtmlPrefix'      => "<span style=\"color:#e25c5b;\">",
+                            'HtmlPostfix'     => "</span>",
+                        ));
+                        $contador ++;
+                    }
+
+                    $gastoActual = $objGasto->getDetalle()->getDescripcion();
+                    if($categoriaActual != $categoriaLast || $gastoActual != $gastoLast){
+                        $dataFormatter->addSubRow(array(
+                            'id'              => 'R' . $contador,
+                            'NodeCol'         => $objGasto->getDetalle()->getDescripcion(),
+                            'CantidadFormula' => "sum()",
+                            'CanDelete'       => 0,
+                            'CanEdit'         => 0,
+                            'Expanded'        => 0,
+                            'CantidadCanEdit' => 1,
+                            'HtmlPrefix'      => "<span style=\"color:#599bd7\">",
+                            'HtmlPostfix'     => "</span>",
+                        ));
+                        $contador ++;
+                    }
+
+                    $dataFormatter->addSubRow(array(
+                        'id'              => $objGasto->getId(),
+                        'Name'            => $objGasto->getCantidad() . ' / ' . $objGasto->getDetalle()->getDescripcion(),
+                        'NodeCol'         => $objGasto->getFecha()->format('Y/m/d H:m:s'),
+                        'NodeColFormat'   => "dddd dd MMMM yyyy hh:mm tt",
+                        'NodeColType'     => "Date",
+                        'Gasto'           => $objGasto->getDetalle()->getDescripcion(),
+                        'Cantidad'        => $objGasto->getCantidad(),
+                        'Fecha'           => $objGasto->getFecha()->format('Y/m/d H:m:s'),
+                    ), 2);
+
+                    $categoriaLast = $categoriaActual;
+                    $gastoLast     = $gastoActual;
+                }
+
+                break;
+                
+            // ---------------------------------------------------------------------------------------------
+            case 'Dia':
+                $gastos          = $d->getRepository('MySiteDataBaseBundle:Gasto')->loadByCuentaOrderDia($idCuenta);
+                $diaActual       = "";
+                $diaLast         = "";
+                $gastoActual     = "";
+                $gastoLast       = "";
+                $contador = 1;
+
+                foreach ($gastos as $objGasto) { 
+                    $diaActual   = $objGasto->getFecha()->format('Y/m/d');
+                    $fechaGasto  = $objGasto->getFecha()->format('Y/m/d H:m:s');
+                    $horaGasto   = $objGasto->getFecha()->format('h:m:s A');
+                    $gastoActual = $objGasto->getDetalle()->getDescripcion();
+                    $categoria   = $objGasto->getDetalle()->getCategoria()->getDescripcion();
+                    
+                    if($diaActual != $diaLast){
+                        $dataFormatter->addRow(array(
+                            'id'              => 'R' . $contador,
+                            'NodeCol'         => $fechaGasto,
+                            'NodeColFormat'   => "dddd dd MMMM yyyy",
+                            'NodeColType'     => "Date",
+                            'CantidadFormula' => "sum()",
+                            'CanDelete'       => 0,
+                            'CanEdit'         => 0,
+                            'Expanded'        => 1,
+                            'CantidadCanEdit' => 1,
+                            'HtmlPrefix'      => "<span style=\"color:#7a9230;\">",
+                            'HtmlPostfix'     => "</span>",
+                        ));
+                        $contador ++;
+                    }
+
+                    $dataFormatter->addSubRow(array(
+                        'id'              => $objGasto->getId(),
+                        'Name'            => $gastoActual . ' - ' . $objGasto->getId(),
+                        'NodeCol'         => $gastoActual . ' | ' . $horaGasto . ' | ' . $categoria,
+                        'Cantidad'        => $objGasto->getCantidad(),
+                        'CanDelete'       => 1,
+                        'CanEdit'         => 0,
+                        'Expanded'        => 0,
+                        'CantidadCanEdit' => 1,
+                        'HtmlPrefix'      => "<span style=\"color:#599bd7;\">",
+                        'HtmlPostfix'     => "</span>",
+                    ), 1);
+                  
+                    $diaLast       = $diaActual;
+                    $gastoLast     = $gastoActual;
+                }
+                break;
         }
-        return array('gridDataFormatter' => $dataFormatter);
+        
+        return $dataFormatter;
     }
 }
