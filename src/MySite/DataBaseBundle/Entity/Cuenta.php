@@ -35,7 +35,7 @@ class Cuenta
     private $fechaCierre;
     
     /**
-     * @ORM\OneToMany(targetEntity="Gasto", mappedBy="usuario", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Gasto", mappedBy="cuenta", cascade={"persist"})
      */
     private $gastos;
     
@@ -138,5 +138,17 @@ class Cuenta
     public function getUsuario()
     {
         return $this->usuario;
+    }
+    
+    /**
+     * Get Total de gastos. 
+     */
+    public function getTotal() {
+        $gastos = $this->getGastos();
+        $total  = 0;
+        foreach ($gastos as $objGasto) {
+            $total += $objGasto->getCantidad();
+        }
+        return $total;
     }
 }
