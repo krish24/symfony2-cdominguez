@@ -1,0 +1,13 @@
+#parameters:
+#    base_highcharts.example.class: Base\HighchartsBundle\Example
+
+#services:
+#    base_highcharts.example:
+#        class: %base_highcharts.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+services:
+    mysite.twig.mysite_extension:
+        class: MySite\CDominguezBundle\Twig\MySiteExtension
+        tags:
+            - { name: twig.extension }

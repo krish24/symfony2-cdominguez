@@ -53,9 +53,17 @@ class Gasto
      */
     private $cuenta;
     
+    /**
+     * @var boolean $future
+     *
+     * @ORM\Column(name="future", type="boolean")
+     */
+    private $future;
+    
     public function __construct()
     {
         $this->fecha = new \DateTime();
+        $this->future = false;
     }
     
     /**
@@ -166,5 +174,25 @@ class Gasto
     public function getCuenta()
     {
         return $this->cuenta;
+    }
+    
+    /**
+     * Set future
+     *
+     * @param boolean $future
+     */
+    public function setFuture($future)
+    {
+        $this->future = $future;
+    }
+
+    /**
+     * Get future
+     *
+     * @return boolean 
+     */
+    public function isFuture()
+    {
+        return $this->future;
     }
 }
