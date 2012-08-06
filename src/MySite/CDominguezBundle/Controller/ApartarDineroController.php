@@ -25,6 +25,7 @@ class ApartarDineroController extends Controller
     public function apartarDineroAction() {
         $request        = $this->getRequest();
         $s              = $request->query->get('s');
+        $d              = $request->query->get('d');
         $objUser        = $this->getUser();
         $objUserRepo    = $this->getDoctrine()->getRepository('MySiteDataBaseBundle:Usuario');
         $categorias     = $objUserRepo->getCategoriasOrderByDescription($objUser);
@@ -37,7 +38,8 @@ class ApartarDineroController extends Controller
             'detalles'       => $detalles,
             'dineroGastado'  => $dineroGastado,
             'dineroApartado' => $dineroApartado,
-            'saveData'       => $s
+            'saveData'       => $s,
+            'deleteData'     => $d,
         );
     }
     
@@ -46,6 +48,7 @@ class ApartarDineroController extends Controller
      */
     public function getDataDineroApartado() {
         $asset          = new PathPackage($this->getRequest());
+        $router         = $this->get('router');
         $apartarDinero  = $this->getDoctrine()
                                 ->getRepository('MySiteDataBaseBundle:Gasto')
                                 ->loadGastosFuturosByUser($this->getUser());
@@ -62,7 +65,7 @@ class ApartarDineroController extends Controller
                 $gastoActual . ' | ' . $categoria,
                 $fechaGasto,
                 $objGasto->getCantidad(),
-                '<a href="#"><img title="Agregar a los gastos" src="' . $asset->getUrl('images/icons/color/add.png') . '"></a><a href="#"><img title="Editar gasto" src="' . $asset->getUrl('images/icons/color/pencil.png') . '"></a><a href="#"><img title="Eliminar gastos" src="' . $asset->getUrl('images/icons/color/cross.png') . '"></a>'
+                '<a href="#"><img title="Agregar a los gastos" src="' . $asset->getUrl('images/icons/color/add.png') . '"></a><a href="#"><img title="Editar gasto" src="' . $asset->getUrl('images/icons/color/pencil.png') . '"></a><a href="' . $router->generate('cd_delete_gasto_futuro', array('pidGasto'=>$objGasto->getId())) . '"><img title="Eliminar gastos" src="' . $asset->getUrl('images/icons/color/cross.png') . '"></a>'
             );
         }
         return new Response(json_encode($data));
@@ -120,5 +123,21 @@ class ApartarDineroController extends Controller
         $em->persist($objGasto);
         $em->flush();
         return $this->redirect($this->generateUrl('cd_apartar_dinero', array('s' => 1)));
+    }
+    
+    /**
+     * @Route("/delete-gasto-futuro", name="cd_delete_gasto_futuro")
+     */
+    public function deleteGastoFuturo() {
+        $r        = $this->getRequest();
+        $em       = $this->getDoctrine()->getEntityManager();
+        $idGasto  = $r->query->get('pidGasto');
+        $objGasto = $em->getRepository('MySiteDataBaseBundle:Gasto')->findOneBy(
+            array('id' => $idGasto)
+        ); 
+        
+        $em->remove($objGasto);
+        $em->flush();
+        return $this->redirect($this->generateUrl('cd_apartar_dinero', array('d' => 1)));
     }
 }  

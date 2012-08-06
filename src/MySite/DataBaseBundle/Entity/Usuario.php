@@ -77,7 +77,7 @@ class Usuario implements UserInterface
     private $gastoDetalles;
     
     /**
-     * @ORM\OneToMany(targetEntity="Gasto", mappedBy="usuario", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Gasto", mappedBy="usuario")})
      */
     private $gastos;
     
