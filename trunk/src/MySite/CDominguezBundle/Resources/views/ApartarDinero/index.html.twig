@@ -82,6 +82,11 @@
                     </span>
                 </div>
                 <div class="da-panel-content with-padding" >
+                    <div id="msgTable">
+                        {% if deleteData == 1 %}
+                            <div class="da-message success">El gasto se ha eliminado correcatemente</div>
+                        {% endif %}
+                    </div>
                     <table class="da-table" id="table-apartar-dinero" >
                         <thead>
                             <tr style="width: 100%;">
