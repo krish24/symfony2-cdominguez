@@ -4,7 +4,7 @@ function verByCuenta(pgrouping){
     if(!$.isEmptyObject(G.GetSelRows())){
         var row = G.GetSelRows()[0];
         var idCuenta = row.id;
-        var newUrl   = window.location.origin + _cdominguez.urls.misCuentas;
+        var newUrl   = window.location.origin + _cdominguez.urls.cuentas;
         
         //Actulizamos las URL para los datos.
         newUrl = newUrl + '?ptypeData=One&pidCuenta=' + idCuenta + '&pcolGrouping=' + pgrouping;
