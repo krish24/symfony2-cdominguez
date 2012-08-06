@@ -20,10 +20,11 @@ class GastoRepository extends EntityRepository
                     JOIN g.usuario u 
                     JOIN g.detalle d 
                     JOIN d.categoria c 
-             WHERE g.usuario = :puser AND g.cuenta is null 
+             WHERE g.usuario = :puser 
+                    AND g.cuenta is null 
+                    AND g.future = 0 
              ORDER BY c.id, d.id, g.fecha DESC '
-        )->setHint("doctrine.includeMetaColumns",true)
-        ->setParameter('puser', $objUser);
+        )->setParameter('puser', $objUser);
         $gastos = $query->getResult();
         return $gastos;
     }
@@ -36,10 +37,28 @@ class GastoRepository extends EntityRepository
                     JOIN g.usuario u 
                     JOIN g.detalle d 
                     JOIN d.categoria c 
-             WHERE g.usuario = :puser AND g.cuenta is null 
+             WHERE g.usuario = :puser 
+                    AND g.cuenta is null 
+                    AND g.future = 0 
              ORDER BY g.fecha DESC '
-        )->setHint("doctrine.includeMetaColumns",true)
-        ->setParameter('puser', $objUser);
+        )->setParameter('puser', $objUser);
+        $gastos = $query->getResult();
+        return $gastos;
+    }
+
+    public function loadGastosFuturosByUser($objUser) {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT g  
+             FROM MySiteDataBaseBundle:Gasto g 
+                    JOIN g.usuario u 
+                    JOIN g.detalle d 
+                    JOIN d.categoria c 
+             WHERE g.usuario = :puser 
+                    AND g.cuenta is null 
+                    AND g.future = 1 
+             ORDER BY g.fecha DESC '
+        )->setParameter('puser', $objUser);
         $gastos = $query->getResult();
         return $gastos;
     }
@@ -52,6 +71,7 @@ class GastoRepository extends EntityRepository
                     JOIN g.detalle d 
                     JOIN d.categoria c 
              WHERE g.cuenta = :pidCuenta 
+                    AND g.future = 0 
              ORDER BY c.id, d.id, g.fecha DESC '
         )->setParameter('pidCuenta', $idCuenta);
         $gastos = $query->getResult();
@@ -66,6 +86,7 @@ class GastoRepository extends EntityRepository
                     JOIN g.detalle d 
                     JOIN d.categoria c 
              WHERE g.cuenta = :pidCuenta 
+                    AND g.future = 0 
              ORDER BY g.fecha DESC '
         )->setParameter('pidCuenta', $idCuenta);
         $gastos = $query->getResult();

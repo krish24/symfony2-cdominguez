@@ -1,0 +1,173 @@
+{% extends '::cdominguezbase.html.twig' %}
+{% set active = 'ApartarDinero' %}
+{% spaceless %}
+    {% block stylesheets %}
+        {{ parent() }}
+        <link rel="stylesheet" href="{{ asset('bundles/mysitecdominguez/css/apartarDinero.css') }}" media="screen" />
+    {% endblock %}
+    
+    {% block javascripts %}
+        {{ parent() }}
+        <!-- ------------------------------   ARCHIVOS ORIGINALES ------------------------------------------------ -->
+        <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.spinner.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/basejqueryui/jui/js/jquery.ui.timepicker.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/basejqueryui/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/mysitecdominguez/js/apartarDinero.js') }}" ></script>
+        {#
+        <!-- ------------------------------  GENERAR ARCHIVOS COMPRIMIDOS  --------------------------------------- -->
+        {% javascripts filter='yui_js' 
+            'bundles/basejqueryui/jui/js/jquery.ui.spinner.min.js'
+            'bundles/basejqueryui/plugins/chosen/chosen.jquery.min.js'
+            'bundles/basejqueryui/jui/js/jquery.ui.timepicker.min.js'
+        %}
+            <script src="{{ asset_url }}" ></script>
+        {% endjavascripts %}
+        #}
+        {#
+        <!-- ------------------------------  ARCHIVOS COMPRIMIDOS  ----------------------------------------------- -->
+        <script src="{{ asset('dumpFiles/js/138c38c.js') }}" ></script>
+        #}
+        <script type="text/javascript">
+            //Agregar la informacion del browser
+            $.each($.browser, function(i, val) {
+                $("<div><b>" + i + " : </b><span>" + val + "</span>")
+                    .appendTo($('#browserData'));
+            });
+
+            var _cdominguez = {
+                'urls'         : {
+                    'dataTable'             : '{{ path('cd_data_apartar_dinero') }}',
+                    'add'                   : '{{ path('cd_add_gasto') }}',
+                    'getOptGDetallesByCat'  : '{{ path('cd_get_opt_gdetalles_by_cat') }}'
+                }
+            };
+
+            //Variable declarada en el Twig base.
+            _app.urls.images.color = {
+                'calendar'  :   '{{ asset('images/icons/color/16/calendar.png') }}'
+            };
+        </script> 
+        <!-- ------------------------------   ARCHIVOS ORIGINALES ------------------------------------------------ -->
+        <script type="text/javascript" src="{{ asset('bundles/mysitecdominguez/js/index.js') }}" ></script>
+        {#
+        <!-- ------------------------------  GENERAR ARCHIVOS COMPRIMIDOS  --------------------------------------- -->
+        {% javascripts filter='yui_js' 
+            'bundles/mysitecdominguez/js/index.js'
+        %}
+            <script src="{{ asset_url }}" ></script>
+        {% endjavascripts %}
+        #}
+        {#
+        <!-- ------------------------------  ARCHIVOS COMPRIMIDOS  ----------------------------------------------- -->
+        <script src="{{ asset('dumpFiles/js/b68aa00.js') }}" ></script>
+        #}
+    {% endblock %}
+
+    {% block cdBreadCrumb %}
+        <li class="active">
+            <span>
+                <img src="{{ asset('images/icons/color/16/home.png') }}" alt="Home" />
+                Apartar dinero
+            </span>
+        </li>
+    {% endblock %}
+
+    {% block cdContentArea %}
+        <div class="grid_4">
+            <div class="da-panel">
+                <div class="da-panel-header">
+                    <span class="da-panel-title">
+                        <img src="{{ asset('images/icons/color/coins.png') }}" >
+                        Mis gastos futuros
+                    </span>
+                </div>
+                <div class="da-panel-content with-padding" >
+                    <table class="da-table" id="table-apartar-dinero" >
+                        <thead>
+                            <tr style="width: 100%;">
+                                <th style="width: 50%;">Gasto</th>
+                                <th style="width: 30%;">Fecha</th>
+                                <th style="width: 10%;">Cantidad</th>
+                                <th style="width: 10%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>  
+                <div class="da-panel-content with-padding">
+                    <div style="text-align:center;">
+                        <h6><b>¢ {{ dineroApartado }}</b> colones apartados para gastos futuros.</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid_4">
+            <div class="da-panel">
+                <div class="da-panel-header">
+                    <span class="da-panel-title">
+                        <img src="{{ asset('images/icons/color/coins.png') }}" >
+                        Apartar dinero para un gasto futuro
+                    </span>
+                </div>
+                <div class="da-panel-content" >
+                    <div id="msg">
+                        {% if saveData == 1 %}
+                            <div class="da-message success">Los datos se guardaron correctamente</div>
+                        {% endif %}
+                    </div>
+                    <form class="da-form" action="{{path('cd_add_apartar_dinero')}}" id="form-add-gasto" method="POST" novalidate="novalidate">
+                        <div class="da-form-row">
+                            <label><span class="required">* </span>Categoria</label>
+                            <div class="da-form-inline">
+                                {#<select name="_categoria" id="_categoria" style="display: none; ">#}
+                                <select name="_categoria" id="_categoria" >
+                                    <option value="-1" >Seleccionar una opci&oacute;n</option>
+                                    {% for categoria in categorias %}
+                                        <option value="{{categoria.id}}" >{{categoria.descripcion}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div id="add-chosen-categoria">
+                                    <input type="text" name="add_categoria" id="add_categoria" placeholder="Agregar nueva categoria." >
+                                </div>
+                                <label id="label_categoria" for="add_categoria" class="error" style="display: none">Seleccione o ingrese una nueva categoria.</label>
+                            </div>
+                        </div>
+                        <div class="da-form-row">
+                            <label><span class="required">* </span>Gastar&eacute; en</label>
+                            <div class="da-form-inline">
+                                {#<select name="_gasto" id="_gasto" style="display: none; ">#}
+                                <select name="_gasto" id="_gasto" >
+                                    <option value="-1" >Seleccionar una opci&oacute;n</option>
+                                    {% for detalle in detalles %}
+                                        <option value="{{detalle['id']}}" >{{detalle['descripcion']}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div id="add-chosen-gasto">
+                                    <input name="add_gasto" type="text" id="add_gasto" placeholder="Agregar nuevo gasto." >
+                                </div>
+                                <label id="label_gasto" for="add_gasto" class="error" style="display: none">Seleccione o ingrese un nuevo gasto.</label>
+                            </div>
+                        </div>
+                        <div class="da-form-row">
+                            <label><span class="required">* </span>¿C&uacute;anto?</label>
+                            <div class="da-form-inline">
+                                <input name="_cantidad" type="text" id="_cantidad" value="0" >
+                                <label id="label_cantidad" for="_cantidad" class="error" style="display: none">Ingrese la cantidad.</label>
+                            </div>
+                        </div>
+                        <div class="da-form-row">
+                            <label>¿C&uacute;ando?</label>
+                            <div class="da-form-inline" >
+                                <input type="text" id="_datepicker" name="_datepicker">
+                            </div>
+                        </div>
+                        <div class="da-form-row" id="browserData">
+                            <input type="button" value="Ok" class="da-button blue" onclick="validateForm(true)" style="float: right;" >
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+{% endspaceless %}
