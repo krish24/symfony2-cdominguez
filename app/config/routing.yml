@@ -1,3 +1,7 @@
+BaseHighchartsBundle:
+    resource: "@BaseHighchartsBundle/Resources/config/routing.yml"
+    prefix:   /
+
 MySiteCDominguezBundle:
     resource: "@MySiteCDominguezBundle/Resources/config/routing.yml"
     prefix:   /

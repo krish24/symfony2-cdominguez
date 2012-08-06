@@ -18,15 +18,15 @@ use Base\EJSTreeGridBundle\Framework\GridOptionsGenerator,
     Base\EJSTreeGridBundle\Framework\GridDataFormatter;
 
 /**
- * @Route("/mis-deudas")
+ * @Route("/deudas")
  */
-class MisDeudasController extends Controller
+class DeudasController extends Controller
 {
     /** 
-     * @Route("/", name="cd_mis_deudas")
-     * @Template("MySiteCDominguezBundle::MisDeudas/index.html.twig")
+     * @Route("/", name="cd_deudas")
+     * @Template("MySiteCDominguezBundle::Deudas/index.html.twig")
      */
-    public function misDeudasAction() {
+    public function deudasAction() {
         $router = $this->get('router');
         
         $gridOptionsGenerator = new GridOptionsGenerator(

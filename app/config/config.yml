@@ -66,9 +66,3 @@ swiftmailer:
 jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
-
-services:
-    mysite.twig.mysite_extension:
-        class: MySite\CDominguezBundle\Twig\MySiteExtension
-        tags:
-            - { name: twig.extension }

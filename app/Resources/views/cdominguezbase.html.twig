@@ -192,8 +192,8 @@
                             <img src="{{ asset('images/icons/color/24/home.png') }}" alt="Inicio" />
                         </a>
                     </li>
-                    <li  id="menu_mobile_mis_gastos" {% if active == 'MisGastos'%} class="active" {% endif%}>
-                        <a href="{{ path('cd_mis_gastos') }}">
+                    <li  id="menu_mobile_gastos" {% if active == 'Gastos'%} class="active" {% endif%}>
+                        <a href="{{ path('cd_gastos') }}">
                             <!-- Mis gastos -->
                             <img src="{{ asset('images/icons/color/24/chart.png') }}" alt="Mis gastos">
                         </a>
@@ -214,54 +214,54 @@
                                 Inicio
                             </a>
                         </li>
-                        <li  id="menu_mis_gastos" {% if active == 'MisGastos'%} class="active" {% endif%}>
-                            <a href="{{ path('cd_mis_gastos') }}">
-                                <!-- Mis gastos -->
+                        <li  id="menu_gastos" {% if active == 'Gastos'%} class="active" {% endif%}>
+                            <a href="{{ path('cd_gastos') }}">
+                                <!-- Gastos -->
                                 <span class="da-nav-icon">
                                     <img src="{{ asset('images/icons/color/24/chart.png') }}" alt="Mis gastos">
                                 </span>
-                                Mis gastos
+                                Gastos
                             </a>
                         </li>
-                        <li  id="menu_mis_cuentas" {% if active == 'MisCuentas'%} class="active" {% endif%}>
-                            <a href="{{ path('cd_mis_cuentas') }}">
-                                <!-- Mis cuentas -->
+                        <li  id="menu_apartar_dinero" {% if active == 'ApartarDinero'%} class="active" {% endif%}>
+                            <a href="{{ path('cd_apartar_dinero') }}">
+                                <!-- Apartar dinero -->
+                                <span class="da-nav-icon">
+                                    <img src="{{ asset('images/icons/color/24/money1.png') }}" alt="Ingresar gastos que podre tener mas adelante">
+                                </span>
+                                Apartar dinero
+                            </a>
+                        </li>
+                        <li  id="menu_cuentas" {% if active == 'Cuentas'%} class="active" {% endif%}>
+                            <a href="{{ path('cd_cuentas') }}">
+                                <!-- Cuentas -->
                                 <span class="da-nav-icon">
                                     <img src="{{ asset('images/icons/color/24/order.png') }}" alt="Ver las cuentas que he cerrado">
                                 </span>
-                                Mis cuentas
-                            </a>
-                        </li>
-                        <li  id="menu_mis_deudas" {% if active == 'MisDeudas'%} class="active" {% endif%}>
-                            <a href="{{ path('cd_mis_deudas') }}">
-                                <!-- Mis deudas -->
-                                <span class="da-nav-icon">
-                                    <img src="{{ asset('images/icons/color/24/money1.png') }}" alt="Dinero que debo">
-                                </span>
-                                Mis deudas
+                                Cuentas
                             </a>
                         </li>
                         <li  id="menu_mis_prestamos" {% if active == 'MisPrestamos'%} class="active" {% endif%}>
-                            <a href="{{ path('cd_mis_prestamos') }}">
-                                <!-- Mis prestamos -->
+                            <a href="#{# path('cd_mis_prestamos') #}">
+                                <!-- Prestamos -->
                                 <span class="da-nav-icon">
                                     <img src="{{ asset('images/icons/color/24/personal.png') }}" alt="Dinero que he prestado">
                                 </span>
-                                Mis prestamos
+                                Prestamos
                             </a>
                         </li>
-                        <li  id="menu_planear_gastos" {% if active == 'PlanearGastos'%} class="active" {% endif%}>
-                            <a href="{{ path('cd_planear_gastos') }}">
-                                <!-- Planear mis gastos -->
+                        <li  id="menu_deudas" {% if active == 'Deudas'%} class="active" {% endif%}>
+                            <a href="{{ path('cd_deudas') }}">
+                                <!-- Deudas -->
                                 <span class="da-nav-icon">
-                                    <img src="{{ asset('images/icons/color/24/help-contents.png') }}" alt="Ingresar gastos que podre tener mas adelante">
+                                    <img src="{{ asset('images/icons/color/24/help-contents.png') }}" alt="Dinero que debo">
                                 </span>
-                                Planear mis gastos
+                                Deudas
                             </a>
                         </li>
                         <li  id="menu_mi_dinero" {% if active == 'MiDinero'%} class="active" {% endif%}>
                             <a href="{{ path('cd_mi_dinero') }}">
-                                <!-- Mis gastos -->
+                                <!-- Mi dinero -->
                                 <span class="da-nav-icon">
                                     <img src="{{ asset('images/icons/color/24/money.png') }}" alt="Administrar mi dinero">
                                 </span>

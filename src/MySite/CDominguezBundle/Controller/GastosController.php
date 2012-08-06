@@ -18,20 +18,22 @@ use Base\EJSTreeGridBundle\Framework\GridOptionsGenerator,
     Base\EJSTreeGridBundle\Framework\GridDataFormatter;
 
 /**
- * @Route("/mis-gastos")
+ * @Route("/gastos")
  */
-class MisGastosController extends Controller
+class GastosController extends Controller
 {
     /** 
-     * @Route("/", name="cd_mis_gastos")
-     * @Template("MySiteCDominguezBundle::MisGastos/index.html.twig")
+     * @Route("/", name="cd_gastos")
+     * @Template("MySiteCDominguezBundle::Gastos/index.html.twig")
      */
-    public function misGastosAction() {
-        $router = $this->get('router');
+    public function gastosAction() {
+        $router               = $this->get('router');
+        $repoUser             = $this->getDoctrine()->getRepository('MySiteDataBaseBundle:Usuario');
+        $objUser              = $this->getUser();
+        $dineroGastado        = $repoUser->getDineroGastado($objUser);
+        $dineroApartado       = $repoUser->getDineroApartado($objUser);
+        $gridOptionsGenerator = new GridOptionsGenerator('ContainerGastosGrid');
         
-        $gridOptionsGenerator = new GridOptionsGenerator(
-            'ContainerGastosGrid'
-        );
         $gridOptionsGenerator
             ->setGridId('GastosGrid')
             ->setOptions(array(
@@ -40,13 +42,11 @@ class MisGastosController extends Controller
                 'Upload_Url'        => $router->generate('cd_upload_grid_default'),
                 'Export_Url'        => $router->generate('cd_export_grid'),
             ));
-
-        $dineroGastado = $this->getDoctrine()
-                                ->getRepository('MySiteDataBaseBundle:Usuario')
-                                ->getDineroGastado($this->getUser());
+        
         return array(
             'gridOptionsGenerator' => $gridOptionsGenerator,
             'dineroGastado'        => $dineroGastado,
+            'dineroApartado'       => $dineroApartado,
         );
     }
     
@@ -305,6 +305,6 @@ class MisGastosController extends Controller
         }
         
         $em->flush();
-        return $this->redirect($this->generateUrl('cd_mis_gastos', array('s' => 1)));
+        return $this->redirect($this->generateUrl('cd_gastos', array('s' => 1)));
     }
 }
