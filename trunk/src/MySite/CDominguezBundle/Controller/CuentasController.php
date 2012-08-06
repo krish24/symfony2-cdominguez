@@ -18,27 +18,27 @@ use Base\EJSTreeGridBundle\Framework\GridOptionsGenerator,
     Base\EJSTreeGridBundle\Framework\GridDataFormatter;
 
 /**
- * @Route("/mis-cuentas")
+ * @Route("/cuentas")
  */
-class MisCuentasController extends Controller
+class CuentasController extends Controller
 {
     /** 
-     * @Route("/", name="cd_mis_cuentas")
+     * @Route("/", name="cd_cuentas")
      * @Template()
      */
-    public function misCuentasAction() {
+    public function cuentasAction() {
         $r        = $this->getRequest();
         $router   = $this->get('router');
         $idCuenta = $r->query->get('pidCuenta');
         
         if(!isset($idCuenta)){
-            $viewRender  = 'MySiteCDominguezBundle::MisCuentas/index.html.twig';
+            $viewRender  = 'MySiteCDominguezBundle::Cuentas/index.html.twig';
             $params = array(
                 'ptypeData' => 'All'
             );
         }else{
             $colGrouping = $r->query->get('pcolGrouping');
-            $viewRender  = 'MySiteCDominguezBundle::MisCuentas/verCuenta.html.twig';
+            $viewRender  = 'MySiteCDominguezBundle::Cuentas/verCuenta.html.twig';
             $params = array(
                 'ptypeData'    => 'One',
                 'pidCuenta'    => $idCuenta,

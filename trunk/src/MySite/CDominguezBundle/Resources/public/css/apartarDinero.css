@@ -1,0 +1,8 @@
+.DataTables_sort_icon{
+    display: inline-block;
+    text-align: center;
+}
+
+.DataTables_sort_wrapper{
+    font-weight: bold;
+}
