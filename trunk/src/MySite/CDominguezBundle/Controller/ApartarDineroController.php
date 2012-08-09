@@ -65,7 +65,7 @@ class ApartarDineroController extends Controller
                 $gastoActual . ' | ' . $categoria,
                 $fechaGasto,
                 $objGasto->getCantidad(),
-                '<a href="#"><img title="Agregar a los gastos" src="' . $asset->getUrl('images/icons/color/add.png') . '"></a><a href="#"><img title="Editar gasto" src="' . $asset->getUrl('images/icons/color/pencil.png') . '"></a><a href="' . $router->generate('cd_delete_gasto_futuro', array('pidGasto'=>$objGasto->getId())) . '"><img title="Eliminar gastos" src="' . $asset->getUrl('images/icons/color/cross.png') . '"></a>'
+                '<a href="#"><img title="Editar gasto" src="' . $asset->getUrl('images/icons/color/pencil.png') . '"></a><a href="' . $router->generate('cd_delete_gasto_futuro', array('pidGasto'=>$objGasto->getId())) . '"><img title="Eliminar gastos" src="' . $asset->getUrl('images/icons/color/cross.png') . '"></a>'
             );
         }
         return new Response(json_encode($data));
