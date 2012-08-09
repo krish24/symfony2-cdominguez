@@ -2152,7 +2152,8 @@ table.da-table thead tr {
     background:#eee url(../images/default-header.png) repeat-x left top
 }
 table.da-table tr th {
-    padding:11px 20px;
+    text-align: left;
+    padding:2px 2px;
     border-bottom:1px solid #cacaca;
     border-right:1px solid #cacaca;
     -moz-box-shadow:inset 1px 0 0 0 #f8f8f8;
@@ -2170,9 +2171,10 @@ table.da-table tr th:last-child {
     border-right:0
 }
 table.da-table tr td {
+    text-align: left;
     border-bottom:1px solid #dcdcdc;
     border-right:1px solid #e0e0e0;
-    padding:7px 20px
+    padding:7px 2px
 }
 table.da-table tr td:last-child {
     border-right:0
