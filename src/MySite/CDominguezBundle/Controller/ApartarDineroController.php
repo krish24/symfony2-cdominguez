@@ -3,15 +3,15 @@
 namespace MySite\CDominguezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-// these import the "@Route" and "@Template" annotations
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use MySite\DataBaseBundle\Entity\Gasto;
 use MySite\DataBaseBundle\Entity\GastoDetalle;
 use MySite\DataBaseBundle\Entity\Categoria;
 use Symfony\Bundle\FrameworkBundle\Templating\Asset\PathPackage;
+
+// these import the "@Route" and "@Template" annotations
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * @Route("apartar-dinero")
@@ -65,7 +65,7 @@ class ApartarDineroController extends Controller
                 $gastoActual . ' | ' . $categoria,
                 $fechaGasto,
                 $objGasto->getCantidad(),
-                '<a href="#"><img title="Editar gasto" src="' . $asset->getUrl('images/icons/color/pencil.png') . '"></a><a href="' . $router->generate('cd_delete_gasto_futuro', array('pidGasto'=>$objGasto->getId())) . '"><img title="Eliminar gastos" src="' . $asset->getUrl('images/icons/color/cross.png') . '"></a>'
+                '<a href="#" class="da-button blue small"><img title="Editar gasto" src="' . $asset->getUrl('images/icons/color/pencil.png') . '"></a><a class="da-button blue small" href="' . $router->generate('cd_delete_gasto_futuro', array('pidGasto'=>$objGasto->getId())) . '"><img title="Eliminar gastos" src="' . $asset->getUrl('images/icons/color/cross.png') . '"></a>'
             );
         }
         return new Response(json_encode($data));
