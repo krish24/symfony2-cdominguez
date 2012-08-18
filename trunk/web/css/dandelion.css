@@ -38,7 +38,8 @@
     float:left
 }
 .da-button.small {
-    padding:2px 8px
+    padding:0px 0px;
+    margin: 0px;
 }
 .da-button.large {
     padding:6px 16px
