@@ -3,19 +3,19 @@
 namespace MySite\CDominguezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-// these import the "@Route" and "@Template" annotations
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use MySite\DataBaseBundle\Entity\Gasto;
 use MySite\DataBaseBundle\Entity\Cuenta;
 use MySite\DataBaseBundle\Entity\GastoDetalle;
 use MySite\DataBaseBundle\Entity\Categoria;
-
+use Symfony\Bundle\FrameworkBundle\Templating\Asset\PathPackage;
 use Base\EJSTreeGridBundle\Framework\GridOptionsGenerator,
     Base\EJSTreeGridBundle\Framework\GridLayoutGenerator,
     Base\EJSTreeGridBundle\Framework\GridDataFormatter;
+
+// these import the "@Route" and "@Template" annotations
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * @Route("/gastos")
@@ -55,14 +55,15 @@ class GastosController extends Controller
      * @Template("BaseEJSTreeGridBundle::gridLayout.json.twig")
      */
     public function gridLayoutAction() {
-        $colGroup = $this->getRequest()->query->get("pcolGrouping");
+        $request         = $this->getRequest();
+        $asset           = new PathPackage($request);
+        $colGroup        = $request->query->get("pcolGrouping");
         $layoutGenerator = new GridLayoutGenerator();
         $layoutGenerator->setConfiguration(array(
             'SearchExpand'     =>  1,
             'NoFormatEscape'   =>  1,
             'StandardFilter'   =>  2,
             'NoVScroll'        =>  1,
-            'Deleting'         =>  1,
             'Dragging'         =>  1,
             'Adding'           =>  1,
             'MaxVScroll'       =>  2500,
@@ -77,14 +78,17 @@ class GastosController extends Controller
             }
         }
         
-        $layoutGenerator->addTopRowFilter(array(
-            'CategoriaCanEdit' =>  1,
-            'CategoriaType'    => "Text",
-            'CategoriaSuggest' => "|*RowsCanFilter",
-            'GastoButton'      => "Defaults",
-            'GastoShowMenu'    =>  0,
-            'GastoRange'       =>  1,
-            'GastoDefaults'    => "{Position:{Align:'below center'},Items:[{Name:'*FilterOff'},'-',{Columns:3,Items:'|*RowsAllCanFilter'}]}",
+        $layoutGenerator->setTopRows(array(
+            array(
+                "Color"                   => "#e8f4ff",
+                "ConfigHtmlPrefixFormula" => "",
+                "HtmlPostfix"             => "</span>",
+                "HtmlPrefix"              => "<span>",
+                "NodeColCanEdit"          => "0",
+                "NodeCol"                 => "Total",
+                "NodeColAlign"            => "Center",
+                "CantidadFormula"         => "sum(\"Cantidad\")"
+            )
         ))->addVariableColumn(array(
             'CanEdit'   => 1,
             'Width'     => 0,
@@ -113,11 +117,12 @@ class GastosController extends Controller
         ))->addVariableColumn(array(
             'CanEdit'   => 1,
             'RelWidth'  => 1,
-            'MinWidth'  => 30,
+            'MinWidth'  => 45,
             'Name'      => "Cantidad",
             'CanFilter' => 1,
             'CanSort'   => 1,
-            'Type'      => "Int",      
+            'Type'      => "Int",  
+            'Format'    => "¢ #,###",
             'Align'     => 'Left',
         ))->addVariableColumn(array(
             'CanEdit'   => 1,
@@ -127,19 +132,23 @@ class GastosController extends Controller
             'CanFilter' => 1,
             'CanSort'   => 1,
             'Type'      => "Date", 
+        ))->addRightColumn(array(
+            'CanEdit'   => 1,
+            'Width'     => 50,
+            'Name'      => "Config",
+            'CanFilter' => 0,
+            'CanSort'   => 0,
+            'Type'      => "Text",      
+            'Align'     => 'Left',
         ))->addDefaultRow(array(
-            'Name'        => "R",    
-            'Calculated'  => 1,
-            'HtmlPrefix'  => "<span style=\"color:#FF9E0C\">",
-            'HtmlPostfix' => "</span>",
-            'CalcOrder'   => "Cantidad,Total",
+            'Name'                    => "R",    
+            'Calculated'              => 1,
+            'ConfigHtmlPrefixFormula' => "'<a class=\"da-button blue small\" onclick=\"alert(' + '\'' + Row.id + '\'' + ')\"><img title=\"Editar gasto\" src=\"" . $asset->getUrl('images/icons/color/pencil.png') . "\"></a><a class=\"da-button blue small\" onclick=\"alert(' + '\'' + Row.id + '\'' + ')\"><img title=\"Eliminar gastos\" src=\"" . $asset->getUrl('images/icons/color/cross.png') . "\"></a>'",
+            'HtmlPrefix'              => "<span style=\"color:#FF9E0C\">",
+            'HtmlPostfix'             => "</span>",
+            'CalcOrder'               => "Cantidad,Total,ConfigHtmlPrefix",
         ))->setToolbar(array(
-            'Cells'            => "Add,Reload,ExpandAll,CollapseAll,Total,Formula",
-            'TotalType'        => "Int",
-            'TotalLabelRight'  => "<b>Total</b>",
-            'TotalFormula'     => "sum(\"Cantidad\")",
-            'TotalHtmlPrefix'  => "<b>",
-            'TotalHtmlPostfix' => "</b>"
+            'Cells'            => "Add,Reload,ExpandAll,CollapseAll,Formula",
         ));
         
         $layoutGenerator->setHeaderRow(array(
@@ -172,7 +181,7 @@ class GastosController extends Controller
                     $categoriaActual = $objGasto->getDetalle()->getCategoria()->getDescripcion();
                     if($categoriaActual != $categoriaLast){
                         $dataFormatter->addRow(array(
-                            'id'              => 'R' . $contador,
+                            'id'              => 'Categoria_' . $objGasto->getDetalle()->getCategoria()->getId(),
                             'NodeCol'         => $objGasto->getDetalle()->getCategoria()->getDescripcion(),
                             'CantidadFormula' => "sum()",
                             'CanDelete'       => 0,
@@ -188,7 +197,7 @@ class GastosController extends Controller
                     $gastoActual = $objGasto->getDetalle()->getDescripcion();
                     if($categoriaActual != $categoriaLast || $gastoActual != $gastoLast){
                         $dataFormatter->addSubRow(array(
-                            'id'              => 'R' . $contador,
+                            'id'              => 'Detalle_' . $objGasto->getDetalle()->getId(),
                             'NodeCol'         => $objGasto->getDetalle()->getDescripcion(),
                             'CantidadFormula' => "sum()",
                             'CanDelete'       => 0,
@@ -202,7 +211,7 @@ class GastosController extends Controller
                     }
 
                     $dataFormatter->addSubRow(array(
-                        'id'              => $objGasto->getId(),
+                        'id'              => 'Gasto_' . $objGasto->getId(),
                         'Name'            => $objGasto->getCantidad() . ' / ' . $objGasto->getDetalle()->getDescripcion(),
                         'NodeCol'         => $objGasto->getFecha()->format('Y/m/d H:m:s'),
                         'NodeColFormat'   => "dddd dd MMMM yyyy hh:mm tt",
@@ -236,7 +245,7 @@ class GastosController extends Controller
                     
                     if($diaActual != $diaLast){
                         $dataFormatter->addRow(array(
-                            'id'              => 'R' . $contador,
+                            'id'              => 'Ignore_' . $contador,
                             'NodeCol'         => $fechaGasto,
                             'NodeColFormat'   => "dddd dd MMMM yyyy",
                             'NodeColType'     => "Date",
@@ -252,7 +261,7 @@ class GastosController extends Controller
                     }
 
                     $dataFormatter->addSubRow(array(
-                        'id'              => $objGasto->getId(),
+                        'id'              => 'Gasto_' . $objGasto->getId(),
                         'Name'            => $gastoActual . ' - ' . $objGasto->getId(),
                         'NodeCol'         => $gastoActual . ' | ' . $horaGasto . ' | ' . $categoria,
                         'Cantidad'        => $objGasto->getCantidad(),

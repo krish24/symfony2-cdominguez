@@ -27,19 +27,23 @@ class CuentasController extends Controller
      * @Template()
      */
     public function cuentasAction() {
-        $r        = $this->getRequest();
-        $router   = $this->get('router');
-        $idCuenta = $r->query->get('pidCuenta');
+        $r             = $this->getRequest();
+        $router        = $this->get('router');
+        $idCuenta      = $r->query->get('pidCuenta');
+        $dineroGastado = $this->getDoctrine()
+                                ->getRepository('MySiteDataBaseBundle:Usuario')
+                                ->getDineroGastado($this->getUser());
         
         if(!isset($idCuenta)){
             $viewRender  = 'MySiteCDominguezBundle::Cuentas/index.html.twig';
-            $params = array(
+            $paramsGrid = array(
                 'ptypeData' => 'All'
             );
+            $paramsView['dataChartTop15'] = $this->getDataChartTop15();
         }else{
             $colGrouping = $r->query->get('pcolGrouping');
             $viewRender  = 'MySiteCDominguezBundle::Cuentas/verCuenta.html.twig';
-            $params = array(
+            $paramsGrid = array(
                 'ptypeData'    => 'One',
                 'pidCuenta'    => $idCuenta,
                 'pcolGrouping' => $colGrouping
@@ -53,21 +57,17 @@ class CuentasController extends Controller
         $gridOptionsGenerator
             ->setGridId('CuentasGrid')
             ->setOptions(array(
-                'Layout_Url' => $router->generate('cd_grid_layout_cuentas', $params),
-                'Data_Url'   => $router->generate('cd_grid_data_cuentas', $params),
+                'Layout_Url' => $router->generate('cd_grid_layout_cuentas', $paramsGrid),
+                'Data_Url'   => $router->generate('cd_grid_data_cuentas', $paramsGrid),
                 'Upload_Url' => $router->generate('cd_upload_grid_default'),
                 'Export_Url' => $router->generate('cd_export_grid'),
             ));
 
-        $dineroGastado = $this->getDoctrine()
-                                ->getRepository('MySiteDataBaseBundle:Usuario')
-                                ->getDineroGastado($this->getUser());
+        $paramsView['gridOptionsGenerator'] = $gridOptionsGenerator;
+        $paramsView['dineroGastado']        = $dineroGastado;
+        $paramsView['idCuenta']             = $idCuenta;
         
-        return $this->render($viewRender, array(
-            'gridOptionsGenerator' => $gridOptionsGenerator,
-            'dineroGastado'        => $dineroGastado,
-            'idCuenta'             => $idCuenta,
-        ));
+        return $this->render($viewRender, $paramsView);
     }
     
     /**
@@ -190,6 +190,53 @@ class CuentasController extends Controller
         return array('gridDataFormatter' => $data);
     }
 
+    /**
+     * Funcion que se encarga de obtener la información para el Grafico.
+     */
+    public function getDataChartTop15(){ 
+        $objUser    = $this->getUser();
+        $connection = $this->getDoctrine()->getConnection();
+        $query      = "call proc_getDataChartTop15(:pidUser)";
+        $dataResult = array(); 
+        
+        $statement = $connection->prepare($query);
+        $statement->execute(array(
+            ':pidUser' => $objUser->getId()
+        ));
+        $data = $statement->fetchAll(\PDO::FETCH_GROUP);
+        
+        foreach ($data as $nameCategory => $detallesCategory) {
+            $dataDetalles = array();
+            $totalCategoria = 0;
+            
+            foreach ($detallesCategory as $detalle) {
+                $dataDetalles[] = array(
+                    'name' => $detalle['detalle'],
+                    'data' => array(
+                        array(
+                            'y' => intval($detalle['totaldetalle'])
+                        )
+                    )
+                );
+                $totalCategoria = intval($detalle['totalcategoria']);
+            }
+            
+            $dataResult[] = array(
+                'name' => $nameCategory,
+                'data' => array(
+                    array(
+                        'y'         => $totalCategoria,
+                        'drilldown' => array(
+                            'name'      => $nameCategory,
+                            'data'      => $dataDetalles
+                        )
+                    )
+                )
+            );
+        }            
+        return $dataResult;
+    }
+    
     /**
      * FUNCION PARA OBTENER LA INFORMACIÓN DE LAS CUENTAS.
      */
