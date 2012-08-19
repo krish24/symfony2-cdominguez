@@ -8,6 +8,7 @@ use MySite\DataBaseBundle\Entity\Gasto;
 use MySite\DataBaseBundle\Entity\Cuenta;
 use MySite\DataBaseBundle\Entity\GastoDetalle;
 use MySite\DataBaseBundle\Entity\Categoria;
+use MySite\CDominguezBundle\Clases\ChartHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\Asset\PathPackage;
 use Base\EJSTreeGridBundle\Framework\GridOptionsGenerator,
     Base\EJSTreeGridBundle\Framework\GridLayoutGenerator,
@@ -47,6 +48,7 @@ class GastosController extends Controller
             'gridOptionsGenerator' => $gridOptionsGenerator,
             'dineroGastado'        => $dineroGastado,
             'dineroApartado'       => $dineroApartado,
+            'dataChartTop15'       => $this->getDataChartTop15()
         );
     }
     
@@ -315,5 +317,17 @@ class GastosController extends Controller
         
         $em->flush();
         return $this->redirect($this->generateUrl('cd_gastos', array('s' => 1)));
+    }
+
+    /**
+     * Funcion que se encarga de obtener la información para el Grafico.
+     */
+    public function getDataChartTop15(){ 
+        $objChart   = new ChartHelper($this->getDoctrine());
+        $objUser    = $this->getUser();
+        $query      = "call proc_getDataChartTop15GastosActuales(:pidUser)";
+        $params     = array( ':pidUser' => $objUser->getId() );        
+        $dataResult = $objChart->getDataChart($query, $params);
+        return $dataResult;
     }
 }

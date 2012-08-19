@@ -7,7 +7,7 @@
         <script type="text/javascript" src="{{ asset('bundles/baseejstreegrid/js/gridExtension.js') }}" ></script>
         <script type="text/javascript" src="{{ asset('bundles/mysitecdominguez/js/cuentas.js') }}" ></script>
         <script type="text/javascript">
-            $('#da-wrapper').css('min-width', 200);
+            $('#da-wrapper').css('min-width', 100);
             var _cdominguez = {
                 'urls'  : {
                     'cuentas' : '{{ path('cd_cuentas') }}'
@@ -19,8 +19,9 @@
             'gridOptions'     : gridOptionsGenerator.options,
             'gridId'          : gridOptionsGenerator.gridId }
         %}
-        {% include 'MySiteCDominguezBundle::Cuentas/createChartTop15.js.twig' with {
-            'dataSeries'  : dataChartTop15 }
+        {% include 'MySiteCDominguezBundle::Charts/createChartTop15.js.twig' with {
+            'dataSeries' : dataChartTop15['dataChart'],
+            'colors'     : dataChartTop15['colors'] }
         %}
     {% endblock %}
 
@@ -34,7 +35,7 @@
     {% endblock %}
 
     {% block cdContentArea %}
-        <div class="grid_4">
+        <div class="grid_2">
             <div class="da-panel">
                 <div class="da-panel-header">
                     <span class="da-panel-title">
@@ -53,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid_4">
+        <div class="grid_2">
             <div class="da-panel">
                 <div class="da-panel-header">
                     <span class="da-panel-title">
@@ -61,7 +62,7 @@
                         Gr&aacute;fico Top 15
                     </span>
                 </div>
-                <div class="da-panel-content with-padding">
+                <div class="da-panel-content">
                     <div id="containerHighchart"></div>
                 </div>
             </div>

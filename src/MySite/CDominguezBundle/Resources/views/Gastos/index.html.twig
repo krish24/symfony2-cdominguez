@@ -25,6 +25,10 @@
             'gridOptions'     : gridOptionsGenerator.options,
             'gridId'          : gridOptionsGenerator.gridId         }
         %}
+        {% include 'MySiteCDominguezBundle::Charts/createChartTop15.js.twig' with {
+            'dataSeries' : dataChartTop15['dataChart'],
+            'colors'     : dataChartTop15['colors'] }
+        %}
     {% endblock %}
 
     {% block cdBreadCrumb %}
@@ -37,7 +41,7 @@
     {% endblock %}
 
     {% block cdContentArea %}
-        <div class="grid_3">
+        <div class="grid_2">
             <div class="da-panel">
                 <div class="da-panel-header">
                     <span class="da-panel-title">
@@ -65,7 +69,18 @@
                 {% endif %}    
             </div>
         </div>
-        <div class="grid_1">
+        <div class="grid_2">
+            <div class="da-panel">
+                <div class="da-panel-header">
+                    <span class="da-panel-title">
+                        <img src="{{ asset('images/icons/color/16/note.png') }}" >
+                        Gr&aacute;fico Top 15
+                    </span>
+                </div>
+                <div class="da-panel-content">
+                    <div id="containerHighchart"></div>
+                </div>
+            </div>
             <div class="da-panel">
                 <div class="da-panel-header">
                     <span class="da-panel-title">

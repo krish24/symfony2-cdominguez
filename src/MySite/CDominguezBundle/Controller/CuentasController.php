@@ -12,6 +12,7 @@ use MySite\DataBaseBundle\Entity\Gasto;
 use MySite\DataBaseBundle\Entity\Cuenta;
 use MySite\DataBaseBundle\Entity\GastoDetalle;
 use MySite\DataBaseBundle\Entity\Categoria;
+use MySite\CDominguezBundle\Clases\ChartHelper;
 
 use Base\EJSTreeGridBundle\Framework\GridOptionsGenerator,
     Base\EJSTreeGridBundle\Framework\GridLayoutGenerator,
@@ -44,10 +45,11 @@ class CuentasController extends Controller
             $colGrouping = $r->query->get('pcolGrouping');
             $viewRender  = 'MySiteCDominguezBundle::Cuentas/verCuenta.html.twig';
             $paramsGrid = array(
-                'ptypeData'    => 'One',
-                'pidCuenta'    => $idCuenta,
-                'pcolGrouping' => $colGrouping
+                'ptypeData'      => 'One',
+                'pidCuenta'      => $idCuenta,
+                'pcolGrouping'   => $colGrouping
             );
+            $paramsView['dataChartTop15'] = $this->getDataChartTop15($idCuenta);
         }
         
         $gridOptionsGenerator = new GridOptionsGenerator(
@@ -193,52 +195,28 @@ class CuentasController extends Controller
     /**
      * Funcion que se encarga de obtener la información para el Grafico.
      */
-    public function getDataChartTop15(){ 
+    public function getDataChartTop15($pidCuenta){ 
+        $objChart   = new ChartHelper($this->getDoctrine());
         $objUser    = $this->getUser();
-        $connection = $this->getDoctrine()->getConnection();
-        $query      = "call proc_getDataChartTop15(:pidUser)";
-        $dataResult = array(); 
         
-        $statement = $connection->prepare($query);
-        $statement->execute(array(
-            ':pidUser' => $objUser->getId()
-        ));
-        $data = $statement->fetchAll(\PDO::FETCH_GROUP);
-        
-        foreach ($data as $nameCategory => $detallesCategory) {
-            $dataDetalles = array();
-            $totalCategoria = 0;
-            
-            foreach ($detallesCategory as $detalle) {
-                $dataDetalles[] = array(
-                    'name' => $detalle['detalle'],
-                    'data' => array(
-                        array(
-                            'y' => intval($detalle['totaldetalle'])
-                        )
-                    )
-                );
-                $totalCategoria = intval($detalle['totalcategoria']);
-            }
-            
-            $dataResult[] = array(
-                'name' => $nameCategory,
-                'data' => array(
-                    array(
-                        'y'         => $totalCategoria,
-                        'drilldown' => array(
-                            'name'      => $nameCategory,
-                            'data'      => $dataDetalles
-                        )
-                    )
-                )
-            );
-        }            
+        if(!isset($pidCuenta)){
+            $query      = "call proc_getDataChartTop15AllCuentas(:pidUser)";
+            $params     = array( 
+                ':pidUser' => $objUser->getId() 
+            );        
+        }else{
+            $query      = "call proc_getDataChartTop15OneCuenta(:pidUser, :pidCuenta)";
+            $params     = array( 
+                ':pidUser'   => $objUser->getId(), 
+                ':pidCuenta' => $pidCuenta,
+            );        
+        }
+        $dataResult = $objChart->getDataChart($query, $params);
         return $dataResult;
     }
     
     /**
-     * FUNCION PARA OBTENER LA INFORMACIÓN DE LAS CUENTAS.
+     * FUNCION PARA OBTENER LA INFORMACIÓN DE LAS CUENTAS. 
      */
     public function getDataAll() {
         $objUser       = $this->getUser();
